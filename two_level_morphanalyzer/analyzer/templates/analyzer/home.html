@@ -1,0 +1,28 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>Кыргыз тилинин морфологиялык анализатору</h1>
+                <h2>Кыргыз тилинин грамматикасы менен таанышуу үчүн төмөнкү булакты сунуштайбыз:</h2>
+                <div class="d-flex">
+                    <a href="https://tamgasoft.kg/kyrgyz/ky/29" class="btn-get-started scrollto">Көрүү</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                <img src="{% static 'analyzer/img/homepage.png' %}" alt="home page" class="img-fluid animated">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+
+<section id="hero">
+    <div class="container">
+        <div class="row">
+            {% for i in posts %}
+            <h4 style="text-align: center">{{i.title}}</h4>
+            <div class="col-md-4">
+                {% if i.photo %}
+                <img class="img-article-left" src="{{i.photo.url}}" alt="">
+                {% endif %}k
+            </div>
+            <div class="col-md-8">
+                <p>{{i.text|linebreaks}}</p>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'analyzer/base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+
+<section>
+    <div class="container" style="margin-top: 110px;">
+        <div class="row">
+            <h3 style="text-align: center; margin-bottom: 30px;">Морфологиялык анализаторду колдонуу үчүн түзүлгөн
+                атайын нускама</h3>
+
+            <div class="col-md-3">
+                    <nav id="sidebar">
+                        <div class="sidebar-header">
+                        </div>
+                        <ul class="list-unstyled components">
+                            {% for item in headings %}
+                            <li>
+                                <a href="#{{ item.text|slugify }}">{{ item.text }}</a>
+                                {% if item.children %}
+                                <ul>
+                                    {% for child in item.children %}
+                                    <li><a href="#{{ child.name|slugify }}">{{ child.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+
+            <div class="col-md-9">
+                <div class="content">
+                    {{ content|safe }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!--<script>-->
+<!--    window.addEventListener("scroll", function () {-->
+<!--        // получаем высоту верхней части страницы, когда пользователь скроллит-->
+<!--        var scrollTop = document.documentElement.scrollTop;-->
+<!--        // находим контейнер sidebar-->
+<!--        var sidebar = document.getElementById("sidebar");-->
+<!--        // проверяем, достиг ли пользователь нижней части контентной области-->
+<!--        if (scrollTop > sidebar.offsetTop) {-->
+<!--            // если да, то фиксируем sidebar вверху страницы-->
+<!--            sidebar.style.position = "fixed";-->
+<!--            sidebar.style.top = "0";-->
+<!--        } else {-->
+<!--            // если нет, то возвращаем sidebar к исходному положению-->
+<!--            sidebar.style.position = "initial";-->
+<!--            sidebar.style.top = "110px"; // измените значение, чтобы изменить вертикальное положение-->
+<!--        }-->
+<!--    });-->
+
+<!--</script>-->
+
+{% endblock content %}
+
