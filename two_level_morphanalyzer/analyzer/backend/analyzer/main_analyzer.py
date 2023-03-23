@@ -10,6 +10,9 @@ from analyzer.backend.analyzer.exceptions import sourceModule
 from analyzer.backend.analyzer.reader import file_reader
 from analyzer.backend.analyzer.result import get_all_info
 
+
+
+
 is_first_letter_upper = False
 class Word:
     __original_word = ''
@@ -870,6 +873,7 @@ class Word:
             return '[' + str(text) + ']'
 
     def search_word_db(self,word):
+
         if word[-1] in sourceModule.all_punctuation_marks and word[0] not in sourceModule.all_punctuation_marks:
             self.__last_punctuation_mark, self.__word_without_punctuation = check_punctuation_marks.situation_1(word)
         elif word[-1] not in sourceModule.all_punctuation_marks and word[0] in sourceModule.all_punctuation_marks:

@@ -25,10 +25,8 @@ def home(request):
 
 
 class AboutListView(ListView):
-    model = About
     context_object_name = 'posts'
     template_name = 'analyzer/about.html'
-    print(model)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,7 +96,6 @@ def word_analyzer(request):
                 'text': text_res
             }
 
-
             print(word)
     else:
         form = WordForm()
@@ -107,7 +104,7 @@ def word_analyzer(request):
         'title': title,
         'navbar': navbar,
         'form': form,
-        'dict' : dict,
+        'dict': dict,
     }
     return render(request, 'analyzer/word_analyzer.html', context=context)
 

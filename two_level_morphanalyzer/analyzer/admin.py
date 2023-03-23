@@ -13,7 +13,13 @@ class CsvImportFrom(forms.Form):
 
 
 class AllRootAdmin(admin.ModelAdmin):
-    list_display = ('root',)
+    list_display = ('id', 'root', 'part_of_speech', 'get_tags')
+    list_display_links = ('root', 'part_of_speech')
+    search_fields = ('root', 'part_of_speech', 'get_tags')
+
+
+    def get_tags(self, obj):
+        return "\n".join([p.tag for p in obj.tag.all()])
 
     def get_urls(self):
         urls = super().get_urls()
@@ -37,10 +43,34 @@ class AllRootAdmin(admin.ModelAdmin):
         return render(request, "analyzer/admin/csv_upload.html", data)
 
 
-admin.site.register(Tags)
-admin.site.register(PartOfSpeech)
+class EndingsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'tagid')
+    list_display_links = ('name', 'tagid')
+    search_fields = ('name', 'tagid')
+
+
+class PartOfSpeechAdmin(admin.ModelAdmin):
+    list_display = ('id', 'part_of_speech', 'description', 'get_tags')
+    list_display_links = ('id', 'part_of_speech', 'description')
+    search_fields = ('part_of_speech', 'description')
+
+    def get_tags(self, obj):
+        return "\n".join([p.tag for p in obj.tag.all()])
+
+
+class TagsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tag', 'priority', 'description')
+    list_display_links = ('tag', 'priority', 'description')
+    search_fields = ('tag', 'priority', 'description')
+
+class NewRootAdmin(admin.ModelAdmin):
+    list_display = ('id', 'word', 'part_of_speech', 'get_tags', 'is_done')
+
+    def get_tags(self, obj):
+        return "\n".join([p.tag for p in obj.tag.all()])
+
+admin.site.register(Tags, TagsAdmin)
+admin.site.register(PartOfSpeech, PartOfSpeechAdmin)
 admin.site.register(AllRoot, AllRootAdmin)
-admin.site.register(NewRoot)
-admin.site.register(models.About)
-
-
+admin.site.register(NewRoot, NewRootAdmin)
+admin.site.register(models.Endings, EndingsAdmin)
