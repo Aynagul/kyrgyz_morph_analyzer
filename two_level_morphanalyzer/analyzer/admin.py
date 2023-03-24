@@ -50,9 +50,9 @@ class EndingsAdmin(admin.ModelAdmin):
 
 
 class PartOfSpeechAdmin(admin.ModelAdmin):
-    list_display = ('id', 'part_of_speech', 'description', 'get_tags')
-    list_display_links = ('id', 'part_of_speech', 'description')
-    search_fields = ('part_of_speech', 'description')
+    list_display = ('id', 'part_of_speech', 'get_tags')
+    list_display_links = ('id', 'part_of_speech')
+    search_fields = ('part_of_speech',)
 
     def get_tags(self, obj):
         return "\n".join([p.tag for p in obj.tag.all()])

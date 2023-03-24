@@ -1,9 +1,30 @@
+html{
+    overflow: auto;
+}
 body {
     background: #fff;
     color: #444;
     font-family: "Raleway", sans-serif;
-        height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d;
 }
 
 #logo {
@@ -273,12 +294,13 @@ input[type="text"]:focus {
     color: #fff;
     transition: all 0.3s;
     overflow-y: auto;
+    position: fixed;
 }
 
 
-#sidebar.active {
+/*#sidebar.active {
     margin-left: -250px;
-}
+}*/
 
 #sidebar ul.components {
     padding: 30px;
