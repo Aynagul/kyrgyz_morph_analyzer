@@ -1,6 +1,9 @@
 from analyzer.backend.analyzer.check.check_symbols import delete_symbols
 
-def get_info(symbols_list, symbols, root, part_of_speech, first_punctuation_mark, word_without_punctuation, last_punctuation_mark):
+def get_info(symbols_list, symbols, root, part_of_speech, first_punctuation_mark,
+             word_without_punctuation, last_punctuation_mark, wrong_input):
+    if wrong_input:
+        return 'Wrong input', 'Something goes wrong'
     if 'sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('sg')
     for symbol in symbols_list:

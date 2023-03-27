@@ -1,5 +1,11 @@
 from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
 
+
+def convertTuple(tup):
+    str = ''
+    for item in tup:
+        str = str + item
+    return str
 def listToString(s):
     str1 = ""
     for ele in s:
@@ -7,7 +13,7 @@ def listToString(s):
     return str1
 
 def common(self, index, new_list, symbol, ending):
-    self.set_symbol(symbol, ending)
+    self.set_symbol(symbol, str(ending))
     self.set_symbols_list(symbol)
     new_list.pop(index)
     new_list.reverse()

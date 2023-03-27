@@ -80,23 +80,18 @@ def word_analyzer(request):
         form = WordForm(request.POST)
         if form.is_valid():
             word = form.cleaned_data['parameter_word']
-            ans = Word(word)
-            res = ans.search_word_db(ans.change_word)
-            root = ans.root
-            part_of_speech = ans.part_of_speech
-            all_symbols = ans.symbols_list
-            all_endings = ans.symbols
-            text_res = ans.result_text
+            ans = Word(word.strip())
+            res = ans.search_word_db_for_word(ans.change_word)
+
             dict = {
                 'word': word,
-                'root': root,
-                'part_of_speech': part_of_speech,
-                'all_symbols': all_symbols,
-                'all_endings': all_endings,
-                'text': text_res
+                'root': ans.root,
+                'part_of_speech': ans.part_of_speech,
+                'all_symbols': ans.symbols_list,
+                'all_endings': ans.symbols,
+                'text': ans.result_text
             }
 
-            print(word)
     else:
         form = WordForm()
 
@@ -127,7 +122,7 @@ def text_analyzer(request):
                 for word in words_list:
                     word = str(word).strip()
                     ans = Word(word)
-                    res = ans.search_word_db(ans.change_word)
+                    res = ans.search_word_db_for_text(ans.change_word)
                     all_text = all_text + str(ans.result_text) + ' '
 
                 dict = {

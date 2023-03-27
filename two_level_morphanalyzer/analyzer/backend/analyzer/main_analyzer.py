@@ -2,6 +2,7 @@ import nltk
 # from exceptions import sourceModule
 from analyzer.backend.analyzer.block import block_of_noun, block_of_verb, block_of_numeral, block_of_adjective, common
 from analyzer.backend.analyzer.block.common import listToString
+from analyzer.backend.analyzer.block.common import convertTuple
 from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns
 from analyzer.backend.analyzer.ending_split.ending_split import ending_split
 from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb, Possessiveness, Adjectives_2, Numeral, \
@@ -9,7 +10,11 @@ from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb
 from analyzer.backend.analyzer.exceptions import sourceModule
 from analyzer.backend.analyzer.reader import file_reader
 from analyzer.backend.analyzer.result import get_all_info
-
+from analyzer.backend.work_with_db.find_lemma import find_lemma
+from analyzer.backend.work_with_db.find_lemma import find_only_lemma
+from analyzer.backend.work_with_db.find_lemma import find_lemma_for_part_of_speech
+from analyzer.backend.work_with_db.find_endings import find_endings
+import sqlite3
 
 
 
@@ -28,6 +33,7 @@ class Word:
     __first_punctuation_mark = ''
     __last_punctuation_mark = ''
     __word_without_punctuation = ''
+    __wrong_input = False
     def __init__(self, word):
         self.__original_word = word
         self.__word_without_punctuation = word
@@ -36,14 +42,37 @@ class Word:
         self.__symbols_list = []
 
     def find_root(self, new_word):
-        if (res := file_reader.read_file(new_word)) != 'none':
-            self.__part_of_speech = res[0]
-            self.__root = new_word
-            return True
-        else:
-            return False
+        new_word = (new_word, )
+
+        is_found, self.__root = find_only_lemma(new_word)
+        if is_found:
+            is_found, self.__word_without_punctuation, self.__part_of_speech, self.__symbols_list \
+                    = find_lemma_for_part_of_speech(new_word, self.__word_without_punctuation)
+            if is_found:
+                return True
+            else:
+                return False
+
+
+
+
     def find_root_from_the_end(self, new_word):
-        if (res := file_reader.read_file(new_word)) != 'none':
+        new_word = (new_word,)
+
+        is_found, self.__root = find_only_lemma(new_word)
+        if is_found:
+            self.__symbols_list.reverse()
+            list = self.__symbols_list.copy()
+            self.__symbols_list.clear()
+            is_found, self.__word_without_punctuation, self.__part_of_speech, self.__symbols_list \
+                = find_lemma_for_part_of_speech(new_word, self.__word_without_punctuation)
+            self.__symbols_list = self.__symbols_list + list
+            self.__symbols_list.reverse()
+            if is_found:
+                return True
+            else:
+                return False
+        '''if (res := file_reader.read_file(new_word)) != 'none':
             self.__part_of_speech = res[0]
             self.__symbols_list.reverse()
             list = self.__symbols_list.copy()
@@ -53,7 +82,7 @@ class Word:
             self.__root = new_word
             return True
         else:
-            return False
+            return False'''
     def word_analyze(self, word):
         #word = analyzer.sourceModule.replace_letter(word)
         words = nltk.word_tokenize(word)
@@ -74,15 +103,9 @@ class Word:
             str_ending = listToString(ending)
             index = new_list.index(ending)
             if self.part_of_speech == 'n':
-                print(8)
-                if (symbol := Noun.get_info_noun_ending_from_noun(str_ending)) != 'none':
-                    new_list, new_word = block_of_noun.noun_ending_from_noun(self, index, new_list, symbol, str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        continue
-                elif (symbol := Cases.get_info_cases(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, str_ending)
+                str_ending = (str_ending, )
+                if (symbol := find_endings(str_ending)) != 'none':
+                    new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                     if self.find_root_from_the_end(new_word):
                         break
                     else:
@@ -97,11 +120,10 @@ class Word:
                         new_list.reverse()
                         continue
                 elif (symbol := Others.get_info_other(ending)) != 'none':
-                    print(9)
                     new_list, new_word = common.common(self, index, new_list, symbol, str_ending)
-                    print(new_word)
+
                     if self.find_root_from_the_end(new_word):
-                        print(10)
+
                         break
                     else:
                         new_list.reverse()
@@ -872,10 +894,14 @@ class Word:
         else:
             return '[' + str(text) + ']'
 
-    def search_word_db(self,word):
-
+    def search_word_db_for_text(self,word):
+        if len(word) > 20:
+            self.__wrong_input = True
+            self.set_all_info()
+            return self.__all_info
         if word[-1] in sourceModule.all_punctuation_marks and word[0] not in sourceModule.all_punctuation_marks:
             self.__last_punctuation_mark, self.__word_without_punctuation = check_punctuation_marks.situation_1(word)
+
         elif word[-1] not in sourceModule.all_punctuation_marks and word[0] in sourceModule.all_punctuation_marks:
             self.__first_punctuation_mark, self.__word_without_punctuation = check_punctuation_marks.situation_2(word)
         elif word[0] in sourceModule.all_punctuation_marks and word[-1] in sourceModule.all_punctuation_marks:
@@ -886,6 +912,7 @@ class Word:
                                                                                                       self.__word_without_punctuation)
             self.set_all_info()
             return self.__all_info
+
         elif self.__word_without_punctuation.lower() in sourceModule.special_pronoun:
             self.__root = self.__word_without_punctuation
             self.__part_of_speech = 'prn'
@@ -901,13 +928,26 @@ class Word:
 
 
         else:
-            if (res := file_reader.read_file(self.__word_without_punctuation.lower())) != 'none':
-                self.__symbols_list = res.copy()
-                self.__part_of_speech = res[0]
-                self.__root = self.__word_without_punctuation
-                self.set_all_info()
-                return self.__all_info
-            else:
+            root = self.__word_without_punctuation.lower()
+            is_found = False
+            try:
+                sqliteConnection = sqlite3.connect('db.sqlite3')
+                cursor = sqliteConnection.cursor()
+                is_found = find_lemma(self, root, self.__word_without_punctuation, cursor)
+                if is_found:
+                    self.set_all_info()
+                    return self.__all_info
+                else:
+                    cursor.close()
+
+            except sqlite3.Error as error:
+                print("Error while connecting to sqlite", error)
+            finally:
+                if sqliteConnection:
+                    sqliteConnection.close()
+
+            if not is_found:
+                print("no")
                 try:
                     end = self.word_analyze(self.__word_without_punctuation.lower())
                     if end == 'end':
@@ -918,11 +958,65 @@ class Word:
                         self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
                         return "I dont know this word"
                 except:
-                    print(5)
                     self.__result_text = '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
                     return self.__original_word
 
+    def search_word_db_for_word(self,word):
+        if len(word) > 33:
+            self.__wrong_input = True
+            self.set_all_info()
+            return self.__all_info
 
+        if self.__word_without_punctuation.isnumeric():
+            self.__root, self.__symbols_list, self.__part_of_speech = block_of_numeral.if_is_digit(self.__symbols_list,
+                                                                                                      self.__word_without_punctuation)
+            self.set_all_info()
+            return self.__all_info
+
+        elif self.__word_without_punctuation.lower() in sourceModule.special_pronoun:
+            self.__root = self.__word_without_punctuation
+            self.__part_of_speech = 'prn'
+            self.set_symbols_list('prn')
+            if (symbol := Pronoun.get_info_pronoun_root(self.__word_without_punctuation.lower())) != 'none':
+                self.set_symbols_list(symbol)
+            if (symbol := Pronoun.is_sg_or_pl(self.__word_without_punctuation.lower())) != 'none':
+                self.set_symbols_list(symbol)
+            if (symbol := Pronoun.cases_pronoun_root(self.__word_without_punctuation.lower())) != 'none':
+                self.__root = check_special_pronouns.check_pronouns(self, symbol, self.__word_without_punctuation.lower())
+            self.set_all_info()
+            return self.__all_info
+
+
+        else:
+            root = (self.__word_without_punctuation.lower(), )
+            is_found = False
+            try:
+                sqliteConnection = sqlite3.connect('db.sqlite3')
+                cursor = sqliteConnection.cursor()
+                is_found = find_lemma(self, root, self.__word_without_punctuation, cursor)
+                if is_found:
+                    self.set_all_info()
+                    return self.__all_info
+            except sqlite3.Error as error:
+                print("Error while connecting to sqlite", error)
+            finally:
+                if sqliteConnection:
+                    sqliteConnection.close()
+
+            if not is_found:
+                print("no")
+                try:
+                    end = self.word_analyze(self.__word_without_punctuation.lower())
+                    if end == 'end':
+                        self.__symbols_list.reverse()
+                        self.set_all_info()
+                        return self.__all_info
+                    else:
+                        self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
+                        return "I dont know this word"
+                except:
+                    self.__result_text = '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
+                    return self.__original_word
 
 
 
@@ -997,7 +1091,10 @@ class Word:
                                                            self.__root, self.__part_of_speech,
                                                            self.__first_punctuation_mark,
                                                            self.__word_without_punctuation,
-                                                           self.__last_punctuation_mark)
+                                                           self.__last_punctuation_mark,
+                                                            self.__wrong_input)
+        self.__symbols_list = [i for i in self.__symbols_list if i is not None]
+        self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
 
 
 
