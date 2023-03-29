@@ -10,43 +10,81 @@
 <section id="hero">
     <div class="container">
         <div class="row">
-
             <div class="col">
-                <p class="lead">Морфологиялык анализдөө үчүн текст катары же файл катары жөнөтсөңүз болот</p>
-                <form method="post" enctype="multipart/form-data">
+                <p class="lead" style="font-size: 18px;">Морфологиялык анализдөө үчүн сүйлөмдү/текстти жазып же текст
+                    файлды жүктөп, баскычты басыңыз</p>
+                <form method="POST" action="{% url 'text_analyzer' %}" enctype='multipart/form-data'>
                     {% csrf_token %}
-
-                    <div class="form-group row">
-                        <div class="col-sm-8">
-                            {{ form.text }}
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" name="text_submit" class="btn btn-primary">Submit Text</button>
-                        </div>
+                    <div class="form-group analyzer">
+                        <label>Текст:</label>
+                        <textarea name="text" class="form-control" placeholder="5000 символго чейин талдоо үчүн текст"
+                                  maxlength="5000"></textarea>
                     </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-8">
-                            {{ form.file }}
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" name="file_submit" class="btn btn-primary">Submit File</button>
-                        </div>
+                    <div class="form-group analyzer">
+                        <label>Файл:</label>
+                        <input type="file" name="upload_file" class="form-control-file">
+                    </div>
+                    <div class="form-group analyzer-button">
+                        <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Анализдөө</button>
                     </div>
                 </form>
-
-                {% if dict %}
-                <div class="col" style="margin-top: 30px;">
-                    <h5 style="color: #206bfb">Анализ үчүн киргизилген текст:</h5>
-                    <p>{{dict.sentences}}</p>
-                    <h5 style="color: #206bfb">Алынган жыйынтык:</h5>
-                    <p>{{dict.res}}</p>
-                </div>
-                {% endif %}
-
             </div>
         </div>
     </div>
+
+
+    {% if text or file %}
+
+    <div class="container">
+        <div class="row">
+            <div class="text_input ">
+                <h5>Киргизилген сүйлөм/текст:</h5>
+                <p>{{text}}</p>
+            </div>
+            <div class="text_result">
+                <h5>Анализделген сүйлөм/текст:</h5>
+                <p>{{all_text}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pie-all">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="pie animate no-round" style="--p:80;--c:lightblue;">{{word_counter}}</div>
+                <p style="text-align: center">Сөздөрдүн саны</p>
+            </div>
+            <div class="col-md-4">
+                <div class="pie animate no-round" style="--p:90;--c:lightblue;">{{symbol_counter}}</div>
+                <p style="text-align: center">Символдордун саны</p>
+            </div>
+            <div class="col-md-4">
+                <div class="pie animate no-round" style="--p:90;--c:lightblue;">{{word_counter}}</div>
+                <p style="text-align: center">Коротулган убакыт</p>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
 </section>
+
+<!--script for form-group analyzer-button-->
+<script>
+    const submitBtn = document.getElementById('submitBtn');
+    const textArea = document.querySelector('textarea');
+    const fileInput = document.querySelector('input[type="file"]');
+
+    textArea.addEventListener('input', toggleButton);
+    fileInput.addEventListener('change', toggleButton);
+
+    function toggleButton() {
+        if (textArea.value.length > 0 || fileInput.value) {
+            submitBtn.removeAttribute('disabled');
+        } else {
+            submitBtn.setAttribute('disabled', '');
+        }
+    }
+</script>
 
 {% endblock content %}
