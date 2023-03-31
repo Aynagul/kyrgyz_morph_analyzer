@@ -17,6 +17,24 @@ navbar = [{'title': 'Биз жөнүндө', 'url': 'about'},
           {'title': 'Текст анализатор', 'url': 'text_analyzer'},
           ]
 
+context = {}
+
+def text_reader(text):
+    all_text = ''
+    words_list = text.split(' ')
+    for word in words_list:
+        word = str(word).strip()
+        obj = Word(word)
+        result = obj.search_word_db(obj.change_word)
+        all_text = all_text + str(obj.result_text) + ' '
+    symbol_counter = len(text)
+    word_counter = len(words_list)
+    context['text'] = text
+    context['symbol_counter'] = symbol_counter
+    context['word_counter'] = word_counter
+    context['all_text'] = all_text
+    return context
+
 
 def home(request):
     title = 'Башкы бет'
@@ -80,19 +98,13 @@ def word_analyzer(request):
         if form.is_valid():
             word = form.cleaned_data['parameter_word']
             ans = Word(word)
-            res = ans.search_word_db(ans.change_word)
-            root = ans.root
-            part_of_speech = ans.part_of_speech
-            all_symbols = ans.symbols_list
-            all_endings = ans.symbols
-            text_res = ans.result_text
             dict = {
                 'word': word,
-                'root': root,
-                'part_of_speech': part_of_speech,
-                'all_symbols': all_symbols,
-                'all_endings': all_endings,
-                'text': text_res
+                'root': ans.root,
+                'part_of_speech': ans.part_of_speech,
+                'all_symbols': ans.symbols_list,
+                'all_endings': ans.symbols,
+                'text': ans.result_text
             }
     else:
         form = WordForm()
@@ -115,44 +127,11 @@ def text_analyzer(request):
     if request.method == 'POST':
         text = request.POST.get('text', '')
         file = request.FILES.get('upload_file')
-
         if file is None:
-            all_text = ''
             text = str(text).strip()
-            words_list = text.split(' ')
-            for word in words_list:
-                word = str(word).strip()
-                obj = Word(word)
-                result = obj.search_word_db(obj.change_word)
-                all_text = all_text + str(obj.result_text) + ' '
-            context['text'] = text
-            context['symbol_counter'] = len(text)
-            context['word_counter'] = len(words_list)
-            context['all_text'] = all_text
+            context = text_reader(text)
         else:
             text = file.read().decode('utf-8', errors='ignore')
-            all_text = ''
-            sentences = str(text).strip()
-            words_list = sentences.split(' ')
-            for word in words_list:
-                word = str(word).strip()
-                if not word == '':
-                    ans = Word(word)
-                    res = ans.search_word_db(ans.change_word)
-                    all_text = all_text + str(ans.result_text) + ' '
-            context['text'] = text
-            context['symbol_counter'] = len(text)
-            context['word_counter'] = len(words_list)
-            context['all_text'] = all_text
+            context = text_reader(text)
     return render(request, 'analyzer/text_analyzer.html', context=context)
 
-
-def download_file(request):
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    filename = 'result.txt'
-    filepath = BASE_DIR + '/' + filename
-    path = open(filepath, 'r', encoding='UTF8')
-    mime_type, _ = mimetypes.guess_type(filepath)
-    response = HttpResponse(path, content_type=mime_type)
-    response['Content-Disposition'] = "attachment; filename=%s" % filename
-    return response
