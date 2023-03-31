@@ -15,63 +15,65 @@
 
 <body>
 <div id="scroll">
-<header>
-    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" id="navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" id="logo" href="#">КЫРГЫЗ ТИЛИ</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Башкы бет</a>
-                    </li>
-                    {% for m in navbar %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url m.url %}">{{m.title}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-{% block content %} {% endblock content %}
-
-
-<footer id="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row  justify-content-center">
-                <div class="col-lg-6">
-                    <h3>Кыргыз тили</h3>
-                    <p>Морфологиялык анализаторго байланышкан сунуштарыңыз болсо төмөндөгү байланыш мүмкүнчүлүктөрүн колдонуңуз:</p>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" id="navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="logo" href="{% url 'home' %}">КЫРГЫЗ ТИЛИ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            {% if cat_selected == 0 %}
+                            <a class="nav-link selected active" aria-current="page">Башкы бет</a>
+                            {% else %}
+                            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Башкы бет</a>
+                            {% endif %}
+                        </li>
+                        {% for m in navbar %}
+                        <li class="nav-item {% if request.resolver_match.url_name == m.url %}active{% endif %}">
+                            <a class="nav-link" href="{% url m.url %}">{{ m.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="social-links">
-                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="github"><i class="fab fa-github"></i></a>
-                <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    {% block content %} {% endblock content %}
+
+
+    <footer id="footer" class="bg-body-tertiary">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6">
+                        <h3>Кыргыз тили</h3>
+                        <p>Морфологиялык анализаторго байланышкан сунуштарыңыз болсо төмөндөгү байланыш мүмкүнчүлүктөрүн
+                            колдонуңуз:</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="github"><i class="fab fa-github"></i></a>
+                    <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container footer-bottom clearfix">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Кыргыз тили</span></strong>. All Rights Reserved
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Кыргыз тили</span></strong>. All Rights Reserved
+            </div>
         </div>
-        <div class="credits">
-            Designed by <a href="https://bootstrapmade.com/">GitHub</a>
-        </div>
-    </div>
-</footer>
-    </div>
+    </footer>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"

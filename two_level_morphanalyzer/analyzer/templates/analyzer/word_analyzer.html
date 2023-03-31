@@ -9,10 +9,10 @@
 
 <section id="hero">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom: 100px;">
 
             <div class="col">
-                <p class="lead">Морфологиялык анализдөө үчүн cөздү жазып, баскычты басыңыз</p>
+                <p class="lead" style="font-size: 18px;">Морфологиялык анализдөө үчүн cөздү жазып, баскычты басыңыз</p>
                 <form method="post">
                     {% csrf_token %}
                     <div class="input-group mb-3">
@@ -29,19 +29,73 @@
                         <button type="submit" class="btn btn-primary">Анализдөө</button>
                     </div>
                 </form>
+                {% if not dict %}
+
+                <div class="col">
+                    <p>Жыйынтык төмөнкүдөй көрсөтүлөт:</p>
+                    <table>
+                        <tr>
+                            <th>Киргизилген сөз</th>
+                            <td>кыргыздардын</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн уңгусу</th>
+                            <td>кыргыз</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн сөз түркүмү</th>
+                            <td>n</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн мүчөлөрү</th>
+                            <td>{'дар': 'pl', 'дын': 'gen'}</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн тегдери</th>
+                            <td>['n', 'nom', 'p3sg', 'pl', 'gen']</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <br>
+                <p>Жыйынтык: кыргыздардын/кыргыз_n_p3sg_дар_pl_дын_gen</p>
+                {% endif%}
 
                 {% if dict %}
                 <div class="col">
-                    <p>Жыйынтык:</p>
-                    <p>{{dict.word}}</p>
-                    <p>{{dict.root}}</p>
-                    <p>{{dict.part_of_speech}}</p>
-                    <p>{{dict.all_symbols}}</p>
-                    <p>{{dict.all_endings}}</p>
-                    <p>{{dict.text}}</p>
+                    <table>
+                        <tr>
+                            <th>Киргизилген сөз</th>
+                            <td>{{dict.word}}</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн уңгусу</th>
+                            <td>{{dict.root}}</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн сөз түркүмү</th>
+                            <td>{{dict.part_of_speech}}</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн мүчөлөрү</th>
+                            <td>{{dict.all_endings}}</td>
+                        </tr>
+                        <tr>
+                            <th>Киргизилген сөздүн тегдери</th>
+                            <td>{{dict.all_symbols}}</td>
+                        </tr>
+                    </table>
                 </div>
-                {% endif %}
 
+                <br>
+                <p>Жыйынтык: {{dict.text}}</p>
+
+
+                
+
+
+
+                {% endif %}
             </div>
         </div>
     </div>

@@ -98,3 +98,9 @@ class NewRoot(models.Model):
     def __str__(self):
         return f"{self.word}"
 
+class File(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.FileField(upload_to='uploads/%Y/%m/%d/')
+
+    def __str__(self):
+        return self.name

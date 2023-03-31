@@ -15,7 +15,7 @@ class CsvImportFrom(forms.Form):
 class AllRootAdmin(admin.ModelAdmin):
     list_display = ('id', 'root', 'part_of_speech', 'get_tags')
     list_display_links = ('root', 'part_of_speech')
-    search_fields = ('root', 'part_of_speech', 'get_tags')
+    search_fields = ('root',)
 
 
     def get_tags(self, obj):
