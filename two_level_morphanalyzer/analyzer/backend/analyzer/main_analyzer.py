@@ -109,6 +109,10 @@ class Word:
                 print('noun block')
                 str_ending = (str_ending, )
                 symbol, priority = find_endings(str_ending)
+                print(222)
+                print(priority)
+                print(ending_list)
+                print(new_list)
                 if symbol:
                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
                     if is_correct_priority:
@@ -198,16 +202,30 @@ class Word:
 
                     if len(ending) == 2 and last_letter in sourceModule.special_vowel:
 
-                        if not self.__symbols:  # px3sp only
+                        if not self.__symbols:
+                            print(8)# px3sp only
+                            print(ending_list)
                             new_list, index, ending, ending_list, index2 = common.common_exception_3 \
                                 (index, new_list, convertTuple(str_ending), ending_list, str)
                             if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-
+                                print(ending_priority)
+                                print(priority)
+                                priority = 2
                                 is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                     ending_priority, priority)
+                                print(ending_priority)
                                 if is_correct_priority:
-                                    new_list, index, new_word = common.common_exception_4 \
-                                        (self, new_list, symbol, last_letter, str)
+                                    print(443)
+                                    print(ending_list)
+                                    new_list[index] = str[1:]
+                                    str = str.replace(str[1:], '')
+                                    print(str)
+                                    print(new_list)
+                                    new_list, new_word, self.__symbols, self.__symbols_list = common.common_exception_4(new_list, symbol, last_letter, str, self.__symbols, self.__symbols_list)
+                                    print(4)
+                                    print(ending_priority)
+                                    print(new_list)
+                                    print(ending_list)
                                     if self.find_root_from_the_end(new_word):
                                         break
                                     else:
@@ -250,8 +268,9 @@ class Word:
                                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                         ending_priority, priority)
                                     if is_correct_priority:
-                                        new_list, new_word = common.common_exception_7(self, symbol, new_list,
-                                                                                       last_letter, str)
+                                        new_list, ending_list = common.common_exception_4(index, new_list,
+                                                                                          convertTuple(str_ending),
+                                                                                          ending_list, str)
                                         if self.find_root_from_the_end(new_word):
                                             break
                                         else:
@@ -281,14 +300,18 @@ class Word:
                         print('for ым')
                         new_list[index] = str[1:]
                         str = str.replace(str[1:], '')
+                        print(str)
+                        print(new_list)
                         try:
                             new_list, ending_list = common.common_exception_8(index, new_list,
                                                                               convertTuple(str_ending),
                                                                               ending_list, str)
+
                         except:
                             new_list, ending_list = common.common_exception_9(index, new_list,
                                                                               convertTuple(str_ending),
                                                                               ending_list, str)
+                            print(666)
                         str = listToString(new_list[index])
                         print(str)
                         str = (str, )
@@ -296,11 +319,14 @@ class Word:
                         if symbol:
                             print('poss_1sg...')
                             print(symbol)
+
                             is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                 ending_priority, priority)
                             if is_correct_priority:
+                                print(new_list)
                                 new_list, new_word = common.common_exception_10(self, new_list,
                                                                                 symbol, convertTuple(str))
+                                print(new_list)
                                 if self.find_root_from_the_end(new_word):
                                     break
                                 else:
@@ -1018,7 +1044,7 @@ class Word:
             try:
                 sqliteConnection = sqlite3.connect('db.sqlite3')
                 cursor = sqliteConnection.cursor()
-                is_found = find_lemma(self, root, self.__word_without_punctuation, cursor)
+                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__word_without_punctuation, cursor)
                 if is_found:
                     self.set_all_info()
                     return self.__all_info
@@ -1040,9 +1066,14 @@ class Word:
                         self.set_all_info()
                         return self.__all_info
                     else:
+                        self.__part_of_speech = ''
+                        self.__symbols_list = []
                         self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
                         return "I dont know this word"
                 except:
+
+                    self.__part_of_speech = ''
+                    self.__symbols_list = []
                     self.__result_text = '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
                     return self.__original_word
 
@@ -1074,7 +1105,7 @@ class Word:
             try:
                 sqliteConnection = sqlite3.connect('db.sqlite3')
                 cursor = sqliteConnection.cursor()
-                is_found = find_lemma(self, root, self.__word_without_punctuation, cursor)
+                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__word_without_punctuation, cursor)
                 if is_found:
                     self.set_all_info()
                     return self.__all_info
@@ -1093,9 +1124,13 @@ class Word:
                         self.set_all_info()
                         return self.__all_info
                     else:
+                        self.__part_of_speech = ''
+                        self.__symbols_list = []
                         self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
                         return "I dont know this word"
                 except:
+                    self.__part_of_speech = ''
+                    self.__symbols_list = []
                     self.__result_text = '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
                     return self.__original_word
 
@@ -1168,12 +1203,14 @@ class Word:
     def set_symbols_list(self, symbol):
         self.__symbols_list.append(symbol)
     def set_all_info(self):
-        self.__result_text, self.__all_info = get_all_info.get_info(self.__symbols_list, self.__symbols,
+        self.__result_text, self.__all_info, self.__symbols_list = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
                                                            self.__root, self.__part_of_speech,
                                                            self.__first_punctuation_mark,
                                                            self.__word_without_punctuation,
                                                            self.__last_punctuation_mark,
                                                             self.__wrong_priority)
+
+
         self.__symbols_list = [i for i in self.__symbols_list if i is not None]
         self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
 

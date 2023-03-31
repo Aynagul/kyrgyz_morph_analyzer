@@ -48,10 +48,11 @@ def find_lemma_for_part_of_speech(root, word_without_punctuation):
     finally:
         if sqliteConnection:
             sqliteConnection.close()
-def find_lemma(self, root, word_without_punctuation, cursor):
+def find_lemma(root, word_without_punctuation, cursor):
 
     print("Database created and Successfully Connected to SQLite")
-
+    part_of_speech = ''
+    symbols_list = []
     cursor.execute("select root, part_of_speech, tag from analyzer_allroot a \
                                        left join analyzer_partofspeech ap on ap.id = a.part_of_speech_id \
                                        left join analyzer_allroot_tag aat on a.id = aat.allroot_id \
@@ -64,11 +65,11 @@ def find_lemma(self, root, word_without_punctuation, cursor):
             for j in i:
                 ls.append(j)
         ls = list(dict.fromkeys(ls))
-        self.__root = word_without_punctuation
-        self.__part_of_speech = ls[1]
-        self.__symbols_list = ls[1:]
+        root = word_without_punctuation
+        part_of_speech = ls[1]
+        symbols_list = ls[1:]
         cursor.close()
-        return True
+        return True, root, part_of_speech, symbols_list
     else:
         cursor.close()
-        return False
+        return False, root, part_of_speech, symbols_list

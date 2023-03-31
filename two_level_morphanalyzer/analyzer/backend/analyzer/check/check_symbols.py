@@ -2,6 +2,10 @@ from analyzer.backend.analyzer.exceptions import sourceModule
 def delete_symbols(sym_list, symbol):
     if symbol == 'nom' in sym_list and [sym for sym in sourceModule.case if (sym in sym_list)]:
         sym_list.remove('nom')
+    elif symbol == '3sg' in sym_list and [sym for sym in sourceModule.plural if (sym in sym_list)]:
+        print(sym_list)
+        sym_list.remove('3sg')
+        print(sym_list)
     elif symbol == 'act' in sym_list and [sym for sym in sourceModule.voice if (sym in sym_list)]:
         sym_list.remove('act')
     elif symbol == 'imp' in sym_list and [sym for sym in sourceModule.mood if (sym in sym_list)]:
