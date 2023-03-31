@@ -10,7 +10,7 @@ def get_info_possessive(ending):
     elif ending in posessiveness_general:
         return "xp"     #жалпы таандык
     elif ending in posessiveness_3st_sg:
-        return "px3sp"  #sp means sg or pl
+        return "poss_3sg"  #sp means sg or pl
     else:
         return 'none'
 posessiveness_1st_sg = {

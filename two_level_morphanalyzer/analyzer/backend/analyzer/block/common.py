@@ -1,5 +1,11 @@
 from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
 
+
+def convertTuple(tup):
+    str = ''
+    for item in tup:
+        str = str + item
+    return str
 def listToString(s):
     str1 = ""
     for ele in s:
@@ -7,7 +13,7 @@ def listToString(s):
     return str1
 
 def common(self, index, new_list, symbol, ending):
-    self.set_symbol(symbol, ending)
+    self.set_symbol(symbol, str(ending))
     self.set_symbols_list(symbol)
     new_list.pop(index)
     new_list.reverse()
@@ -105,7 +111,9 @@ def common_exception_5(index, new_list, last_letter, ending, symbols, ending_lis
     index2 = ending_list.index(ending)
     ending_list[index2 + 1] = new_list[index - 1]
     new_list.pop(index)
-    new_list.reverse()
+    #new_list.reverse()
+    print('ex')
+    print(new_list)
     return index, new_list, last_letter, ending, symbols, ending_list
 
 
@@ -147,3 +155,26 @@ def common_exception_10(self, new_list, symbol, str):
     new_list.pop(index)
     new_word = listToString(new_list)
     return new_list, new_word
+
+def common_exception_11(index, new_list, symbol, ending, symbols_list, symbols, priority):
+    symbols[ending] = symbol
+    symbols_list.append(symbol)
+    priority = priority
+    for key in list(symbols.keys()):
+        if ending in Faces.face_2st_sg_politely and key in Others.plural:  # сыздар
+            symbols_list.remove(symbols[ending])
+            symbols[ending + key] = symbols.pop(ending)
+            symbols[ending + key] = '2plf'
+            symbols_list.remove(symbols[key])
+            symbols.pop(key)
+            symbols_list.append('2plf')
+            priority = 5
+        elif ending in Others.negative and key in symbols:  # сыз
+            symbols[ending] = 'neg'
+            symbols_list.append('neg')
+            priority = 5
+
+    new_list.pop(index)
+    new_list.reverse()
+    new_word = listToString(new_list)
+    return new_list, new_word, symbols_list, symbols, priority

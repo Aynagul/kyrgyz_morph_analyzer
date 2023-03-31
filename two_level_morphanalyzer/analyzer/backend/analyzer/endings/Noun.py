@@ -1,3 +1,20 @@
+'''elif (symbol := Adverb.get_info_adv_ending(ending)) != 'none':
+new_list, new_word = block_of_noun.adverb_ending_from_noun(self, index, new_list, symbol, str_ending)
+if self.find_root_from_the_end(new_word):
+   break
+else:
+   new_list.reverse()
+   continue
+
+elif (symbol := Adjectives_2.get_info_adj_noun_to_adj(ending)) != 'none':
+new_list, new_word = block_of_noun.noun_to_adj(self, index, new_list, symbol, str_ending, new_word)
+if self.find_root_from_the_end(new_word):
+   break
+else:
+   new_list.reverse()
+   continue'''
+
+
 def get_info_noun_ending_from_noun(ending):
    if ending in noun_noun_to_noun_more_used:
       return "n"

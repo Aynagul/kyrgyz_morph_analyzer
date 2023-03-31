@@ -25,7 +25,7 @@ def text_reader(text):
     for word in words_list:
         word = str(word).strip()
         obj = Word(word)
-        result = obj.search_word_db(obj.change_word)
+        result = obj.search_word_db_for_text(obj.change_word)
         all_text = all_text + str(obj.result_text) + ' '
     symbol_counter = len(text)
     word_counter = len(words_list)
@@ -98,6 +98,7 @@ def word_analyzer(request):
         if form.is_valid():
             word = form.cleaned_data['parameter_word']
             ans = Word(word)
+            res = ans.search_word_db_for_word(ans)
             dict = {
                 'word': word,
                 'root': ans.root,
@@ -133,5 +134,8 @@ def text_analyzer(request):
         else:
             text = file.read().decode('utf-8', errors='ignore')
             context = text_reader(text)
+
+    return render(request, 'analyzer/text_analyzer.html', context=context)
+
     return render(request, 'analyzer/text_analyzer.html', context=context)
 

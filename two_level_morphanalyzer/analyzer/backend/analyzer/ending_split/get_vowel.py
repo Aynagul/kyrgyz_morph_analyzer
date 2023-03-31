@@ -7,3 +7,4 @@ def replace_letter(word):
     return word
 
 print(replace_letter(input()))
+
