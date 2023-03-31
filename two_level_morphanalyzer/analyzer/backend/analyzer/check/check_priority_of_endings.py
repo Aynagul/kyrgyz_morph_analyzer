@@ -12,7 +12,6 @@ def check_pl(list):
     print(list)
     for i in list:
         if i == 'pl':
-            print(758)
             return True
         else:
 
