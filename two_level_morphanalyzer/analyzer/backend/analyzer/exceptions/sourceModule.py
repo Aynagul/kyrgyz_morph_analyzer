@@ -61,3 +61,4 @@ agent_noun = 'agnt'
 negative = 'neg'
 poss_general = 'xp'
 for_poss = ['1pl','poss_2pl', '2sgf', 'poss_2sgf']
+all_sg = ['sg','3sg']

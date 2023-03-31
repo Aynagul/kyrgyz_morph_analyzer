@@ -95,13 +95,24 @@ def common_exception_3(index, new_list, ending, ending_list, str):
     return new_list, index, ending, ending_list, index2
 
 
-def common_exception_4(self, new_list, symbol, last_letter, str):
-    self.set_symbol(symbol, last_letter)
-    self.set_symbols_list(symbol)
-    index = new_list.index(str)
+def common_exception_4(new_list, symbol, last_letter, str, symbols, symbols_list):
+    print(4623523)
+    print(symbols)
+    print(symbols_list)
+    symbols[last_letter] = symbol
+    symbols_list.append(symbol)
+    print(symbols)
+    print(symbols_list)
+    print(new_list)
+    print(str)
+    index = new_list.index(last_letter)
+    print(2)
+    print(new_list)
     new_list.pop(index)
+    print(1)
+    print(new_list)
     new_word = listToString(new_list)
-    return new_list, index, new_word
+    return new_list, new_word, symbols, symbols_list
 
 
 def common_exception_5(index, new_list, last_letter, ending, symbols, ending_list, str):
@@ -169,10 +180,18 @@ def common_exception_11(index, new_list, symbol, ending, symbols_list, symbols, 
             symbols.pop(key)
             symbols_list.append('2plf')
             priority = 5
-        elif ending in Others.negative and key in symbols:  # сыз
+        elif ending in Others.negative and key in Others.question:  #  бы
+            symbols_list.remove(symbols[ending])
+            print(symbols_list)
+            symbols.pop(ending)
+            symbols[ending] = '2sgf'
+            symbols_list.append('2sgf')
+            priority = 5
+        '''elif ending in Others.negative:  # сыз
             symbols[ending] = 'neg'
             symbols_list.append('neg')
-            priority = 5
+            priority = 5'''
+
 
     new_list.pop(index)
     new_list.reverse()

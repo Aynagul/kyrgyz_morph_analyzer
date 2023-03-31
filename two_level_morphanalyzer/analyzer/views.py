@@ -20,12 +20,17 @@ navbar = [{'title': 'Биз жөнүндө', 'url': 'about'},
 context = {}
 
 def text_reader(text):
+    title = 'Текст анализатор'
+    context = {
+        'title': title,
+        'navbar': navbar,
+    }
     all_text = ''
     words_list = text.split(' ')
     for word in words_list:
         word = str(word).strip()
         obj = Word(word)
-        result = obj.search_word_db_for_text(obj.change_word)
+        result = obj.search_word_db_for_word(obj.change_word)
         all_text = all_text + str(obj.result_text) + ' '
     symbol_counter = len(text)
     word_counter = len(words_list)
@@ -137,5 +142,4 @@ def text_analyzer(request):
 
     return render(request, 'analyzer/text_analyzer.html', context=context)
 
-    return render(request, 'analyzer/text_analyzer.html', context=context)
 
