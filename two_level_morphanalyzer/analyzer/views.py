@@ -20,6 +20,11 @@ navbar = [{'title': 'Биз жөнүндө', 'url': 'about'},
 context = {}
 
 def text_reader(text):
+    title = 'Текст анализатор'
+    context = {
+        'title': title,
+        'navbar': navbar,
+    }
     all_text = ''
     words_list = text.split(' ')
     for word in words_list:
@@ -134,8 +139,5 @@ def text_analyzer(request):
         else:
             text = file.read().decode('utf-8', errors='ignore')
             context = text_reader(text)
-
-    return render(request, 'analyzer/text_analyzer.html', context=context)
-
     return render(request, 'analyzer/text_analyzer.html', context=context)
 
