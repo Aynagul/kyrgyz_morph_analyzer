@@ -109,41 +109,28 @@ class Word:
                 print('noun block')
                 str_ending = (str_ending, )
                 symbol, priority = find_endings(str_ending)
-                print(222)
-                print(priority)
-                print(ending_list)
-                print(new_list)
                 if symbol:
                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
                     if is_correct_priority:
                         if symbol in sourceModule.faces:
-                            print('face')
-                            print(symbol)
                             new_list, new_word, self.__symbols_list, self.__symbols = \
                             common.faces(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list, self.__symbols)
 
                         elif symbol in sourceModule.case:
-                            print('case')
-                            print(symbol)
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol in sourceModule.possessiveness:
-                            print('poss')
-                            print(symbol)
                             new_list, new_word, self.__symbols_list, self.__symbols = \
                                 common.possessiveness(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
                                                       self.__symbols)
                         elif symbol == sourceModule.plural or symbol == sourceModule.ques or symbol == sourceModule.agent_noun \
                                 or symbol == sourceModule.negative:
-                            print('others')
-                            print(symbol)
                             new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
                                 common.common_exception_11(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
                                              self.__symbols, ending_priority)
                             #new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
-                            print(new_word)
+
                         elif symbol == 'opt':
                             # for posessiveness_general (ныкы) итд
-                            print('general poss')
                             ending_priority = 3
                             new_list, index, last_letter, str = \
                                 common.common_exception_1(new_list, convertTuple(str_ending))
@@ -154,8 +141,6 @@ class Word:
                                                                                                  ending_list, str)
                                 continue
                         elif symbol == 'xp':
-                            print('general poss')
-                            print(symbol)
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
 
                         if self.find_root_from_the_end(new_word):
@@ -165,13 +150,11 @@ class Word:
                             continue
 
                     elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(self.__symbols_list):
-                        print('wrong with pl')
+
                         self.__wrong_priority = True
                         break
                     elif symbol in sourceModule.for_poss:
                         if symbol in sourceModule.faces:
-                            print('face2')
-                            print(symbol)
                             new_list, new_word, self.__symbols_list, self.__symbols = \
                             common.faces(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list, self.__symbols)
                         if self.find_root_from_the_end(new_word):
@@ -192,7 +175,6 @@ class Word:
                             new_list.reverse()
                             continue
                     else:
-                        print('wrong')
                         self.__wrong_priority = True
                         break
                 else:
@@ -203,29 +185,16 @@ class Word:
                     if len(ending) == 2 and last_letter in sourceModule.special_vowel:
 
                         if not self.__symbols:
-                            print(8)# px3sp only
-                            print(ending_list)
                             new_list, index, ending, ending_list, index2 = common.common_exception_3 \
                                 (index, new_list, convertTuple(str_ending), ending_list, str)
                             if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-                                print(ending_priority)
-                                print(priority)
                                 priority = 2
                                 is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                     ending_priority, priority)
-                                print(ending_priority)
                                 if is_correct_priority:
-                                    print(443)
-                                    print(ending_list)
                                     new_list[index] = str[1:]
                                     str = str.replace(str[1:], '')
-                                    print(str)
-                                    print(new_list)
                                     new_list, new_word, self.__symbols, self.__symbols_list = common.common_exception_4(new_list, symbol, last_letter, str, self.__symbols, self.__symbols_list)
-                                    print(4)
-                                    print(ending_priority)
-                                    print(new_list)
-                                    print(ending_list)
                                     if self.find_root_from_the_end(new_word):
                                         break
                                     else:
@@ -297,11 +266,8 @@ class Word:
                                         continue
                     # for px1sg(ым) and px2sg(ың)
                     else:
-                        print('for ым')
                         new_list[index] = str[1:]
                         str = str.replace(str[1:], '')
-                        print(str)
-                        print(new_list)
                         try:
                             new_list, ending_list = common.common_exception_8(index, new_list,
                                                                               convertTuple(str_ending),
@@ -311,22 +277,15 @@ class Word:
                             new_list, ending_list = common.common_exception_9(index, new_list,
                                                                               convertTuple(str_ending),
                                                                               ending_list, str)
-                            print(666)
                         str = listToString(new_list[index])
-                        print(str)
                         str = (str, )
                         symbol, priority = find_endings(str)
                         if symbol:
-                            print('poss_1sg...')
-                            print(symbol)
-
                             is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                 ending_priority, priority)
                             if is_correct_priority:
-                                print(new_list)
                                 new_list, new_word = common.common_exception_10(self, new_list,
                                                                                 symbol, convertTuple(str))
-                                print(new_list)
                                 if self.find_root_from_the_end(new_word):
                                     break
                                 else:
