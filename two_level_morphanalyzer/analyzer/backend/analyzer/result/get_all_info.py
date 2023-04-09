@@ -9,6 +9,8 @@ def get_info(self, symbols_list, symbols, root, part_of_speech, first_punctuatio
         symbols_list.remove('sg')
     if '3sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('3sg')
+    if '3sg' in symbols_list and 'pl' in symbols_list:
+        symbols_list.remove('3sg')
     for symbol in symbols_list:
         if symbol == '':
             symbols_list.remove(symbol)

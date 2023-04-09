@@ -12,7 +12,7 @@ def find_endings(ending):
         cursor.execute("select tag, priority from analyzer_endings a join analyzer_tags\
                         at on a.tagid_id = at.id WHERE name = ?", ending)
         record = cursor.fetchone()
-
+        print(record)
         if record is not None:
             for i in record:
                 ls.append(i)

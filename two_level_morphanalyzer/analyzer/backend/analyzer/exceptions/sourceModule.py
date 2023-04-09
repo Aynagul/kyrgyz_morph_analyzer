@@ -29,7 +29,7 @@ voice = ['ref','coop','pass','caus']
 mood = ['ind_pres','ind_past','ind_fut','cnd','niet','tilek']
 non_finite_verb_forms = ['ger','gna_perf','ger_impf','gpr_perf','gpr_fut_neg','gpr_impf', 'gpr_pres', 'gpr_past', 'ger_pres',
                          'ger_pres']
-face = ['p1sg','p1pl','p2sg','p2pl']
+face = ['1sg','1pl','2sg','2pl']
 num_symbols = ['ord', 'top','coll','chamalama']
 consonants_kg = {
     'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'ң', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ'
@@ -62,3 +62,11 @@ negative = 'neg'
 poss_general = 'xp'
 for_poss = ['1pl','poss_2pl', '2sgf', 'poss_2sgf']
 all_sg = ['sg','3sg']
+gerunds = ['inf_1','inf_2','inf_3','inf_4','inf_5']
+chakchyl = ['advv_acc','advv_int','advv_neg','advv_suc','advv_cont']
+atoochtuk = ['pcp_ps','pcp_fut_neg','pcp_pr','gpr_impf','gpr_pres']
+verb_pres = ['да','до','дө']
+inf1_2 = ['inf_1', 'inf_2']
+for_pst_evid = ['тыр','тир','тур','түр']
+advv_acc = 'advv_acc'
+for_pst_evid2 = ['ып','ип','уп','үп','п']

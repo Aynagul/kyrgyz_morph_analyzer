@@ -34,6 +34,7 @@ class Word:
     __last_punctuation_mark = ''
     __word_without_punctuation = ''
     __wrong_priority = False
+    __is_like_a_noun = False
     def __init__(self, word):
         self.__original_word = word
         self.__word_without_punctuation = word
@@ -99,7 +100,7 @@ class Word:
         ending_list = syllables_of_words
         ending_list.reverse()
         new_list = list(ending_list)
-        ending_priority = 7
+        ending_priority = 8
         for ending in ending_list:
             str_ending = listToString(ending)
             print("Ending: {0}".format(str_ending))
@@ -309,175 +310,224 @@ class Word:
 # -------------------------------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------------------------------
             elif self.part_of_speech == 'v':
-                if (symbol := Verb.get_info_verb_verb_to_verb(str_ending)) != 'none':
-                    new_list, new_word = block_of_verb.verb_ending_from_verb(self, index, new_list, symbol,
-                                                                                     str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        continue
+                print('verb block')
+                str_ending = (str_ending,)
+                symbol, priority = find_endings(str_ending)
+                if symbol:
+                    priority = check_priority_of_endings.check_tag_for_verb(symbol, priority)
+                    print('priority:{}'.format(priority))
+                    is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority,
+                                                                                                    priority)
+                    if is_correct_priority:
+                        if symbol in sourceModule.faces:
+                            self.__is_like_a_noun = True
+                            new_list, new_word, self.__symbols_list, self.__symbols = \
+                                common.faces(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
+                                             self.__symbols)
 
-                elif str_ending[1:] in sourceModule.ending_of_gerund:
-                    if (symbol := Verb.get_gerund(ending[1:])) != 'none':
-                        new_list, new_word = block_of_verb.special_gerund(self, ending, symbol, index, new_list)
-                        if self.find_root_from_the_end(new_word):
-                            break
-                        else:
-                            new_list.reverse()
-                            continue
-                elif str_ending[1:] in sourceModule.ending_of_gerund_pres:
-                    if (symbol := Verb.get_gerund(ending[1:])) != 'none':
-                        new_list, new_word = block_of_verb.special_gerund(self, ending, symbol, index, new_list)
-                        if self.find_root_from_the_end(new_word):
-                            break
-                        else:
-                            new_list.reverse()
-                            continue
-                elif (symbol := Verb.get_gerund(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif str_ending[-1] == 'п' and self.find_root_from_the_end(self.__word_without_punctuation.lower()[:-1]):
-                    new_list, new_word = block_of_verb.special_chakchyl_1(self, ending, index, new_list)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-
-
-                elif str_ending[1:] in sourceModule.ending_of_chakchyl:
-                    if (symbol := Verb.get_chakchyl(ending[1:])) != 'none':
-                        new_list, new_word = block_of_verb.special_chakchyl_2(self, ending, symbol, index, new_list)
-                        if self.find_root_from_the_end(new_word):
-                            break
-                        else:
-                            new_list.reverse()
-                            continue
-                elif (symbol := Verb.get_chakchyl(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Verb.get_atoochtuk(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Verb.get_mood(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Verb.get_voice(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif str_ending[1:] in sourceModule.v_voice_all_ending:
-                    if (symbol := Verb.get_voice(ending[1:])) != 'none':
-                        new_list, new_word = block_of_verb.special_voice(self, ending, symbol, index, new_list)
-                        if self.find_root_from_the_end(new_word):
-                            break
-                        else:
-                            new_list.reverse()
-                            continue
-                elif (symbol := Cases.get_info_cases(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-
-                elif (symbol := Faces.get_info_faces(ending)) != 'none':
-                    new_list, new_word, self.__symbols_list, self.__symbols = \
-                        common.faces(index, new_list, symbol, str_ending, self.__symbols_list, self.__symbols)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Others.get_info_other(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Possessiveness.get_info_possessive(ending)) != 'none':
-                    new_list, new_word, self.__symbols_list, self.__symbols = \
-                        common.possessiveness(index, new_list, symbol, str_ending, self.__symbols_list,
+                        elif symbol in sourceModule.gerunds:
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        elif symbol in sourceModule.chakchyl:
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        elif symbol in sourceModule.atoochtuk:
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        elif symbol in sourceModule.case:
+                            self.__is_like_a_noun = True
+                            if convertTuple(str_ending) in sourceModule.verb_pres:
+                                print(33)
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        elif symbol in sourceModule.possessiveness:
+                            self.__is_like_a_noun = True
+                            new_list, new_word, self.__symbols_list, self.__symbols = \
+                                common.possessiveness(index, new_list, symbol, convertTuple(str_ending),
+                                                      self.__symbols_list,
                                                       self.__symbols)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Noun.get_info_noun_ending_from_verb(ending)) != 'none':
-                    new_list, new_word = block_of_verb.noun_ending_from_verb(self, index, new_list, symbol,
-                                                                                     str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
+                        elif symbol == sourceModule.plural:
+                            strip_ending = convertTuple(str_ending)[1:]
+                            strip_ending = (strip_ending,)
+                            letter = convertTuple(str_ending)[0]
+                            symbol, priority = find_endings(strip_ending)
+                            if symbol:
+                                is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                    ending_priority,
+                                    priority)
+                                if is_correct_priority:
+                                    if self.find_root_from_the_end(new_word[:-2]):
+                                        new_list, new_word = block_of_verb.special_future_tense(self, convertTuple(strip_ending), index,
+                                                                                              new_list, symbol, letter)
+                                        print(new_word)
+                                else:
+                                    self.__wrong_priority = True
+                                    break
 
-                else:
-                    new_list, index, last_letter, str = \
-                        common.common_exception_1(new_list, str_ending)
-                    # for posessiveness_general (ныкы) итд
-                    if ending in sourceModule.half_of_ending_for_general_possessiveness and new_list[
-                        index - 1] in sourceModule.posessiveness_general:
-                        new_list, index, ending, ending_list = common.common_exception_2(index, new_list,
-                                                                                                 str_ending,
+                            else:
+                                self.__is_like_a_noun = True
+                                new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
+                                common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
+                                                           self.__symbols_list,
+                                                           self.__symbols, ending_priority)
+                            # new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        elif symbol == sourceModule.ques or symbol == sourceModule.agent_noun or symbol == sourceModule.negative:
+                            print(12)
+
+
+                            new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
+                                common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
+                                                           self.__symbols_list,
+                                                           self.__symbols, ending_priority)
+                            print(new_word)
+                        elif symbol == 'opt' and new_list[1] in sourceModule.posessiveness_general:
+                            # for posessiveness_general (ныкы) итд
+                            ending_priority = 5
+                            new_list, index, last_letter, str = \
+                                common.common_exception_1(new_list, convertTuple(str_ending))
+                            if ending in sourceModule.half_of_ending_for_general_possessiveness and new_list[
+                                index - 1] in sourceModule.posessiveness_general:
+                                new_list, index, ending, ending_list = common.common_exception_2(index, new_list,
+                                                                                                 convertTuple(
+                                                                                                     str_ending),
                                                                                                  ending_list, str)
-                        continue
-                    elif len(ending) == 2 and last_letter in sourceModule.special_vowel:
-                        if not self.__symbols:  # px3sp only
-                            new_list, index, ending, ending_list, index2 = common.common_exception_3 \
-                                (index, new_list, str_ending, ending_list, str)
-                            if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-                                new_list, index, new_word = common.common_exception_4 \
-                                    (self, new_list, symbol, last_letter, str)
+                                continue
+                        elif symbol == 'xp':
+                            self.__is_like_a_noun = True
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+
+                        else:
+                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+
+                    elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(self.__symbols_list):
+
+                        self.__wrong_priority = True
+                        break
+                    elif symbol in sourceModule.for_poss:
+                        if symbol in sourceModule.faces:
+                            self.__is_like_a_noun = True
+                            new_list, new_word, self.__symbols_list, self.__symbols = \
+                                common.faces(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
+                                             self.__symbols)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+
+
+                    elif symbol in sourceModule.negative and check_priority_of_endings.check_pl(self.__symbols_list):
+                        self.__is_like_a_noun = True
+                        new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
+                            common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
+                                                       self.__symbols_list,
+                                                       self.__symbols, ending_priority)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    else:
+                        self.__wrong_priority = True
+                        break
+                else:
+
+                    strip_ending = convertTuple(str_ending)[1:]
+                    strip_ending = (strip_ending,)
+                    symbol, priority = find_endings(strip_ending)
+                    if symbol:
+                    #if strip_ending in sourceModule.ending_of_gerund or strip_ending in sourceModule.ending_of_gerund_pres:
+
+                        #if (symbol := Verb.get_gerund(strip_ending)) != 'none':
+                            #priority = 2
+                        is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                ending_priority, priority)
+                        if is_correct_priority:
+                            print('strip block')
+                            print(symbol)
+                            if symbol in sourceModule.inf1_2:
+                                is_loc, ending, self.__symbols, self.__symbols_list = block_of_verb.is_ending_a_loc(self.__symbols, self.__symbols_list)
+                                if is_loc:
+                                    print('uuda')
+                                    print(self.__symbols)
+                                    new_list, new_word = block_of_verb.special_pres(self,
+                                                                                      convertTuple(str_ending),
+                                                                                    index, new_list, ending)
+                                    print(new_word)
+                                    if self.find_root_from_the_end(new_word):
+                                        break
+                                    else:
+                                        new_list.reverse()
+                                        continue
+                                else:
+                                    new_list, new_word = block_of_verb.special_gerund(self, convertTuple(str_ending),
+                                                                                      symbol, index, new_list)
+
+
+                            else:
+                                print('yp, ysh, uu')
+                                new_list, new_word = block_of_verb.special_gerund(self, convertTuple(str_ending), symbol, index, new_list)
+                            print(new_word)
+                            if self.find_root_from_the_end(new_word):
+                                break
+                            else:
+                                new_list.reverse()
+                                continue
+                        else:
+                            self.__wrong_priority = True
+                            break
+                    else:
+                        if convertTuple(str_ending) in sourceModule.for_pst_evid:
+                            print(22)
+                            print(new_list)
+                            is_pst_evid, new_list, new_word = block_of_verb.is_ending_a_pst_evid(
+                                self, new_list, index, convertTuple(str_ending))
+                            if is_pst_evid:
+                                print('yptyr')
+                                print(new_word)
                                 if self.find_root_from_the_end(new_word):
                                     break
                                 else:
                                     new_list.reverse()
-                                    new_word = listToString(new_list)
-                                    if self.find_root_from_the_end(new_word):
-                                        break
-                                    else:
-                                        continue
-                        else:
-                            is_px3sp = True
-                            for key in list(self.__symbols.keys()):  # ыңар, ыбыз, ыңыз
-                                if key in Possessiveness.posessiveness_2st_sg_politely or key in Possessiveness.posessiveness_1st_pl or key \
-                                        in Possessiveness.posessiveness_2st_pl:
-                                    is_px3sp = False
-                                    index, new_list, last_letter, ending, self.__symbols, ending_list = \
-                                        common.common_exception_5(index, new_list, last_letter, ending,
-                                                                          self.__symbols, ending_list, str)
-                                else:
                                     continue
-                            # px3sp with other endings
-                            if is_px3sp:
-                                new_list, ending_list = common.common_exception_6(index, new_list, ending,
-                                                                                          ending_list, str)
-                                if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-                                    new_list, new_word = common.common_exception_7(self, symbol, new_list,
-                                                                                           last_letter, str)
+                        else:
+                            new_list, new_word = block_of_verb.special_gerund(self, convertTuple(str_ending),
+                                                                              symbol, index, new_list)
+                    if convertTuple(str_ending)[-1] == 'п' and self.find_root_from_the_end(
+                            self.__word_without_punctuation.lower()[:-1]):
+                        priority = 2
+                        is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                            ending_priority, priority)
+                        if is_correct_priority:
+                            new_list, new_word = block_of_verb.special_chakchyl_1(self, ending, index, new_list)
+                            if self.find_root_from_the_end(new_word):
+                                break
+                            else:
+                                new_list.reverse()
+                                continue
+                        else:
+                            self.__wrong_priority = True
+                            break
+
+
+                    new_list, index, last_letter, str = \
+                        common.common_exception_1(new_list, convertTuple(str_ending))
+
+                    if len(ending) == 2 and last_letter in sourceModule.special_vowel:
+
+                        if not self.__symbols:
+                            new_list, index, ending, ending_list, index2 = common.common_exception_3 \
+                                (index, new_list, convertTuple(str_ending), ending_list, str)
+                            if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
+                                priority = 4
+                                is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                    ending_priority, priority)
+                                if is_correct_priority:
+                                    new_list[index] = str[1:]
+                                    str = str.replace(str[1:], '')
+                                    new_list, new_word, self.__symbols, self.__symbols_list = common.common_exception_4(
+                                        new_list, symbol, last_letter, str, self.__symbols, self.__symbols_list)
                                     if self.find_root_from_the_end(new_word):
                                         break
                                     else:
@@ -487,6 +537,54 @@ class Word:
                                             break
                                         else:
                                             continue
+                                else:
+                                    self.__wrong_priority = True
+                                    break
+                        else:
+                            is_px3sp = True
+                            for key in list(self.__symbols.keys()):  # ыңар, ыбыз, ыңыз
+                                if key in Possessiveness.posessiveness_2st_sg_politely or key in Possessiveness.posessiveness_1st_pl or key \
+                                        in Possessiveness.posessiveness_2st_pl:
+                                    priority = 4
+                                    is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                        ending_priority, priority)
+                                    is_px3sp = False
+                                    if is_correct_priority:
+                                        index, new_list, last_letter, ending, self.__symbols, ending_list = \
+                                            common.common_exception_5(index, new_list, last_letter,
+                                                                      convertTuple(str_ending),
+                                                                      self.__symbols, ending_list, str)
+                                    else:
+                                        self.__wrong_priority = True
+                                        break
+                                else:
+                                    continue
+                            # px3sp with other endings
+                            if is_px3sp:
+                                new_list, ending_list = common.common_exception_6(index, new_list,
+                                                                                  convertTuple(str_ending),
+                                                                                  ending_list, str)
+                                if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
+                                    priority = 4
+                                    is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                        ending_priority, priority)
+                                    if is_correct_priority:
+                                        new_list, ending_list = common.common_exception_4(index, new_list,
+                                                                                          convertTuple(str_ending),
+                                                                                          ending_list, str)
+                                        if self.find_root_from_the_end(new_word):
+                                            break
+                                        else:
+                                            new_list.reverse()
+                                            new_word = listToString(new_list)
+                                            if self.find_root_from_the_end(new_word):
+                                                break
+                                            else:
+                                                continue
+                                    else:
+                                        self.__wrong_priority = True
+                                        break
+
                             else:  # ыңар, ыбыз, ыңыз
                                 new_word = listToString(new_list)
                                 if self.find_root_from_the_end(new_word):
@@ -503,23 +601,38 @@ class Word:
                         new_list[index] = str[1:]
                         str = str.replace(str[1:], '')
                         try:
-                            new_list, ending_list = common.common_exception_8(index, new_list, ending,
-                                                                                      ending_list, str)
+                            new_list, ending_list = common.common_exception_8(index, new_list,
+                                                                              convertTuple(str_ending),
+                                                                              ending_list, str)
+
                         except:
-                            new_list, ending_list = common.common_exception_9(index, new_list, ending,
-                                                                                      ending_list, str)
+                            new_list, ending_list = common.common_exception_9(index, new_list,
+                                                                              convertTuple(str_ending),
+                                                                              ending_list, str)
                         str = listToString(new_list[index])
-                        if (symbol := Possessiveness.get_info_possessive(str)) != 'none':
-                            new_list, new_word = common.common_exception_10(self, new_list, symbol, str)
-                            if self.find_root_from_the_end(new_word):
-                                break
-                            else:
-                                new_list.reverse()
-                                new_word = listToString(new_list)
+                        str = (str,)
+                        symbol, priority = find_endings(str)
+                        if symbol:
+                            is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
+                                ending_priority, priority)
+                            if is_correct_priority:
+                                new_list, new_word = common.common_exception_10(self, new_list,
+                                                                                symbol, convertTuple(str))
                                 if self.find_root_from_the_end(new_word):
                                     break
                                 else:
-                                    continue
+                                    new_list.reverse()
+                                    new_word = listToString(new_list)
+                                    if self.find_root_from_the_end(new_word):
+                                        break
+                                    else:
+                                        continue
+                            else:
+                                self.__wrong_priority = True
+                                break
+                        else:
+                            continue
+
 # -------------------------------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------------------------------
