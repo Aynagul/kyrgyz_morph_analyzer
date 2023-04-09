@@ -16,6 +16,7 @@ class AllRootAdmin(admin.ModelAdmin):
     list_display = ('id', 'root', 'part_of_speech', 'get_tags')
     list_display_links = ('root', 'part_of_speech')
     search_fields = ('root',)
+    list_filter = ('part_of_speech',)
 
 
     def get_tags(self, obj):
@@ -46,7 +47,8 @@ class AllRootAdmin(admin.ModelAdmin):
 class EndingsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'tagid')
     list_display_links = ('name', 'tagid')
-    search_fields = ('name', 'tagid')
+    search_fields = ('name',)
+    list_filter = ('tagid',)
 
 
 class PartOfSpeechAdmin(admin.ModelAdmin):

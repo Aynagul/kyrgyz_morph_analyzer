@@ -29,12 +29,12 @@ body {
 }
 
 /*Navbar Styling*/
-#navbar {
+header #navbar {
     padding: 20px 0;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
  }
 
-.navbar ul {
+header .navbar ul {
     margin: 0;
     padding: 0;
     display: flex;
@@ -42,12 +42,12 @@ body {
     align-items: center;
 }
 
-.navbar li {
+header .navbar li {
     position: relative;
 }
 
-.navbar a,
-.navbar a:focus {
+header .navbar a,
+header .navbar a:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -60,23 +60,23 @@ body {
     transition: 0.3s;
 }
 
-.navbar a i,
-.navbar a:focus i {
+header .navbar a i,
+header .navbar a:focus i {
     font-size: 14px;
     line-height: 0;
     margin-left: 5px;
 }
 
-.navbar a:hover,
-.navbar li:hover > a {
+header .navbar a:hover,
+header .navbar li:hover > a {
     color: cornflowerblue;
 }
 
-.nav-item.active a{
+header .nav-item.active a{
     color: #206bfb;
 }
 
-.nav-link.selected.active {
+header .nav-link.selected.active {
   color: #206bfb;
 }
 
@@ -280,7 +280,6 @@ input[type="text"] {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: lightsteelblue;
     color: #fff;
     transition: all 0.3s;
     overflow-y: auto;

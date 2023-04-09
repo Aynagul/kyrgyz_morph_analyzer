@@ -1,69 +1,44 @@
+# Сагыз жөнүндө
 
-# test1
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
+1869-жылы Томас Адамс деген киши чикленин рецебин алып,
+ошонун негизинде сагызды ойлоп чыгарган. Чикле – индейцтер
+чайначу саподилла дарагынын маңызы. Сагыз негизинен
+кумшекерден, чайналуучу бөлүгү жүгөрү сиробунан жана ар кандай
+жыпар жыттардан, боёктордон түзүлөт. Сагыз ички жана сырткы
+майда капсулалардан тургандыктан, алар шилекейде өтө-өтө
+акырындык менен ээрийт. Японияда өзгөчө айырмаланган
+сагыздарды чыгарышат. Чайнап жаткан адамдын көңүлүнө карата
+сагыздын өңү өзгөрүп турат.
+Ал эми Сингапур аралында жашагандар сагызды таптакыр эле
+чайнашпайт, себеби арал кичинекей болгондуктан, алар ар кандай
+ашыкча таштандылардан коркушат.(84сөз
 
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
 
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
+# Ак баш кулаалы
 
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
+Ак баш кулаалы өзүнүн тамактанышы менен аңчылык
+чарбасына зыян келтирет. Алар саздуу жана камыштуу жерлерде
+жашап, көмүскө жерлерге уя салышып, балапандарын август
+айынын жарымында учурушат. Сууда жашаган жана саз
+канаттуларынын балапандарын, кээде кичирээк канаттуларды алып
+жеп тамактанышат. Саздуу жердеги ондатраларга кыргын салышат.
+Ошентип, алар зыяндуулугу менен белгилүү. Ак баш кулаалылар
+башка жырткыч куштардай эле келгин катары кышкысын жылуу
+өлкөлөргө учуп кетишип, жазында кайра келишет.
+Бул кулаалынын жашоосу саздуу жана камыштуу жерлерде
+болгондуктан, «саз кулаалысы» деп аталат. Пайдалуу
+канаттуулардын балапандарын көп алып жегендигине карата ал
+аңчылык чарбасынын зыянкечи катары эсептелет.(89 сөз)
 
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
 
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
+#Кызкуумай
 
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-# asw
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-
-# ana
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-
-# aka
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
-## dxsxax
-
-his code creates a container with two sections: the sidebar and the content. The sidebar has a fixed width of 200px and a background color of #F0F0F0. The content section takes up the remaining space and contains the headings and content.
-
-The headings in the sidebar are generated dynamically using a loop through the headings list. The slugify filter is used to convert the heading to a URL-friendly slug.
-
-You can modify the CSS to suit your needs, such as changing the background color, font size, or positioning of the sidebar.
+Кыз куумай кыргыздардын байыркы улуттук оюну. Оюндун
+шарты мындай. Кыз жана жигит белгиленген жердин аралыгында
+ат щстүндө кубалаша чабыштары керек. Кыздын жана жигиттин аты
+бир мезгилде жолго коё берилет. Кыздын аты күлүк болсо, марага
+чейин жеткирбей кетип калышы керек. Эгерде жигиттин аты күлүк
+болсо, кызды кубалап жетип, ат үстүнөн кыздын бетинен өбүшү
+керек. Жигиттин аты начар болуп, кыздын бетинен өбө албаса,
+кайра артка чаап келе жаткан учурда кыз жигитти камчы менен
+жолдо карата сабап жүрүп отурат.
