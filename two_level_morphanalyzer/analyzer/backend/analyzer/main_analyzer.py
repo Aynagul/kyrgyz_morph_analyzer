@@ -313,17 +313,20 @@ class Word:
                 print('verb block')
                 str_ending = (str_ending,)
                 symbol, priority = find_endings(str_ending)
+                print(new_list)
                 if symbol:
                     priority = check_priority_of_endings.check_tag_for_verb(symbol, priority)
                     print('priority:{}'.format(priority))
+
                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority,
                                                                                                     priority)
+
                     if is_correct_priority:
                         if symbol in sourceModule.faces:
                             self.__is_like_a_noun = True
                             new_list, new_word, self.__symbols_list, self.__symbols = \
-                                common.faces(index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
-                                             self.__symbols)
+                                block_of_verb.faces_for_verb(self, index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
+                                             self.__symbols, new_word)
 
                         elif symbol in sourceModule.gerunds:
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
@@ -334,7 +337,6 @@ class Word:
                         elif symbol in sourceModule.case:
                             self.__is_like_a_noun = True
                             if convertTuple(str_ending) in sourceModule.verb_pres:
-                                print(33)
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol in sourceModule.possessiveness:
                             self.__is_like_a_noun = True
@@ -343,29 +345,22 @@ class Word:
                                                       self.__symbols_list,
                                                       self.__symbols)
                         elif symbol == sourceModule.plural:
-                            strip_ending = convertTuple(str_ending)[1:]
-                            strip_ending = (strip_ending,)
-                            letter = convertTuple(str_ending)[0]
-                            symbol, priority = find_endings(strip_ending)
-                            if symbol:
-                                is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
-                                    ending_priority,
-                                    priority)
-                                if is_correct_priority:
-                                    if self.find_root_from_the_end(new_word[:-2]):
-                                        new_list, new_word = block_of_verb.special_future_tense(self, convertTuple(strip_ending), index,
-                                                                                              new_list, symbol, letter)
-                                        print(new_word)
-                                else:
-                                    self.__wrong_priority = True
-                                    break
+                            print(new_list)
+                            new_word, new_list = block_of_verb.pl(self, convertTuple(str_ending), new_list, index, symbol)
 
+                            if self.find_root_from_the_end(new_word):
+                                break
                             else:
+                                new_list.reverse()
+                                print(new_list)
+                                continue
+
+                            '''else:
                                 self.__is_like_a_noun = True
                                 new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
                                 common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
                                                            self.__symbols_list,
-                                                           self.__symbols, ending_priority)
+                                                           self.__symbols, ending_priority)'''
                             # new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol == sourceModule.ques or symbol == sourceModule.agent_noun or symbol == sourceModule.negative:
                             print(12)
@@ -401,9 +396,13 @@ class Word:
                             continue
 
                     elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(self.__symbols_list):
-
-                        self.__wrong_priority = True
-                        break
+                        self.__is_like_a_noun = True
+                        new_word, new_list, self.__symbols, self.__symbols_list = block_of_verb.imp_plf(self, index, new_list, convertTuple(str_ending), new_word, self.__symbols, self.__symbols_list)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
                     elif symbol in sourceModule.for_poss:
                         if symbol in sourceModule.faces:
                             self.__is_like_a_noun = True
@@ -432,11 +431,41 @@ class Word:
                         self.__wrong_priority = True
                         break
                 else:
+                    if convertTuple(str_ending)[-1] == 'р' and self.find_root_from_the_end(
+                            new_word[:-1]):
+                        print('ar')
+                        new_list, new_word = block_of_verb.fut_indf(self, convertTuple(str_ending), new_list)
+                        print(new_word)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending)[-1] == 'р' and convertTuple(str_ending)[:-1] in sourceModule.negative_ending_verb \
+                            and self.find_root_from_the_end(new_word[:-3]):
+                        print('bar')
+                        new_list, new_word = block_of_verb.fut_indf_neg(self, convertTuple(str_ending), new_list, index)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending) in sourceModule.imp_pl_2:
+                        print('gyla')
+                        new_list, new_word = block_of_verb.imp_pl(self, convertTuple(str_ending), new_list, index, new_word)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
 
                     strip_ending = convertTuple(str_ending)[1:]
                     strip_ending = (strip_ending,)
                     symbol, priority = find_endings(strip_ending)
                     if symbol:
+                        print(11)
                     #if strip_ending in sourceModule.ending_of_gerund or strip_ending in sourceModule.ending_of_gerund_pres:
 
                         #if (symbol := Verb.get_gerund(strip_ending)) != 'none':
@@ -479,13 +508,9 @@ class Word:
                             break
                     else:
                         if convertTuple(str_ending) in sourceModule.for_pst_evid:
-                            print(22)
-                            print(new_list)
                             is_pst_evid, new_list, new_word = block_of_verb.is_ending_a_pst_evid(
-                                self, new_list, index, convertTuple(str_ending))
+                                self, new_list, index, convertTuple(str_ending), new_word)
                             if is_pst_evid:
-                                print('yptyr')
-                                print(new_word)
                                 if self.find_root_from_the_end(new_word):
                                     break
                                 else:

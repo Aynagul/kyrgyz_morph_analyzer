@@ -1,5 +1,4 @@
 from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
-from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
 
 
 def convertTuple(tup):
@@ -34,10 +33,10 @@ def faces(index, new_list, symbol, ending, symbols_list, symbols):
         if ending in Faces.face_2st_sg_politely and key in Others.plural:  # сыздар
             symbols_list.remove(symbols[ending])
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = 'p2pl'
+            symbols[ending + key] = '2pl'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list.append('p2pl')
+            symbols_list.append('2pl')
         elif ending in Others.negative and key in symbols:  # сыз
             symbols[ending] = 'neg'
             symbols_list.append('neg')
@@ -55,17 +54,17 @@ def possessiveness(index, new_list, symbol, ending, symbols_list, symbols):
         if ending in Possessiveness.posessiveness_for_poses_2st_pl_politely and key in Others.plural:  # ыңыздар итд
             symbols_list.remove(symbols[ending])
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = 'px2pl'
+            symbols[ending + key] = 'poss_2pl'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list('px2pl')
+            symbols_list('poss_2pl')
         elif ending in Possessiveness.posessiveness_for_face_p2pl and key in Possessiveness.posessiveness_2st_pl:  # сыңар
             symbols_list.remove(symbols[ending])
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = 'p2pl'
+            symbols[ending + key] = '2pl'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list('p2pl')
+            symbols_list('2pl')
     new_list.pop(index)
     new_list.reverse()
     new_word = listToString(new_list)
