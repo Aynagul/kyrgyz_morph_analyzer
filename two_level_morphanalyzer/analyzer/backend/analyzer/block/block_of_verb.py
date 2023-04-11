@@ -40,7 +40,21 @@ def noun_ending_from_verb(self, index, new_list, symbol, ending):
     return new_list, new_word
 
 
-def special_gerund(self, ending, symbol, index, new_list):
+def special_gerund(self, ending, symbol, index, new_list, symbols, symbols_list):
+    if symbol == 'inf_3':
+        for key, value in symbols.items():
+            if value == 'jus_sg':
+                ending_jus_sg = key
+                print('yshsyn')
+                symbols[ending[1:] + ending_jus_sg] = 'jus_pl'
+                symbols_list.append('jus_pl')
+                del symbols[ending_jus_sg]
+                symbols_list.remove('jus_sg')
+                new_list[index] = ending[0]
+                new_list.reverse()
+                new_word = listToString(new_list)
+                print(new_word)
+                return new_list, new_word, symbols, symbols_list
     letter = ending[0]
     self.set_symbol(symbol, ending[1:])
     self.set_symbols_list(symbol)
@@ -48,7 +62,7 @@ def special_gerund(self, ending, symbol, index, new_list):
     new_list.reverse()
     new_word = listToString(new_list)
     new_word = new_word + letter
-    return new_list, new_word
+    return new_list, new_word, symbols, symbols_list
 
 def special_pres(self, ending, index, new_list, key):
     letter = ending[0]
@@ -291,3 +305,145 @@ def imp_plf(self, index, new_list, ending, new_word, symbols, symbols_list):
         new_list.reverse()
         new_word = listToString(new_list)
         return new_word, new_list, symbols, symbols_list
+
+
+def inf_3(self, ending, new_list, index, new_word, symbols, symbols_list):
+
+    for key, value in symbols.items():
+        if value == 'jus_sg':
+            ending_jus_sg = key
+            if ending[-1] in sourceModule.inf_3 and find_root_from_the_end(self, str(new_word[:-1])):
+                #print('shsyn')
+                symbols[ending[-1] + ending_jus_sg] = 'jus_pl'
+                symbols_list.append('jus_pl')
+                del symbols[ending_jus_sg]
+                symbols_list.remove('jus_sg')
+                new_list[index] = ending[:-1]
+                new_list.reverse()
+                new_word = listToString(new_list)
+                return new_list, new_word, symbols, symbols_list
+            elif ending[-1] in sourceModule.inf_3 and ending[:-1] in sourceModule.negative_ending_verb and \
+                    find_root_from_the_end(self, str(new_word[:-3])):
+                #print('bashsyn')
+                symbols[ending[-1] + ending_jus_sg] = 'jus_pl'
+                symbols_list.append('jus_pl')
+                symbols[ending[:-1]] = 'neg'
+                symbols_list.append('neg')
+                del symbols[ending_jus_sg]
+                symbols_list.remove('jus_sg')
+                new_list.pop(index)
+                new_list.reverse()
+                new_word = listToString(new_list)
+                return new_list, new_word, symbols, symbols_list
+
+    if ending[-1] in sourceModule.inf_3 and find_root_from_the_end(self, str(new_word[:-1])):
+        #sh
+        symbols[ending[-1]] = 'inf_3'
+        symbols_list.append('inf_3')
+        new_list[index] = ending[:-1]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+
+def is_hor_sg(list):
+    for i in list:
+        if i == 'hor_sg':
+            return True
+        else:
+            continue
+    return False
+def hor_sg(self, ending, new_list, index, new_word, symbols, symbols_list):
+    for key, value in symbols.items():
+        if value == 'hor_sg':
+            ending_hor_sg = key
+            if ending[-1] in sourceModule.hor_sg and find_root_from_the_end(self, str(new_word[:-1])):
+                print('ayin')
+                symbols[ending[-1] + ending_hor_sg] = 'hor_sg'
+                del symbols[ending_hor_sg]
+                new_list[index] = ending[:-1]
+                new_list.reverse()
+                new_word = listToString(new_list)
+                return new_list, new_word, symbols, symbols_list
+
+
+def hor_pl(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if next_ending[-1] + ending in sourceModule.hor_pl3 and find_root_from_the_end(self, str(new_word[:-3])):
+        #print('алы')
+        symbols[next_ending[-1] + ending] = 'hor_pl'
+        symbols_list.append('hor_pl')
+        new_list.pop(index)
+        new_list[index] = next_ending[:-1]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif next_ending[-1] + ending in sourceModule.hor_pl3 and next_ending[:-1] in sourceModule.negative_ending_verb and \
+            find_root_from_the_end(self, str(new_word[:-5])):
+        #print('байлы')
+        symbols[next_ending[-1] + ending] = 'hor_pl'
+        symbols_list.append('hor_pl')
+        symbols[next_ending[:-1]] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif next_ending[-1] + ending in sourceModule.hor_pl4 and next_ending[:-1] in sourceModule.negative_ending_verb and \
+            find_root_from_the_end(self, str(new_word[:-6])):
+        #print('пайлык')
+        symbols[next_ending[-1] + ending] = 'hor_pl'
+        symbols_list.append('hor_pl')
+        symbols[next_ending[:-1]] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif next_ending[-1] + ending in sourceModule.hor_pl4 and find_root_from_the_end(self, str(new_word[:-4])):
+        #print('алык')
+        symbols[next_ending[-1] + ending] = 'hor_pl'
+        symbols_list.append('hor_pl')
+        new_list.pop(index)
+        new_list[index] = next_ending[:-1]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+def deside(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    for key, value in symbols.items():
+        if value == 'prec_1':
+            ending_prec_1 = key
+            if ending + ending_prec_1 in sourceModule.deside2 and find_root_from_the_end(self, str(new_word[:-3])):
+                #print('макчы')
+                symbols[ending + ending_prec_1] = 'deside'
+                symbols_list.append('deside')
+                del symbols[ending_prec_1]
+                symbols_list.remove('prec_1')
+                new_list.pop(index)
+                new_list.reverse()
+                new_word = listToString(new_list)
+                return new_list, new_word, symbols, symbols_list
+            elif ending + ending_prec_1 in sourceModule.deside2 and next_ending in sourceModule.negative_ending_verb and \
+                    find_root_from_the_end(self, str(new_word[:-5])):
+                #print('памак')
+                symbols[ending + ending_prec_1] = 'deside'
+                symbols_list.append('deside')
+                del symbols[ending_prec_1]
+                symbols_list.remove('prec_1')
+                symbols[next_ending] = 'neg'
+                symbols_list.append('neg')
+                new_list.pop(index)
+                new_list.pop(index)
+                new_list.reverse()
+                new_word = listToString(new_list)
+                return new_list, new_word, symbols, symbols_list
+    symbols[ending] = 'deside'
+    symbols_list.append('deside')
+    new_list.pop(index)
+    new_list.reverse()
+    new_word = listToString(new_list)
+    return new_list, new_word, symbols, symbols_list

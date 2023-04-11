@@ -327,7 +327,10 @@ class Word:
                             new_list, new_word, self.__symbols_list, self.__symbols = \
                                 block_of_verb.faces_for_verb(self, index, new_list, symbol, convertTuple(str_ending), self.__symbols_list,
                                              self.__symbols, new_word)
-
+                        elif symbol == sourceModule.deside:
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.deside(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                self.__symbols_list)
                         elif symbol in sourceModule.gerunds:
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol in sourceModule.chakchyl:
@@ -337,7 +340,8 @@ class Word:
                         elif symbol in sourceModule.case:
                             self.__is_like_a_noun = True
                             if convertTuple(str_ending) in sourceModule.verb_pres:
-                            new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+
+                                new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol in sourceModule.possessiveness:
                             self.__is_like_a_noun = True
                             new_list, new_word, self.__symbols_list, self.__symbols = \
@@ -451,6 +455,28 @@ class Word:
                         else:
                             new_list.reverse()
                             continue
+                    elif convertTuple(str_ending) in sourceModule.hor_pl or convertTuple(str_ending) in sourceModule.hor_pl2:
+                        print('hor_pl')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_pl(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending)[-1] in sourceModule.hor_sg and block_of_verb.is_hor_sg(self.__symbols_list):
+                        print('ayin')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
                     elif convertTuple(str_ending) in sourceModule.imp_pl_2:
                         print('gyla')
                         new_list, new_word = block_of_verb.imp_pl(self, convertTuple(str_ending), new_list, index, new_word)
@@ -461,11 +487,11 @@ class Word:
                             new_list.reverse()
                             continue
 
+
                     strip_ending = convertTuple(str_ending)[1:]
                     strip_ending = (strip_ending,)
                     symbol, priority = find_endings(strip_ending)
                     if symbol:
-                        print(11)
                     #if strip_ending in sourceModule.ending_of_gerund or strip_ending in sourceModule.ending_of_gerund_pres:
 
                         #if (symbol := Verb.get_gerund(strip_ending)) != 'none':
@@ -496,7 +522,7 @@ class Word:
 
                             else:
                                 print('yp, ysh, uu')
-                                new_list, new_word = block_of_verb.special_gerund(self, convertTuple(str_ending), symbol, index, new_list)
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.special_gerund(self, convertTuple(str_ending), symbol, index, new_list, self.__symbols, self.__symbols_list)
                             print(new_word)
                             if self.find_root_from_the_end(new_word):
                                 break
@@ -516,6 +542,15 @@ class Word:
                                 else:
                                     new_list.reverse()
                                     continue
+                        elif convertTuple(str_ending)[-1] in sourceModule.inf_3:
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_3(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols, self.__symbols_list)
+
+                            if self.find_root_from_the_end(new_word):
+                                break
+                            else:
+                                new_list.reverse()
+                                continue
                         else:
                             new_list, new_word = block_of_verb.special_gerund(self, convertTuple(str_ending),
                                                                               symbol, index, new_list)
