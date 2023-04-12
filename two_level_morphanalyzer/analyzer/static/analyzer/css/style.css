@@ -278,8 +278,10 @@ input[type="text"] {
 
 /*Sidebar Styling*/
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    max-height: 500px;
+    min-height: 500px;
+    max-width: 300px;
+    min-width: 300px;
     color: #fff;
     transition: all 0.3s;
     overflow-y: auto;
@@ -292,7 +294,7 @@ input[type="text"] {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 15px;
     display: block;
     text-decoration: none;
 }
@@ -302,7 +304,7 @@ input[type="text"] {
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 10px !important;
     padding-left: 30px !important;
     text-decoration: none;
 }
@@ -312,6 +314,15 @@ a.article,
 a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
+}
+
+.content {
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.content h1 {
+    font-size: 20px;
 }
 
 /*Styling The Result Table*/
