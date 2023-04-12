@@ -70,11 +70,12 @@ def instruction(request):
         html = md.convert(md_file)
         toc_html = md.toc
         headings = md.toc_tokens
+        print(headings)
 
     headings_with_slugs = []
     for heading in headings:
-        slug = slugify(heading['name'])
         headings_with_slugs.append({'text': heading['name'], 'children': heading['children']})
+        # print(headings_with_slugs)
 
     title = 'Нускама'
     context = {
