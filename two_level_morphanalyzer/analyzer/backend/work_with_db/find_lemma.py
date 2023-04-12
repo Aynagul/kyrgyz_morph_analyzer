@@ -73,3 +73,27 @@ def find_lemma(root, word_without_punctuation, cursor):
     else:
         cursor.close()
         return False, root, part_of_speech, symbols_list
+
+
+def find_lemma_for_verb(root):
+    try:
+        sqliteConnection = sqlite3.connect('db.sqlite3')
+        cursor = sqliteConnection.cursor()
+        print("Database created and Successfully Connected to SQLite")
+        cursor.execute("select root, part_of_speech, tag from analyzer_allroot a \
+                                           left join analyzer_partofspeech ap on ap.id = a.part_of_speech_id \
+                                           left join analyzer_allroot_tag aat on a.id = aat.allroot_id \
+                                           left join analyzer_tags at on at.id = aat.tags_id \
+                                           where root = ?", root)
+        record = cursor.fetchall()
+        if not record == []:
+            cursor.close()
+            return True
+        else:
+            cursor.close()
+            return False
+    except sqlite3.Error as error:
+        print("Error while connecting to sqlite", error)
+    finally:
+        if sqliteConnection:
+            sqliteConnection.close()

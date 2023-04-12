@@ -1,12 +1,12 @@
 def get_info_possessive(ending):
     if ending in posessiveness_1st_sg:
-        return "px1sg"
+        return "poss_1sg"
     elif ending in posessiveness_1st_pl:
-        return "px1pl"
+        return "poss_1pl"
     elif ending in posessiveness_2st_sg or ending in posessiveness_2st_sg_politely:
-        return "px2sg"
+        return "poss_2sg"
     elif ending in posessiveness_2st_pl or ending in posessiveness_2st_pl_politely:
-        return "px2pl"
+        return "poss_2pl"
     elif ending in posessiveness_general:
         return "xp"     #жалпы таандык
     elif ending in posessiveness_3st_sg:
