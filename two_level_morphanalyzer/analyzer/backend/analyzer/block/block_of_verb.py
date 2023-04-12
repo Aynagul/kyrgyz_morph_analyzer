@@ -447,3 +447,35 @@ def deside(self, ending, new_list, index, new_word, symbols, symbols_list):
     new_list.reverse()
     new_word = listToString(new_list)
     return new_list, new_word, symbols, symbols_list
+
+def inf_5(self, ending, new_list, index, new_word):
+    if ending in sourceModule.inf_5_1sg and find_root_from_the_end(self, str(new_word[:-3])):
+        self.set_symbol('1sg', ending[-1])
+        self.set_symbols_list('1sg')
+        self.set_symbol('inf_5', ending[:-1])
+        self.set_symbols_list('inf_5')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word
+    elif ending in sourceModule.inf_5_2sg and find_root_from_the_end(self, str(new_word[:-3])):
+        self.set_symbol('2sg', ending[-1])
+        self.set_symbols_list('2sg')
+        self.set_symbol('inf_5', ending[:-1])
+        self.set_symbols_list('inf_5')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word
+    new_list.reverse()
+    new_word = listToString(new_list)
+    return new_list, new_word
+
+
+def pst_def(self, ending, new_list, index):
+    self.set_symbol('pst_def', ending)
+    self.set_symbols_list('pst_def')
+    new_list.pop(index)
+    new_list.reverse()
+    new_word = listToString(new_list)
+    return new_list, new_word
