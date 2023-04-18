@@ -332,6 +332,26 @@ class Word:
                             new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.deside(
                                 self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
                                 self.__symbols_list)
+                        elif symbol == sourceModule.hor_sg_str:
+                            print('йын')
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_neg2(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                self.__symbols_list, symbol)
+                        elif symbol == sourceModule.pst_iter:
+                            print('chu')
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_pr(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                self.__symbols_list, symbol)
+                        elif symbol == sourceModule.num_appr1:
+                            print('cha')
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_neg(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                self.__symbols_list)
+                        elif symbol == sourceModule.num_appr2:
+                            print('дай')
+                            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_fut_def(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                self.__symbols_list)
                         elif symbol in sourceModule.gerunds:
                             new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
                         elif symbol in sourceModule.chakchyl:
@@ -349,6 +369,10 @@ class Word:
 
                                 new_list, new_word = block_of_verb.pst_def(self, convertTuple(str_ending), new_list, index)
                                 print(new_word)
+                            elif convertTuple(str_ending) in sourceModule.advv_int1:
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_int(
+                                    self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                    self.__symbols_list)
                             if self.find_root_from_the_end(new_word):
                                 break
                             else:
@@ -358,12 +382,12 @@ class Word:
                         elif symbol in sourceModule.possessiveness:
                             self.__is_like_a_noun = True
                             new_list, new_word, self.__symbols_list, self.__symbols = \
-                                common.possessiveness(index, new_list, symbol, convertTuple(str_ending),
+                                block_of_verb.possessiveness_for_verb(self, index, new_list, symbol, convertTuple(str_ending),
                                                       self.__symbols_list,
-                                                      self.__symbols)
+                                                      self.__symbols, new_word)
                         elif symbol == sourceModule.plural:
                             print(new_list)
-                            new_word, new_list = block_of_verb.pl(self, convertTuple(str_ending), new_list, index, symbol)
+                            new_word, new_list = block_of_verb.pl(self, convertTuple(str_ending), new_list, index, symbol, new_word)
 
                             if self.find_root_from_the_end(new_word):
                                 break
@@ -371,20 +395,20 @@ class Word:
                                 new_list.reverse()
                                 print(new_list)
                                 continue
-
-                            '''else:
-                                self.__is_like_a_noun = True
-                                new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
-                                common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
-                                                           self.__symbols_list,
-                                                           self.__symbols, ending_priority)'''
+                        elif symbol == sourceModule.negative:
+                            is_fut_indf_neg, new_list, new_word = block_of_verb.fut_indf_neg_with_neg(
+                                self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                symbol)
+                            if is_fut_indf_neg:
+                                self.__wrong_priority = True
+                                break
                             # new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
-                        elif symbol == sourceModule.ques or symbol == sourceModule.agent_noun or symbol == sourceModule.negative:
+                        elif symbol == sourceModule.ques or symbol == sourceModule.agent_noun:
                             print(12)
 
 
                             new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
-                                common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
+                                block_of_verb.common_exception_for_verb(index, new_list, symbol, convertTuple(str_ending),
                                                            self.__symbols_list,
                                                            self.__symbols, ending_priority)
                             print(new_word)
@@ -412,6 +436,15 @@ class Word:
                             new_list.reverse()
                             continue
 
+                    elif symbol in sourceModule.case and block_of_verb.is_hor_sg(self.__symbols_list):
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
                     elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(self.__symbols_list):
                         self.__is_like_a_noun = True
                         new_word, new_list, self.__symbols, self.__symbols_list = block_of_verb.imp_plf(self, index, new_list, convertTuple(str_ending), new_word, self.__symbols, self.__symbols_list)
@@ -462,6 +495,17 @@ class Word:
                             and self.find_root_from_the_end(new_word[:-3]):
                         print('bar')
                         new_list, new_word = block_of_verb.fut_indf_neg(self, convertTuple(str_ending), new_list, index)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending) in sourceModule.gpr_pres1:
+                        print('gpr_pres')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gpr_pres(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
 
                         if self.find_root_from_the_end(new_word):
                             break
@@ -524,13 +568,14 @@ class Word:
                             print('strip block')
                             print(symbol)
                             if symbol in sourceModule.inf1_2:
+                                print(11)
                                 is_loc, ending, self.__symbols, self.__symbols_list = block_of_verb.is_ending_a_loc(self.__symbols, self.__symbols_list)
                                 if is_loc:
                                     print('uuda')
                                     print(self.__symbols)
                                     new_list, new_word = block_of_verb.special_pres(self,
                                                                                       convertTuple(str_ending),
-                                                                                    index, new_list, ending)
+                                                                                    index, new_list, ending, new_word)
                                     print(new_word)
                                     if self.find_root_from_the_end(new_word):
                                         break
