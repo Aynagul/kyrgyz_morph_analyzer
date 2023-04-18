@@ -34,6 +34,8 @@ def check_tag_for_verb(tag, priority):
         priority = 7
     elif tag == sourceModule.ques:
         priority = 8
+    elif tag == sourceModule.num_appr1:
+        priority = 2
     else:
         return priority
     return priority
