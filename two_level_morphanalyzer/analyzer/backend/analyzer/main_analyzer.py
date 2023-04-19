@@ -316,7 +316,9 @@ class Word:
                 symbol, priority = find_endings(str_ending)
                 print(new_list)
                 if symbol:
-                    priority = check_priority_of_endings.check_tag_for_verb(symbol, priority)
+                    symbol = check_priority_of_endings.change_tag_for_verb(symbol, convertTuple(str_ending))
+                    priority = check_priority_of_endings.check_tag_for_verb(symbol, priority, self.__symbols_list)
+
                     print('priority:{}'.format(priority))
 
                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority,
@@ -436,6 +438,7 @@ class Word:
                             new_list.reverse()
                             continue
 
+
                     elif symbol in sourceModule.case and block_of_verb.is_hor_sg(self.__symbols_list):
                         new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
                             self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
@@ -478,6 +481,8 @@ class Word:
                             new_list.reverse()
                             continue
                     else:
+                        print(self.__symbols_list)
+                        print(self.__symbols)
                         self.__wrong_priority = True
                         break
                 else:
@@ -501,6 +506,7 @@ class Word:
                         else:
                             new_list.reverse()
                             continue
+
                     elif convertTuple(str_ending) in sourceModule.gpr_pres1:
                         print('gpr_pres')
                         new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gpr_pres(
@@ -552,7 +558,18 @@ class Word:
                         else:
                             new_list.reverse()
                             continue
+                    elif convertTuple(str_ending) in sourceModule.pst_def_1_sg or convertTuple(str_ending) in sourceModule.pst_def_2_sg\
+                            or convertTuple(str_ending) in sourceModule.pst_def_1_pl:
+                        print('дим...')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pst_def_face(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
 
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
 
                     strip_ending = convertTuple(str_ending)[1:]
                     strip_ending = (strip_ending,)
@@ -1406,7 +1423,7 @@ class Word:
     def set_symbols_list(self, symbol):
         self.__symbols_list.append(symbol)
     def set_all_info(self):
-        self.__result_text, self.__all_info, self.__symbols_list = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
+        self.__result_text, self.__all_info, self.__symbols_list, self.__symbols = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
                                                            self.__root, self.__part_of_speech,
                                                            self.__first_punctuation_mark,
                                                            self.__word_without_punctuation,
