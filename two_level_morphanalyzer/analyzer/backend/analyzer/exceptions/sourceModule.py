@@ -114,3 +114,6 @@ pst_def_1_pl = ['тык','тик','тук','түк','дык','дик','дук','
 shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
+fut_def_1_sg = ['ам','ем','ом','өм']
+fut_def_faces = ['та','те','то','тө','да','де','до','дө']
+dat = 'dat'

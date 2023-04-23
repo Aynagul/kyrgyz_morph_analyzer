@@ -363,9 +363,12 @@ class Word:
                         elif symbol in sourceModule.case:
                             print(11)
                             self.__is_like_a_noun = True
-                            if convertTuple(str_ending) in sourceModule.verb_pres:
+                            if convertTuple(str_ending) in sourceModule.fut_def_faces and check_priority_of_endings.check_faces(self.__symbols_list):
 
-                                new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_faces(
+                                    self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                    self.__symbols_list)
+
                                 print(new_word)
                             elif convertTuple(str_ending) in sourceModule.pst_def:
 
@@ -375,6 +378,10 @@ class Word:
                                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_int(
                                     self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
                                     self.__symbols_list)
+                            else:
+                                new_list, new_word = common.common(self, index, new_list, symbol,
+                                                                   convertTuple(str_ending))
+
                             if self.find_root_from_the_end(new_word):
                                 break
                             else:
@@ -570,6 +577,17 @@ class Word:
                         else:
                             new_list.reverse()
                             continue
+                    elif convertTuple(str_ending)[1:] in sourceModule.fut_def_1_sg:
+                        print('fut_def with 1sg')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_1sg(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
 
                     strip_ending = convertTuple(str_ending)[1:]
                     strip_ending = (strip_ending,)
@@ -579,6 +597,7 @@ class Word:
 
                         #if (symbol := Verb.get_gerund(strip_ending)) != 'none':
                             #priority = 2
+                        priority = check_priority_of_endings.check_tag_for_verb(symbol, priority, self.__symbols_list)
                         is_correct_priority, ending_priority = check_priority_of_endings.check_priority(
                                 ending_priority, priority)
                         if is_correct_priority:
@@ -607,6 +626,10 @@ class Word:
                                     else:
                                         new_list.reverse()
                                         continue
+                            elif symbol == sourceModule.dat and check_priority_of_endings.check_faces(self.__symbols_list):
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_faces(
+                                    self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                    self.__symbols_list)
 
                             else:
                                 print('yp, ysh, uu')
