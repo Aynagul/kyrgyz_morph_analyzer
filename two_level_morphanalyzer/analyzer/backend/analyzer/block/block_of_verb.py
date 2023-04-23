@@ -281,8 +281,8 @@ def faces_for_verb(self, index, new_list, symbol, ending, symbols_list, symbols,
                     new_list.reverse()
                     new_word = listToString(new_list)
                     return new_list, new_word, symbols_list, symbols
-            symbols[ending] = 'imp_sgf'
-            symbols_list.append('imp_sgf')
+            symbols[ending] = '2plf'
+            symbols_list.append('2plf')
             new_list.pop(index)
             new_list.reverse()
             new_word = listToString(new_list)
@@ -826,3 +826,30 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
+
+
+def fut_def_1sg(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if find_root_from_the_end(self, str(new_word[:-2])):
+        print('fut_def 1_sg')
+        symbols[ending[-1]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[1]] = 'fut_def'
+        symbols_list.append('fut_def')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+
+def fut_def_faces(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if find_root_from_the_end(self, str(new_word[:-1])):
+        #print('fut_def other faces')
+        symbols[ending[-1]] = 'fut_def'
+        symbols_list.append('fut_def')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+

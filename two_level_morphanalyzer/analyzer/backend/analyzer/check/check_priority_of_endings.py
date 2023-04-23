@@ -36,6 +36,16 @@ def check_2plf(list):
 
     return False
 
+
+def check_faces(list):
+    for i in list:
+        if i in sourceModule.faces:
+            return True
+        else:
+            continue
+
+    return False
+
 def check_tag_for_verb(tag, priority, list):
     if tag == sourceModule.negative:
         priority = 1
