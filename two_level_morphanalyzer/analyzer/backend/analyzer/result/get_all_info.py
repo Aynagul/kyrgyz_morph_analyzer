@@ -7,11 +7,13 @@ def get_key_from_value(d, val):
         return keys[0]
     return None
 
-def get_info(self, symbols_list, symbols, root, part_of_speech, first_punctuation_mark,
+def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
              word_without_punctuation, last_punctuation_mark, wrong_priority):
-    symbols_list = list(dict.fromkeys(symbols_list))  # delete duplicates symbols
+
     if wrong_priority:
-        return 'Wrong priority of endings', 'Something goes wrong'
+        print('wrong')
+        result_text = '[' + str(word_without_punctuation) + ']' + last_punctuation_mark
+        return result_text, 'Something goes wrong', symbols_list, symbols
     if 'sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('sg')
     if '3sg' in symbols_list and 'pl' in symbols_list:
@@ -30,9 +32,11 @@ def get_info(self, symbols_list, symbols, root, part_of_speech, first_punctuatio
     for symbol in symbols_list:
         symbols_list = delete_symbols(symbols_list, symbol)
     symbols_list = [i for i in symbols_list if i]
-    all_info = "Уңгу: " + str(root) + ".\n" + "Сөз түркүм: " + str(part_of_speech) + \
+    '''all_info = "Уңгу: " + str(root) + ".\n" + "Сөз түркүм: " + str(part_of_speech) + \
                       ".\n" + "Баардык символдор: " + str(list(dict.fromkeys(symbols_list))) + ".\n" + \
-                      "Мүчөлөр: " + str(symbols) + '\n'
+                      "Мүчөлөр: " + str(symbols) + '\n
+                      '''
+    all_info = word_without_punctuation
     symbols_text = ''
     ending_symbols = []
     for key, value in dict(reversed(list(symbols.items()))).items():
