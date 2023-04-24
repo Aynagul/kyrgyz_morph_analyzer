@@ -3,7 +3,7 @@ import nltk
 from analyzer.backend.analyzer.block import block_of_noun, block_of_verb, block_of_numeral, block_of_adjective, common
 from analyzer.backend.analyzer.block.common import listToString
 from analyzer.backend.analyzer.block.common import convertTuple
-from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings
+from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings, check_tags
 from analyzer.backend.analyzer.ending_split.ending_split import ending_split
 from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb, Possessiveness, Adjectives_2, Numeral, \
     Pronoun, Verb
@@ -528,6 +528,18 @@ class Word:
                     elif convertTuple(str_ending) in sourceModule.hor_pl or convertTuple(str_ending) in sourceModule.hor_pl2:
                         print('hor_pl')
                         new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_pl(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending) in sourceModule.pst_iter_1sg or convertTuple(str_ending) in sourceModule.pst_iter_2sg\
+                            or convertTuple(str_ending) in sourceModule.pst_iter_1pl:
+                        print('pst_iter_with_faces')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pst_iter_faces(
                             self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
                             self.__symbols_list)
 
@@ -1446,13 +1458,14 @@ class Word:
     def set_symbols_list(self, symbol):
         self.__symbols_list.append(symbol)
     def set_all_info(self):
+        self.__wrong_priority, self.__symbols_list = check_tags.check_tags(self.__symbols_list)
         self.__result_text, self.__all_info, self.__symbols_list, self.__symbols = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
-                                                           self.__root, self.__part_of_speech,
+                                                           self.__root,
                                                            self.__first_punctuation_mark,
                                                            self.__word_without_punctuation,
                                                            self.__last_punctuation_mark,
                                                             self.__wrong_priority)
-
+        print(self.__result_text)
 
         self.__symbols_list = [i for i in self.__symbols_list if i is not None]
         self.__symbols_list = list(dict.fromkeys(self.__symbols_list))

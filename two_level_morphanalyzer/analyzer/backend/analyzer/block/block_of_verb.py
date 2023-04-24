@@ -853,3 +853,76 @@ def fut_def_faces(self, ending, new_list, index, new_word, symbols, symbols_list
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
 
+def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if ending in sourceModule.pst_iter_1sg and find_root_from_the_end(self, str(new_word[:-3])):
+        #print('чум')
+        symbols[ending[-1]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.pst_iter_2sg and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('чуң')
+        symbols[ending[-1]] = '2sg'
+        symbols_list.append('2sg')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.pst_iter_1pl and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('чук')
+        symbols[ending[-1]] = '1pl'
+        symbols_list.append('1pl')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.pst_iter_1sg and next_ending in sourceModule.negative_ending_verb and find_root_from_the_end(self, str(new_word[:-5])):
+        # print('бачум')
+        symbols[ending[-1]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+        symbols[next_ending] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.pst_iter_2sg and next_ending in sourceModule.negative_ending_verb and find_root_from_the_end(self, str(new_word[:-5])):
+        # print('бачуң')
+        symbols[ending[-1]] = '2sg'
+        symbols_list.append('2sg')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+        symbols[next_ending] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.pst_iter_1pl and next_ending in sourceModule.negative_ending_verb and find_root_from_the_end(self, str(new_word[:-5])):
+        # print('бачук')
+        symbols[ending[-1]] = '1pl'
+        symbols_list.append('1pl')
+        symbols[ending[:-1]] = 'pst_iter'
+        symbols_list.append('pst_iter')
+        symbols[next_ending] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
