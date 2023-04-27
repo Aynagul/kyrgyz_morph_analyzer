@@ -91,6 +91,7 @@ class Word:
             syllables_of_words = ending_split(words)
         except:
             return 'Wrong'
+        print(syllables_of_words)
         new_word = self.change_word[:1]
         self.set_change_word(self.__change_word[1:])
         for ch in self.change_word:
@@ -320,7 +321,7 @@ class Word:
                     priority = check_priority_of_endings.check_tag_for_verb(symbol, priority, self.__symbols_list)
 
                     print('priority:{}'.format(priority))
-
+                    print(symbol)
                     is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority,
                                                                                                     priority)
 
@@ -389,6 +390,7 @@ class Word:
                                 print(new_list)
                                 continue
                         elif symbol in sourceModule.possessiveness:
+                            print('poss block')
                             self.__is_like_a_noun = True
                             new_list, new_word, self.__symbols_list, self.__symbols = \
                                 block_of_verb.possessiveness_for_verb(self, index, new_list, symbol, convertTuple(str_ending),
@@ -446,6 +448,19 @@ class Word:
                             continue
 
 
+                    elif symbol in sourceModule.possessiveness and check_priority_of_endings.check_pl(self.__symbols_list):
+                        print('poss block with pl')
+                        self.__is_like_a_noun = True
+                        new_list, new_word, self.__symbols_list, self.__symbols = \
+                            block_of_verb.possessiveness_for_verb(self, index, new_list, symbol,
+                                                                  convertTuple(str_ending),
+                                                                  self.__symbols_list,
+                                                                  self.__symbols, new_word)
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
                     elif symbol in sourceModule.case and block_of_verb.is_hor_sg(self.__symbols_list):
                         new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
                             self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
@@ -589,9 +604,55 @@ class Word:
                         else:
                             new_list.reverse()
                             continue
-                    elif convertTuple(str_ending)[1:] in sourceModule.fut_def_1_sg:
-                        print('fut_def with 1sg')
-                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_1sg(
+                    elif convertTuple(str_ending) in sourceModule.cond_2sg\
+                            or convertTuple(str_ending) in sourceModule.cond_1pl:
+                        print('cond with faces')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.cond_faces(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_1_sg:
+                        print('fut_def with 1sg and cond with 1sg')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.shortcut_ending_with_1_sg(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+
+                    elif convertTuple(str_ending) in sourceModule.fut_def_special_negative:
+                        print('fut_def with faces and neg')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_special_negative(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif len(convertTuple(str_ending)) == 4 and convertTuple(str_ending)[1:] in sourceModule.inf_1_inf_2_with_shortcut_faces:
+                        print('inf_1_inf_2_with_shortcut_faces')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_1_inf_2_with_shortcut_faces(
+                            self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                            self.__symbols_list)
+
+                        if self.find_root_from_the_end(new_word):
+                            break
+                        else:
+                            new_list.reverse()
+                            continue
+                    elif len(convertTuple(str_ending)) == 4 and convertTuple(str_ending)[2:] in sourceModule.fut_def_special:
+                        print('fut_def_1sg and with neg')
+                        new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_special(
                             self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
                             self.__symbols_list)
 
@@ -642,10 +703,14 @@ class Word:
                                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_faces(
                                     self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
                                     self.__symbols_list)
-
+                            elif symbol in sourceModule.poss_1sg_2sg:
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_3_poss(
+                                    self, convertTuple(str_ending), new_list, index, new_word, self.__symbols,
+                                    self.__symbols_list, symbol)
                             else:
                                 print('yp, ysh, uu')
-                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.special_gerund(self, convertTuple(str_ending), symbol, index, new_list, self.__symbols, self.__symbols_list)
+                                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.special_gerund(self,
+                                    convertTuple(str_ending), symbol, index, new_list, self.__symbols, self.__symbols_list)
                             print(new_word)
                             if self.find_root_from_the_end(new_word):
                                 break
@@ -1458,7 +1523,7 @@ class Word:
     def set_symbols_list(self, symbol):
         self.__symbols_list.append(symbol)
     def set_all_info(self):
-        self.__wrong_priority, self.__symbols_list = check_tags.check_tags(self.__symbols_list)
+        self.__wrong_priority, self.__symbols_list = check_tags.check_tags(self.__symbols_list, self.__wrong_priority)
         self.__result_text, self.__all_info, self.__symbols_list, self.__symbols = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
                                                            self.__root,
                                                            self.__first_punctuation_mark,

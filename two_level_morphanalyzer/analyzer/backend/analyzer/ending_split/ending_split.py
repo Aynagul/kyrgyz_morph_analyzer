@@ -8,7 +8,6 @@ def ending_split(words):
     syllables_of_words_all = []
     if len(words) >= 1:
         for word in words:
-
             ls_word = list(word)
             ls_word_orig = list(word)
             syllables_of_words = []
@@ -19,9 +18,11 @@ def ending_split(words):
                             2] in analyzer.sourceModule.vowels_kg and ls_word[3] in analyzer.sourceModule.consonants_kg:
                             syllables_of_words.append(add_char(ls_word))'''
                         if ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
+                            2] in sourceModule.consonants_kg and ls_word[3] == 'м':
+                            syllables_of_words.append(add_char(ls_word))
+                        elif ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
                             2] in sourceModule.vowels_kg and ls_word[3] in sourceModule.consonants_kg:
                             syllables_of_words.append(add_char(ls_word))
-
                     elif len(ls_word) == 3:
                         if ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[2] in sourceModule.consonants_kg:
                             syllables_of_words.append(add_char(ls_word))
@@ -62,7 +63,8 @@ def ending_split(words):
                     '''elif ls_word[0] in analyzer.sourceModule.vowels_kg and ls_word[1] in analyzer.sourceModule.consonants_kg and ls_word[
                             2] in analyzer.sourceModule.consonants_kg and ls_word[3] in analyzer.sourceModule.vowels_kg:
                         first_letter = ls_word_orig[0]+ls_word_orig[1]
-                        ls_word.remove(ls_word[0])
+
+ls_word.remove(ls_word[0])
                         ls_word.remove(ls_word[0])
                         ls_word_orig.remove(ls_word_orig[0])
                         ls_word_orig.remove(ls_word_orig[0])'''
@@ -72,6 +74,9 @@ def ending_split(words):
                 while True:
                     if len(ls_word) == 4:
                         if ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
+                            2] in sourceModule.consonants_kg and ls_word[3] == 'м':
+                            syllables_of_words.append(add_char(ls_word))
+                        elif ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
                             2] in sourceModule.vowels_kg and ls_word[3] in sourceModule.consonants_kg:
                             syllables_of_words.append(add_char(ls_word))
                         '''elif ls_word[0] in analyzer.sourceModule.consonants_kg and ls_word[1] in analyzer.sourceModule.consonants_kg and ls_word[
