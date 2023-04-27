@@ -272,6 +272,7 @@ def faces_for_verb(self, index, new_list, symbol, ending, symbols_list, symbols,
             return new_list, new_word, symbols_list, symbols
         else:
             for key in list(symbols.keys()):
+
                 if ending in Faces.face_2st_sg_politely and key in Others.plural:  # сыздар
                     symbols_list.remove('pl')
                     symbols[ending + key] = '2plf'
@@ -548,6 +549,28 @@ def fut_indf_neg_with_neg(self, ending, new_list, index, new_word, symbols, tag)
 
 def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list, symbols, new_word):
     next_ending = new_list[1]
+    for key, value in symbols.items():
+        if ending in Possessiveness.posessiveness_for_poses_2st_pl_politely and key in Others.plural:  # ыңыздар итд
+
+            symbols[ending + key] = 'poss_2pl'
+            symbols_list.remove(symbols[key])
+            symbols.pop(key)
+            symbols_list.append('poss_2pl')
+            new_list.pop(index)
+            new_list.reverse()
+            new_word = listToString(new_list)
+            return new_list, new_word, symbols_list, symbols
+
+        elif ending in Possessiveness.posessiveness_for_face_p2pl and key in Possessiveness.posessiveness_2st_pl:  # сыңар
+
+            symbols[ending + key] = '2pl'
+            symbols_list.remove(symbols[key])
+            symbols.pop(key)
+            symbols_list.append('2pl')
+            new_list.pop(index)
+            new_list.reverse()
+            new_word = listToString(new_list)
+            return new_list, new_word, symbols_list, symbols
     if next_ending[-1] + ending in sourceModule.two_sgf_ending and find_root_from_the_end(self, str(new_word[:-4])):
         symbols[next_ending[-1] + ending] = 'imp_sgf'
         symbols_list.append('imp_sgf')
@@ -565,30 +588,7 @@ def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list,
         return new_list, new_word, symbols_list, symbols
     symbols[ending] = symbol
     symbols_list.append(symbol)
-    for key, value in symbols.items():
-        if ending in Possessiveness.posessiveness_for_poses_2st_pl_politely and key in Others.plural:  # ыңыздар итд
-            symbols_list.remove(value)
-            symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = 'poss_2pl'
-            symbols_list.remove(symbols[key])
-            symbols.pop(key)
-            symbols_list('poss_2pl')
-            new_list.pop(index)
-            new_list.reverse()
-            new_word = listToString(new_list)
-            return new_list, new_word, symbols_list, symbols
-        elif ending in Possessiveness.posessiveness_for_face_p2pl and key in Possessiveness.posessiveness_2st_pl:  # сыңар
 
-            symbols_list.remove(value)
-            del symbols[key]
-            del symbols[ending]
-            symbols[ending + key] = '2pl'
-            symbols_list.remove(symbol)
-            symbols_list.append('2pl')
-            new_list.pop(index)
-            new_list.reverse()
-            new_word = listToString(new_list)
-            return new_list, new_word, symbols_list, symbols
 
     new_list.pop(index)
     new_list.reverse()
@@ -828,7 +828,7 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         return new_list, new_word, symbols, symbols_list
 
 
-def fut_def_1sg(self, ending, new_list, index, new_word, symbols, symbols_list):
+def shortcut_ending_with_1_sg(self, ending, new_list, index, new_word, symbols, symbols_list):
     next_ending = new_list[1]
     if find_root_from_the_end(self, str(new_word[:-2])):
         print('fut_def 1_sg')
@@ -837,6 +837,16 @@ def fut_def_1sg(self, ending, new_list, index, new_word, symbols, symbols_list):
         symbols[ending[1]] = 'fut_def'
         symbols_list.append('fut_def')
         new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.cond_1sg and find_root_from_the_end(self, str(new_word[:-3])):
+        #print('сам')
+        symbols[ending[2]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[:-1]] = 'cond'
+        symbols_list.append('cond')
+        new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
@@ -926,3 +936,123 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
 
+
+def fut_def_special(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if find_root_from_the_end(self, str(new_word[:-2])):
+        #print('чуркайм')
+        symbols[ending[3]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[2]] = 'fut_def'
+        symbols_list.append('fut_def')
+        new_list[index] = ending[:-2]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending[:-2] in sourceModule.negative_ending_verb and find_root_from_the_end(self, str(new_word[:-4])):
+        # print('чуркабайм')
+        symbols[ending[3]] = '1sg'
+        symbols_list.append('1sg')
+        symbols[ending[2]] = 'fut_def'
+        symbols_list.append('fut_def')
+        symbols[ending[:2]] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+
+def fut_def_special_negative(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if find_root_from_the_end(self, str(new_word[:-3])):
+        #print('бай, ...')
+        symbols[ending[2]] = 'fut_def'
+        symbols_list.append('fut_def')
+        symbols[ending[:-1]] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+def cond_faces(self, ending, new_list, index, new_word, symbols, symbols_list):
+
+    if ending in sourceModule.cond_2sg and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('саң')
+        symbols[ending[2]] = '2sg'
+        symbols_list.append('2sg')
+        symbols[ending[:-1]] = 'cond'
+        symbols_list.append('cond')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending in sourceModule.cond_1pl and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('сак')
+        symbols[ending[2]] = '1pl'
+        symbols_list.append('1pl')
+        symbols[ending[:-1]] = 'cond'
+        symbols_list.append('cond')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+def inf_1_inf_2_with_shortcut_faces(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if ending[1:] in sourceModule.inf_1_with_shortcut_1sg and find_root_from_the_end(self, str(new_word[:-3])):
+        #print('оом')
+        symbols[ending[3]] = 'poss_1sg'
+        symbols_list.append('poss_1sg')
+        symbols[ending[1:-1]] = 'inf_1'
+        symbols_list.append('inf_1')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending[1:] in sourceModule.inf_2_with_shortcut_1sg and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('уум')
+        symbols[ending[3]] = 'poss_1sg'
+        symbols_list.append('poss_1sg')
+        symbols[ending[1:-1]] = 'inf_2'
+        symbols_list.append('inf_2')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending[1:] in sourceModule.inf_1_with_shortcut_2sg and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('ооң')
+        symbols[ending[3]] = 'poss_2sg'
+        symbols_list.append('poss_2sg')
+        symbols[ending[1:-1]] = 'inf_1'
+        symbols_list.append('inf_1')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending[1:] in sourceModule.inf_2_with_shortcut_2sg and find_root_from_the_end(self, str(new_word[:-3])):
+        # print('ууң')
+        symbols[ending[3]] = 'poss_2sg'
+        symbols_list.append('poss_2sg')
+        symbols[ending[1:-1]] = 'inf_2'
+        symbols_list.append('inf_2')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+
+def inf_3_poss(self, ending, new_list, index, new_word, symbols, symbols_list, tag):
+    next_ending = new_list[1]
+    symbols[ending[1:]] = tag
+    symbols_list.append(tag)
+    if next_ending[-1] + ending[0] in sourceModule.inf_3 and find_root_from_the_end(self, str(new_word[:-4])):
+        #print('inf_3 with poss')
+        symbols[next_ending[-1] + ending[0]] = 'inf_3'
+        symbols_list.append('inf_3')
+        new_list.pop(index)
+        new_list[index] = next_ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list

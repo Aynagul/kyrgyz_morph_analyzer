@@ -114,11 +114,39 @@ pst_def_1_pl = ['тык','тик','тук','түк','дык','дик','дук','
 shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
-fut_def_1_sg = ['ам','ем','ом','өм']
+shortcut_ending_with_1_sg = ['ам','ем','ом','өм']
 fut_def_faces = ['та','те','то','тө','да','де','до','дө']
 dat = 'dat'
 pst_iter_1sg = ['чум','чүм']
 pst_iter_2sg = ['чуң','чүң']
 pst_iter_1pl = ['чук','чүк']
 imp_together_tags = ['v','ques','neg']
+gerunds_together_tags = ['v','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+                  'ques','neg','xp','imp','act']
+pcp_together_tags = ['v','pl','imp','act']
+advv_together_tags = ['v','imp','act']
+mood_together_tags = ['v','act','imp','neg','ques','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl']
+opt_together_tags = ['v','act','imp','neg','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf', '3sg','3pl']
+advv_tags = ['advv_acc', 'advv_cont','advv_int', 'advv_neg','advv_suc']
+gerunds_tags = ['inf_1','inf_2','inf_3','inf_4','inf_5']
+pcp_tags = ['pcp_pr','pcp_ps','pcp_fut_def','pcp_fut_neg','gpr_pres']
+verb_mood = ['pres','pst_def','pst_indf','pst_evid','pst_iter','fut_def', 'fut_indf','fut_indf_neg','cond','deside']
 imp_tags = ['imp_sg', 'imp_sgf', 'imp_pl', 'imp_plf', 'jus_sg', 'jus_pl']
+tags_with_noun = ['n','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+                  'ques','agnt','neg','xp']
+fut_def_special = ['йм']
+fut_def_special_negative = ['бай', 'бей', 'бөй', 'бой', 'пай', 'пей', 'пөй', 'пой']
+cond_1sg = ['сам','сем','сом','сөм']
+cond_2sg = ['саң','сең','соң','сөң']
+cond_1pl = ['сак','сек','сок','сөк']
+optative_mood_1sg_1pl = ['hor_sg','hor_pl']
+hor_together_tags = ['v','ques','neg']
+inf_1_inf_2_with_shortcut_faces = ['оом','уум','өөм','үүм', 'ооң','ууң','өөң','үүң']
+inf_1_with_shortcut_1sg = ['оом', 'өөм']
+inf_2_with_shortcut_1sg = ['уум', 'үүм']
+inf_1_with_shortcut_2sg = ['ооң', 'өөң']
+inf_2_with_shortcut_2sg = ['ууң', 'үүң']
+poss_1sg_2sg = ['poss_1sg', 'poss_2sg']

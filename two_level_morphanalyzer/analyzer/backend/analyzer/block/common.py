@@ -89,6 +89,7 @@ def common_exception_1(new_list, ending):
 
 
 def common_exception_2(index, new_list, ending, ending_list, str):
+    print(12)
     new_list[index - 1] = new_list[index - 1] + str
     index2 = ending_list.index(ending)
     ending_list[index2 + 1] = new_list[index - 1]
