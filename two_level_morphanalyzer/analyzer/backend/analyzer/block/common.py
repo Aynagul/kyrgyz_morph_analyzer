@@ -165,6 +165,7 @@ def common_exception_10(self, new_list, symbol, str):
     return new_list, new_word
 
 def common_exception_11(index, new_list, symbol, ending, symbols_list, symbols, priority):
+
     symbols[ending] = symbol
     symbols_list.append(symbol)
     priority = priority

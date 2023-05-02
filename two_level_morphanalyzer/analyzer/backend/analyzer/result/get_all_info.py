@@ -12,6 +12,8 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
 
     if wrong_priority:
         print('wrong')
+        symbols = {}
+        symbols_list = []
         result_text = '[' + str(word_without_punctuation) + ']' + last_punctuation_mark
         return result_text, 'Something goes wrong', symbols_list, symbols
     if 'sg' in symbols_list and 'pl' in symbols_list:
