@@ -5,7 +5,10 @@ def replace_letter(word):
     for letter in word:
         if letter in different_letter:
             word = word.replace(letter, str(different_letter.get(letter)))
-    return word
+    return
+
+str_continue = 'continue'
+str_break = 'break'
 
 posessiveness_general = {
     'ны', 'ни', 'ну', 'нү',
@@ -120,14 +123,18 @@ dat = 'dat'
 pst_iter_1sg = ['чум','чүм']
 pst_iter_2sg = ['чуң','чүң']
 pst_iter_1pl = ['чук','чүк']
-imp_together_tags = ['v','ques','neg']
+imp_together_tags = ['v','ques','neg','act','imp']
 gerunds_together_tags = ['v','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
                   '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
                   'ques','neg','xp','imp','act']
-pcp_together_tags = ['v','pl','imp','act']
+pcp_together_tags = ['v','pl','imp','act', 'nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+                  'ques','neg','xp']
 advv_together_tags = ['v','imp','act']
 mood_together_tags = ['v','act','imp','neg','ques','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
                   '3sg','3pl']
+prec_1_together_tags = ['v','act','imp','neg']
+
 opt_together_tags = ['v','act','imp','neg','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf', '3sg','3pl']
 advv_tags = ['advv_acc', 'advv_cont','advv_int', 'advv_neg','advv_suc']
 gerunds_tags = ['inf_1','inf_2','inf_3','inf_4','inf_5']
@@ -150,3 +157,4 @@ inf_2_with_shortcut_1sg = ['уум', 'үүм']
 inf_1_with_shortcut_2sg = ['ооң', 'өөң']
 inf_2_with_shortcut_2sg = ['ууң', 'үүң']
 poss_1sg_2sg = ['poss_1sg', 'poss_2sg']
+advv_acc_latest_letter = 'п'

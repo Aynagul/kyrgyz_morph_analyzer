@@ -559,7 +559,7 @@ def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list,
             new_list.pop(index)
             new_list.reverse()
             new_word = listToString(new_list)
-            return new_list, new_word, symbols_list, symbols
+            return new_list, new_word, symbols_list, symbols, 4
 
         elif ending in Possessiveness.posessiveness_for_face_p2pl and key in Possessiveness.posessiveness_2st_pl:  # сыңар
 
@@ -570,7 +570,7 @@ def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list,
             new_list.pop(index)
             new_list.reverse()
             new_word = listToString(new_list)
-            return new_list, new_word, symbols_list, symbols
+            return new_list, new_word, symbols_list, symbols, 4
     if next_ending[-1] + ending in sourceModule.two_sgf_ending and find_root_from_the_end(self, str(new_word[:-4])):
         symbols[next_ending[-1] + ending] = 'imp_sgf'
         symbols_list.append('imp_sgf')
@@ -578,14 +578,14 @@ def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list,
         new_list[index] = next_ending[:-1]
         new_list.reverse()
         new_word = listToString(new_list)
-        return new_list, new_word, symbols_list, symbols
+        return new_list, new_word, symbols_list, symbols, 2
     elif symbol == 'poss_2sgf':
         symbols[ending] = 'imp_sgf'
         symbols_list.append('imp_sgf')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
-        return new_list, new_word, symbols_list, symbols
+        return new_list, new_word, symbols_list, symbols, 2
     symbols[ending] = symbol
     symbols_list.append(symbol)
 
@@ -593,7 +593,7 @@ def possessiveness_for_verb(self, index, new_list, symbol, ending, symbols_list,
     new_list.pop(index)
     new_list.reverse()
     new_word = listToString(new_list)
-    return new_list, new_word, symbols_list, symbols
+    return new_list, new_word, symbols_list, symbols, 4
 
 
 def advv_int(self, ending, new_list, index, new_word, symbols, symbols_list):
@@ -1053,6 +1053,18 @@ def inf_3_poss(self, ending, new_list, index, new_word, symbols, symbols_list, t
         symbols_list.append('inf_3')
         new_list.pop(index)
         new_list[index] = next_ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+
+def advv_acc_latest_letter(self, ending, new_list, index, new_word, symbols, symbols_list):
+
+    if find_root_from_the_end(self, str(new_word[:-1])):
+        print('чуркап')
+        symbols[ending[2]] = 'advv_acc'
+        symbols_list.append('advv_acc')
+        new_list[index] = ending[:-1]
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
