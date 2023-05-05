@@ -10,8 +10,10 @@ def delete_symbols(sym_list, symbol):
         sym_list.remove('imp')
     elif symbol == 'p3sg' in sym_list and [sym for sym in sourceModule.face if (sym in sym_list)]:
         sym_list.remove('p3sg')
-    elif symbol == 'card' in sym_list and [sym for sym in sourceModule.num_symbols if (sym in sym_list)]:
-        sym_list.remove('card')
+    elif symbol == 'num_card' in sym_list and [sym for sym in sourceModule.num_symbols if (sym in sym_list)]:
+        sym_list.remove('num_card')
+    elif symbol == 'num' in sym_list and [sym for sym in sourceModule.part_of_speech_tags if (sym in sym_list)]:
+        sym_list.remove('post')
     elif symbol == 'imp' in sym_list and [sym for sym in sourceModule.non_finite_verb_forms if (sym in sym_list)]:
 
         sym_list.remove('imp')

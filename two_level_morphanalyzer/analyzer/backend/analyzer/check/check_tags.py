@@ -40,7 +40,11 @@ def check_tags(tag_list, wrong_word):
                 continue
             elif tag == 'neg':
                 continue
+
             elif tag == 'n':
+                wrong_word = False
+                break
+            elif tag == 'num':
                 wrong_word = False
                 break
             else:

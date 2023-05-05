@@ -33,7 +33,7 @@ mood = ['ind_pres','ind_past','ind_fut','cnd','niet','tilek']
 non_finite_verb_forms = ['ger','gna_perf','ger_impf','gpr_perf','gpr_fut_neg','gpr_impf', 'gpr_pres', 'gpr_past', 'ger_pres',
                          'ger_pres']
 face = ['1sg','1pl','2sg','2pl']
-num_symbols = ['ord', 'top','coll','chamalama']
+num_symbols = ['num_ord', 'num_top','num_appr1','num_appr2', 'num_appr3']
 consonants_kg = {
     'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'ң', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ'
 }
@@ -135,7 +135,7 @@ mood_together_tags = ['v','act','imp','neg','ques','1sg', '2sg', '2sgf', '1pl', 
                   '3sg','3pl']
 prec_1_together_tags = ['v','act','imp','neg']
 
-opt_together_tags = ['v','act','imp','neg','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf', '3sg','3pl']
+opt_together_tags = ['v','act','imp','neg','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf', '3sg','3pl','poss_3sg']
 advv_tags = ['advv_acc', 'advv_cont','advv_int', 'advv_neg','advv_suc']
 gerunds_tags = ['inf_1','inf_2','inf_3','inf_4','inf_5']
 pcp_tags = ['pcp_pr','pcp_ps','pcp_fut_def','pcp_fut_neg','gpr_pres']
@@ -158,3 +158,20 @@ inf_1_with_shortcut_2sg = ['ооң', 'өөң']
 inf_2_with_shortcut_2sg = ['ууң', 'үүң']
 poss_1sg_2sg = ['poss_1sg', 'poss_2sg']
 advv_acc_latest_letter = 'п'
+plural_ending = ['дар', 'дер', 'дор', 'дөр', 'тар', 'тер', 'тор', 'төр', 'лар', 'лер', 'лор', 'лөр']
+pcp_pr_1 = ['уучу','оочу','үүчү','өөчү']
+pst_indf = 'pst_indf'
+change_tags_without_faces = ['pl', 'poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+               'gen','dat','acc','loc','abl', 'xp']
+pcp_ps = ['гон', 'гөн', 'ген', 'ган','кон', 'көн', 'кен', 'кан']
+fut_indf_neg_str = 'fut_indf_neg'
+inf_1_ending = ['оо','өө']
+inf_2_ending = ['уу','үү']
+opt = 'opt'
+inf_5 = ['кы','ки','ку','кү','гы','ги','гу','гү']
+pst_iter_str = 'pst_iter'
+prec_1_str = 'prec_1'
+num_ord = ['ынчы', 'инчи', 'үнчү', 'унчу']
+num_ord_short = ['нчы', 'нчи', 'нчү', 'нчу']
+num_word_special = ['үчүнчү', 'алтынчы']
+part_of_speech_tags = ['post']

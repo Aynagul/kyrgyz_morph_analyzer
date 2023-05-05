@@ -10,7 +10,17 @@ def get_info_numeral_ending(ending):
     else:
         return 'none'
 
-
+def check_pronouns(self, word, list):
+    root = ''
+    if word == 'үчүнчү':
+        self.set_symbol('num_ord', 'үнчү')
+        list.append('num_ord')
+        root = 'үч'
+    elif word == 'алтынчы':
+        self.set_symbol('num_ord', 'ынчы')
+        list.append('num_ord')
+        root = 'алты'
+    return root, list
 num_ending_ordinal = {  # иреттик сан атооч
     'ынчы', 'инчи', 'үнчү', 'унчу', 'нчы', 'нчи'
 }

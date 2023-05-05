@@ -8,6 +8,24 @@ def check_priority(ending_priority, priority):
     else:
         return False, ending_priority
 
+def check_prec_1(list):
+    for i in list:
+        if i == 'prec_1':
+            return True
+        else:
+            continue
+
+    return False
+def check_change_ending(tags_list):
+    tags_list = list(dict.fromkeys(tags_list))  # delete duplicates symbols
+    tags_list = [i for i in tags_list if i is not None]
+    for j in tags_list:
+        if j in sourceModule.change_tags_without_faces:
+            return True
+        else:
+            continue
+
+    return False
 
 def check_pl(list):
     for i in list:
@@ -67,6 +85,27 @@ def check_tag_for_verb(tag, priority, list):
         priority = 7
     elif tag == sourceModule.ques:
         priority = 8
+    elif tag == sourceModule.num_appr1:
+        priority = 2
+    else:
+        return priority
+    return priority
+
+def check_tag_for_numeral(tag, priority, list):
+    if tag == sourceModule.negative:
+        priority = 5
+    elif tag == sourceModule.plural:
+        priority = 2
+    elif tag in sourceModule.possessiveness:
+        priority = 3
+    elif tag in sourceModule.poss_general:
+        priority = 4
+    elif tag in sourceModule.case:
+        priority = 5
+    elif tag in sourceModule.faces:
+        priority = 6
+    elif tag == sourceModule.ques:
+        priority = 7
     elif tag == sourceModule.num_appr1:
         priority = 2
     else:
