@@ -52,6 +52,18 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_fut_def(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
+            elif symbol == sourceModule.pst_indf:
+                print('block ган')
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_indf(
+                    self, convertTuple(str_ending), new_list, index, new_word, symbols,
+                    symbols_list)
+                return '', new_list, new_word, ending_priority
+            elif symbol == sourceModule.fut_indf_neg_str:
+                print('block бас')
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_fut_neg(
+                    self, convertTuple(str_ending), new_list, index, new_word, symbols,
+                    symbols_list)
+                return '', new_list, new_word, ending_priority
             elif symbol in sourceModule.gerunds:
                 new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
             elif symbol in sourceModule.chakchyl:
@@ -132,6 +144,12 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                                                                                          str_ending),
                                                                                      ending_list, str)
                     return sourceModule.str_continue, new_list, new_word, ending_priority
+            elif symbol == sourceModule.opt and ending in sourceModule.inf_5:
+                print('block opt')
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_5_with_other_tags(
+                    self, convertTuple(str_ending), new_list, index, new_word, symbols,
+                    symbols_list)
+                return '', new_list, new_word, ending_priority
             elif symbol == 'xp':
                 self.__is_like_a_noun = True
                 new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
@@ -142,15 +160,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             return '', new_list, new_word, ending_priority
 
 
-        elif symbol in sourceModule.possessiveness and check_priority_of_endings.check_pl(symbols_list):
-            print('poss block with pl')
-            self.__is_like_a_noun = True
-            new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
-                block_of_verb.possessiveness_for_verb(self, index, new_list, symbol,
-                                                      convertTuple(str_ending),
-                                                      symbols_list,
-                                                      symbols, new_word)
-            return '', new_list, new_word, ending_priority
+
         elif symbol in sourceModule.case and block_of_verb.is_hor_sg(symbols_list):
             new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
@@ -284,7 +294,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
         strip_ending = convertTuple(str_ending)[1:]
         strip_ending = (strip_ending,)
         symbol, priority = find_endings(strip_ending)
-        print(12)
+        print('striped')
         if symbol:
             # if strip_ending in sourceModule.ending_of_gerund or strip_ending in sourceModule.ending_of_gerund_pres:
 
@@ -323,9 +333,10 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                         self, convertTuple(str_ending), new_list, index, new_word, symbols,
                         symbols_list)
                 elif symbol in sourceModule.poss_1sg_2sg:
-                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_3_poss(
+                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.different_tags_with_poss_1_2(
                         self, convertTuple(str_ending), new_list, index, new_word, symbols,
-                        symbols_list, symbol)
+                        symbols_list, symbol, convertTuple(strip_ending))
+                    return '', new_list, new_word, ending_priority
                 else:
                     print('yp, ysh, uu')
                     new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.special_gerund(self,
