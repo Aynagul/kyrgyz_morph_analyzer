@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'analyzer.apps.AnalyzerConfig',
     'ckeditor',
     'rest_framework',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

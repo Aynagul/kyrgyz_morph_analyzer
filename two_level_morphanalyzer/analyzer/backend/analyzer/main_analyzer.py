@@ -91,9 +91,11 @@ class Word:
             return False'''
     def word_analyze(self, word):
         #word = analyzer.sourceModule.replace_letter(word)
-        words = nltk.word_tokenize(word)
+        # words = nltk.word_tokenize(word)
+        qw = []
+        qw.append(word)
         try:
-            syllables_of_words = ending_split(words)
+            syllables_of_words = ending_split(qw)
         except:
             return 'Wrong'
         new_word = self.change_word[:1]
