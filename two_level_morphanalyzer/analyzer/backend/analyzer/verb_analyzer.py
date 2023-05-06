@@ -259,9 +259,10 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_1_sg:
-            print('fut_def with 1sg and cond with 1sg')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.shortcut_ending_with_1_sg(
+        elif convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_1_sg or \
+                convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_3_sg:
+            print('fut_def with 1sg, 3sg and cond with 1sg')
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.shortcut_ending_with_1_sg_3sg(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority

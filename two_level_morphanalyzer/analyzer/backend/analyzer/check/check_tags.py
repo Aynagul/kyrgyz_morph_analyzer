@@ -1,15 +1,13 @@
 from analyzer.backend.analyzer.exceptions import sourceModule
 
 def check_tags2(list, list2, sym):
-    print(list)
     list.remove(sym)
     for tag in list:
-        print(tag)
         if tag not in list2:
-            print(tag)
             return False
         else:
             continue
+    list.append(sym)
     return True
 
 def check_tags(tag_list, wrong_word):
@@ -38,15 +36,20 @@ def check_tags(tag_list, wrong_word):
                 return False, tag_list
             elif tag == 'v' or tag == 'act' or tag == 'imp':
                 continue
+
             elif tag == 'neg':
                 continue
-
+            elif tag in sourceModule.numeral_tags and check_tags2(tag_list, sourceModule.tags_with_numeral, tag):
+                return False, tag_list
+            elif tag in sourceModule.adj_tags and check_tags2(tag_list, sourceModule.tags_with_adj, tag):
+                return False, tag_list
             elif tag == 'n':
                 wrong_word = False
                 break
-            elif tag == 'num':
-                wrong_word = False
-                break
+            elif tag == 'num' or tag == 'num_card':
+                continue
+            elif tag == 'adj' or tag == 'pst':
+                continue
             else:
                 wrong_word = True
                 break

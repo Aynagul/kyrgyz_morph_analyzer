@@ -111,3 +111,23 @@ def num_ord(self, ending, new_list, index, new_word, symbols, symbols_list):
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list
+
+def num_top(self, ending, new_list, index, new_word, symbols, symbols_list):
+    if find_root_from_the_end(self, str(new_word[:-3])):
+        symbols[ending] = 'num_top'
+        symbols_list.append('num_top')
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+def num_appr3(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if next_ending + ending in sourceModule.num_appr3 and find_root_from_the_end(self, str(new_word[:-5])):
+        symbols[next_ending + ending] = 'num_appr3'
+        symbols_list.append('num_appr3')
+        new_list.pop(index)
+        new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list

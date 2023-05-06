@@ -860,12 +860,22 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         return new_list, new_word, symbols, symbols_list
 
 
-def shortcut_ending_with_1_sg(self, ending, new_list, index, new_word, symbols, symbols_list):
+def shortcut_ending_with_1_sg_3sg(self, ending, new_list, index, new_word, symbols, symbols_list):
     next_ending = new_list[1]
-    if find_root_from_the_end(self, str(new_word[:-2])):
+    if ending[1:] in sourceModule.shortcut_ending_with_1_sg and find_root_from_the_end(self, str(new_word[:-2])):
         print('fut_def 1_sg')
         symbols[ending[-1]] = '1sg'
         symbols_list.append('1sg')
+        symbols[ending[1]] = 'fut_def'
+        symbols_list.append('fut_def')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif ending[1:] in sourceModule.shortcut_ending_with_3_sg and find_root_from_the_end(self, str(new_word[:-2])):
+        print('fut_def 3_sg')
+        symbols[ending[-1]] = '3sg'
+        symbols_list.append('3sg')
         symbols[ending[1]] = 'fut_def'
         symbols_list.append('fut_def')
         new_list[index] = ending[0]
