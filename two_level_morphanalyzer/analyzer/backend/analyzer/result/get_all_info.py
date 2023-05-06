@@ -9,17 +9,14 @@ def get_key_from_value(d, val):
 
 def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
              word_without_punctuation, last_punctuation_mark, wrong_priority):
-
     if wrong_priority:
-        print('wrong')
+        print('wrong word')
         symbols = {}
         symbols_list = []
         result_text = '[' + str(word_without_punctuation) + ']' + last_punctuation_mark
         return result_text, 'Something goes wrong', symbols_list, symbols
     if 'sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('sg')
-    if '3sg' in symbols_list and 'pl' in symbols_list:
-        symbols_list.remove('3sg')
     if '3sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('3sg')
     if 'pres' in symbols_list and 'imp_sgf' in symbols_list:

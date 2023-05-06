@@ -118,6 +118,7 @@ shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
 shortcut_ending_with_1_sg = ['ам','ем','ом','өм']
+shortcut_ending_with_3_sg = ['ат','ет','от','өт']
 fut_def_faces = ['та','те','то','тө','да','де','до','дө']
 dat = 'dat'
 pst_iter_1sg = ['чум','чүм']
@@ -144,6 +145,14 @@ imp_tags = ['imp_sg', 'imp_sgf', 'imp_pl', 'imp_plf', 'jus_sg', 'jus_pl']
 tags_with_noun = ['n','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
                   '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
                   'ques','agnt','neg','xp']
+tags_with_numeral = ['num','num_card','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+                  'ques','neg','xp']
+numeral_tags = ['num_card','num_ord','num_coll','num_top','num_appr1','num_appr2','num_appr3']
+adj_tags = ['pst','comp','sup']
+tags_with_adj = ['adj','pst','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
+                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
+                  'ques','neg','xp']
 fut_def_special = ['йм']
 fut_def_special_negative = ['бай', 'бей', 'бөй', 'бой', 'пай', 'пей', 'пөй', 'пой']
 cond_1sg = ['сам','сем','сом','сөм']
@@ -173,5 +182,10 @@ pst_iter_str = 'pst_iter'
 prec_1_str = 'prec_1'
 num_ord = ['ынчы', 'инчи', 'үнчү', 'унчу']
 num_ord_short = ['нчы', 'нчи', 'нчү', 'нчу']
-num_word_special = ['үчүнчү', 'алтынчы']
+num_word_special = ['үчүнчү', 'алтынчы','кыркча','кырктай','кырктан','кырктаган','бирөө','экөө','үчөө','төртөө',
+                    'бешөө','алтоо','жетөө','сегизөө']
 part_of_speech_tags = ['post']
+abl_str = 'abl'
+num_appr3 = ['догон', 'дөгөн', 'деген', 'даган',
+    'тогон', 'төгөн', 'теген', 'таган']
+comp_str = 'comp'

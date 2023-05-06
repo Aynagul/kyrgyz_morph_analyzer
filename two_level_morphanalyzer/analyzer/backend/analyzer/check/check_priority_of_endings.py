@@ -100,6 +100,10 @@ def check_tag_for_numeral(tag, priority, list):
         priority = 3
     elif tag in sourceModule.poss_general:
         priority = 4
+    elif tag == 'abl':
+        priority = 1
+    elif tag == 'pst_indf':
+        priority = 1
     elif tag in sourceModule.case:
         priority = 5
     elif tag in sourceModule.faces:
@@ -108,6 +112,26 @@ def check_tag_for_numeral(tag, priority, list):
         priority = 7
     elif tag == sourceModule.num_appr1:
         priority = 2
+    else:
+        return priority
+    return priority
+
+
+def check_tag_for_adj(tag, priority, list):
+    if tag == sourceModule.negative:
+        priority = 5
+    elif tag == sourceModule.plural:
+        priority = 2
+    elif tag in sourceModule.possessiveness:
+        priority = 3
+    elif tag in sourceModule.poss_general:
+        priority = 4
+    elif tag in sourceModule.case:
+        priority = 5
+    elif tag in sourceModule.faces:
+        priority = 6
+    elif tag == sourceModule.ques:
+        priority = 7
     else:
         return priority
     return priority

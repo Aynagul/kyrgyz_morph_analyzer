@@ -7,12 +7,12 @@ from analyzer.backend.analyzer.block.common import convertTuple
 from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb, Possessiveness, Adjectives_2, Numeral, \
     Pronoun, Verb
 
-def numeral_analyzer(self, str_ending, index, new_list, ending, ending_list, new_word, ending_priority, symbols_list, symbols):
+def adjective_analyzer(self, str_ending, index, new_list, ending, ending_list, new_word, ending_priority, symbols_list, symbols):
     print('numeral block')
     str_ending = (str_ending,)
     symbol, priority = find_endings(str_ending)
     if symbol:
-        priority = check_priority_of_endings.check_tag_for_numeral(symbol, priority, symbols_list)
+        priority = check_priority_of_endings.check_tag_for_adj(symbol, priority, symbols_list)
         is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
         if is_correct_priority:
             print('correct prio')
@@ -20,30 +20,12 @@ def numeral_analyzer(self, str_ending, index, new_list, ending, ending_list, new
                 new_list, new_word, self.__symbols_list, self.__symbols = \
                     common.faces(index, new_list, symbol, convertTuple(str_ending), symbols_list, symbols)
 
-            elif symbol == sourceModule.pst_iter_str or symbol == sourceModule.prec_1_str:
-                print('block ынчы')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_numeral.num_ord(
+            elif symbol == sourceModule.comp_str:
+                print('block comp')
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_adjective.comp(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
                 return '', new_list, new_word, ending_priority
-            elif symbol == sourceModule.abl_str:
-                print('block тан')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_numeral.num_top(
-                    self, convertTuple(str_ending), new_list, index, new_word, symbols,
-                    symbols_list)
-                return '', new_list, new_word, ending_priority
-            elif symbol == sourceModule.pst_indf:
-                print('block num_appr3')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_numeral.num_appr3(
-                    self, convertTuple(str_ending), new_list, index, new_word, symbols,
-                    symbols_list)
-                return '', new_list, new_word, ending_priority
-            elif symbol == sourceModule.num_appr1:
-                print('cha')
-                new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
-            elif symbol == sourceModule.num_appr2:
-                print('дай')
-                new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
             elif symbol in sourceModule.case:
                 new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
             elif symbol in sourceModule.possessiveness:

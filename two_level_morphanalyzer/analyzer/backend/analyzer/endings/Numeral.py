@@ -10,16 +10,64 @@ def get_info_numeral_ending(ending):
     else:
         return 'none'
 
-def check_pronouns(self, word, list):
+def check_numerals(self, word, list):
     root = ''
     if word == 'үчүнчү':
         self.set_symbol('num_ord', 'үнчү')
         list.append('num_ord')
         root = 'үч'
     elif word == 'алтынчы':
-        self.set_symbol('num_ord', 'ынчы')
+        self.set_symbol('num_ord', 'нчы')
         list.append('num_ord')
         root = 'алты'
+    elif word == 'кыркча':
+        self.set_symbol('num_appr1', 'ча')
+        list.append('num_appr1')
+        root = 'кырк'
+    elif word == 'кырктай':
+        self.set_symbol('num_appr2', 'тай')
+        list.append('num_appr2')
+        root = 'кырк'
+    elif word == 'кырктаган':
+        self.set_symbol('num_appr3', 'таган')
+        list.append('num_appr3')
+        root = 'кырк'
+    elif word == 'кырктан':
+        self.set_symbol('num_top', 'тан')
+        list.append('num_top')
+        root = 'кырк'
+    elif word == 'бирөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'бир'
+    elif word == 'экөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'эки'
+    elif word == 'үчөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'үч'
+    elif word == 'төртөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'төрт'
+    elif word == 'бешөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'беш'
+    elif word == 'алтоо':
+        self.set_symbol('num_coll', 'оо')
+        list.append('num_coll')
+        root = 'алты'
+    elif word == 'жетөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'жети'
+    elif word == 'сезизөө':
+        self.set_symbol('num_coll', 'өө')
+        list.append('num_coll')
+        root = 'сегиз'
     return root, list
 num_ending_ordinal = {  # иреттик сан атооч
     'ынчы', 'инчи', 'үнчү', 'унчу', 'нчы', 'нчи'
