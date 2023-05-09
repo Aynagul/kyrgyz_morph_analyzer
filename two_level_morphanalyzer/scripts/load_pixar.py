@@ -2,7 +2,7 @@ from analyzer.models import AllRoot,Tags,PartOfSpeech
 import csv
 
 def run():
-    with open('All_noun.csv', encoding='utf-8') as file:
+    with open('All_adj.csv', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter=',')
         # AllRoot.objects.all().delete()
         # Tags.objects.all().delete()

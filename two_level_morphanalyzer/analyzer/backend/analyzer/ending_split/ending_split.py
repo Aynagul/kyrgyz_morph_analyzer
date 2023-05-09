@@ -18,7 +18,7 @@ def ending_split(words):
                             2] in analyzer.sourceModule.vowels_kg and ls_word[3] in analyzer.sourceModule.consonants_kg:
                             syllables_of_words.append(add_char(ls_word))'''
                         if ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
-                            2] in sourceModule.consonants_kg and ls_word[3] == 'м':
+                            2] in sourceModule.consonants_kg and (ls_word[3] == 'м' or ls_word[3]=='т'):
                             syllables_of_words.append(add_char(ls_word))
                         elif ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
                             2] in sourceModule.vowels_kg and ls_word[3] in sourceModule.consonants_kg:
@@ -74,7 +74,7 @@ ls_word.remove(ls_word[0])
                 while True:
                     if len(ls_word) == 4:
                         if ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
-                            2] in sourceModule.consonants_kg and ls_word[3] == 'м':
+                            2] in sourceModule.consonants_kg and (ls_word[3] == 'м' or ls_word[3]=='т'):
                             syllables_of_words.append(add_char(ls_word))
                         elif ls_word[0] in sourceModule.consonants_kg and ls_word[1] in sourceModule.vowels_kg and ls_word[
                             2] in sourceModule.vowels_kg and ls_word[3] in sourceModule.consonants_kg:
