@@ -32,7 +32,7 @@ def numeral_analyzer(self, str_ending, index, new_list, ending, ending_list, new
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
                 return '', new_list, new_word, ending_priority
-            elif symbol == sourceModule.pst_indf:
+            elif symbol == sourceModule.past_indf:
                 print('block num_appr3')
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_numeral.num_appr3(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
@@ -59,7 +59,7 @@ def numeral_analyzer(self, str_ending, index, new_list, ending, ending_list, new
 
                 # new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
 
-            elif symbol == 'opt':
+            elif symbol == 'fut_aor':
                 # for posessiveness_general (ныкы) итд
                 ending_priority = 3
                 new_list, index, last_letter, str = \

@@ -34,7 +34,7 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
 
                 # new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
 
-            elif symbol == 'opt':
+            elif symbol == 'fut_aor':
                 # for posessiveness_general (ныкы) итд
                 ending_priority = 3
                 new_list, index, last_letter, str = \

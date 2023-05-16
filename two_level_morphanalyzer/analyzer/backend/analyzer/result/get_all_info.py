@@ -17,13 +17,13 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
         return result_text, 'Something goes wrong', symbols_list, symbols
     if 'sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('sg')
-    if '3sg' in symbols_list and 'pl' in symbols_list:
-        symbols_list.remove('3sg')
+    if 'p3sg' in symbols_list and 'pl' in symbols_list:
+        symbols_list.remove('p3sg')
     if 'pres' in symbols_list and 'imp_sgf' in symbols_list:
         symbols_list.remove('imp_sgf')
         key = get_key_from_value(symbols, 'imp_sgf')
-        symbols[key] = '2sgf'
-        symbols_list.append('2sgf')
+        symbols[key] = 'p2sgf'
+        symbols_list.append('p2sgf')
     for symbol in symbols_list:
         if symbol == '':
             symbols_list.remove(symbol)

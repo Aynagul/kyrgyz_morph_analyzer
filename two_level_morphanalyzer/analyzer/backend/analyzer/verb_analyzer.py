@@ -28,8 +28,8 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                     block_of_verb.faces_for_verb(self, index, new_list, symbol, convertTuple(str_ending),
                                                  symbols_list,
                                                  symbols, new_word)
-            elif symbol == sourceModule.deside:
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.deside(
+            elif symbol == sourceModule.fut_indf:
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_3(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
             elif symbol == sourceModule.hor_sg_str:
@@ -37,22 +37,22 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_neg2(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list, symbol)
-            elif symbol == sourceModule.pst_iter:
+            elif symbol == sourceModule.past_iter:
                 print('chu')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_pr(
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gpr_1(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list, symbol)
             elif symbol == sourceModule.num_appr1:
                 print('cha')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_neg(
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gna_cnd(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
             elif symbol == sourceModule.num_appr2:
                 print('дай')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_fut_def(
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gpr_impf(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
-            elif symbol == sourceModule.pst_indf:
+            elif symbol == sourceModule.past_indf:
                 print('block ган')
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_indf(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
@@ -60,7 +60,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 return '', new_list, new_word, ending_priority
             elif symbol == sourceModule.fut_indf_neg_str:
                 print('block бас')
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pcp_fut_neg(
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gpr_aor_neg(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
                 return '', new_list, new_word, ending_priority
@@ -81,12 +81,12 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                         symbols_list)
 
                     print(new_word)
-                elif convertTuple(str_ending) in sourceModule.pst_def:
+                elif convertTuple(str_ending) in sourceModule.past_def:
 
-                    new_list, new_word = block_of_verb.pst_def(self, convertTuple(str_ending), new_list, index)
+                    new_list, new_word = block_of_verb.past_def(self, convertTuple(str_ending), new_list, index)
                     print(new_word)
                 elif convertTuple(str_ending) in sourceModule.advv_int1:
-                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.advv_int(
+                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.gna_purp(
                         self, convertTuple(str_ending), new_list, index, new_word, symbols,
                         symbols_list)
                 else:
@@ -132,7 +132,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                                                             symbols_list,
                                                             symbols, ending_priority)
                 print(new_word)
-            elif symbol == 'opt' and new_list[1] in sourceModule.posessiveness_general:
+            elif symbol == 'fut_aor' and new_list[1] in sourceModule.posessiveness_general:
                 # for posessiveness_general (ныкы) итд
                 ending_priority = 5
                 new_list, index, last_letter, str = \
@@ -144,8 +144,8 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                                                                                          str_ending),
                                                                                      ending_list, str)
                     return sourceModule.str_continue, new_list, new_word, ending_priority
-            elif symbol == sourceModule.opt and ending in sourceModule.inf_5:
-                print('block opt')
+            elif symbol == sourceModule.fut_aor and ending in sourceModule.fut_opt:
+                print('block fut_aor')
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_5_with_other_tags(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
@@ -162,13 +162,13 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
 
 
         elif symbol in sourceModule.case and block_of_verb.is_hor_sg(symbols_list):
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_1(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
         elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(symbols_list):
             self.__is_like_a_noun = True
-            new_word, new_list, self.__symbols, self.__symbols_list = block_of_verb.imp_plf(self, index, new_list,
+            new_word, new_list, self.__symbols, self.__symbols_list = block_of_verb.imp_p2plf(self, index, new_list,
                                                                                             convertTuple(str_ending),
                                                                                             new_word, symbols,
                                                                                             symbols_list)
@@ -199,7 +199,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
         if convertTuple(str_ending)[-1] == 'р' and self.find_root_from_the_end(
                 new_word[:-1]):
             print('ar')
-            new_list, new_word = block_of_verb.fut_indf(self, convertTuple(str_ending), new_list)
+            new_list, new_word = block_of_verb.fut_aor(self, convertTuple(str_ending), new_list)
             print(new_word)
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending)[-1] == 'р' and convertTuple(str_ending)[:-1] in sourceModule.negative_ending_verb \
@@ -215,9 +215,9 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending) in sourceModule.hor_pl or convertTuple(str_ending) in sourceModule.hor_pl2:
-            print('hor_pl')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_pl(
+        elif convertTuple(str_ending) in sourceModule.fut_indf_1pl or convertTuple(str_ending) in sourceModule.hor_pl2:
+            print('fut_indf')
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_2(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
@@ -229,20 +229,20 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending)[-1] in sourceModule.hor_sg and block_of_verb.is_hor_sg(symbols_list):
+        elif convertTuple(str_ending)[-1] in sourceModule.fut_indf and block_of_verb.is_hor_sg(symbols_list):
             print('ayin')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.hor_sg(
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending) in sourceModule.imp_pl_2:
             print('gyla')
             print(14)
-            new_list, new_word = block_of_verb.imp_pl(self, convertTuple(str_ending), new_list, index, new_word)
+            new_list, new_word = block_of_verb.imp_p2pl(self, convertTuple(str_ending), new_list, index, new_word)
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending) in sourceModule.inf_5_1sg or convertTuple(str_ending) in sourceModule.inf_5_2sg:
             print('гым, гың')
-            new_list, new_word = block_of_verb.inf_5(self, convertTuple(str_ending), new_list, index, new_word)
+            new_list, new_word = block_of_verb.fut_opt(self, convertTuple(str_ending), new_list, index, new_word)
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending) in sourceModule.pst_def_1_sg or convertTuple(
                 str_ending) in sourceModule.pst_def_2_sg \
@@ -254,14 +254,14 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending) in sourceModule.cond_2sg \
                 or convertTuple(str_ending) in sourceModule.cond_1pl:
-            print('cond with faces')
+            print('cnd with faces')
             new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.cond_faces(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
         elif convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_1_sg or \
                 convertTuple(str_ending)[1:] in sourceModule.shortcut_ending_with_3_sg:
-            print('fut_def with 1sg, 3sg and cond with 1sg')
+            print('fut_def with p1sg, p3sg and cnd with p1sg')
             new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.shortcut_ending_with_1_sg_3sg(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
@@ -359,8 +359,8 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                     self, new_list, index, convertTuple(str_ending), new_word)
                 if is_pst_evid:
                     return '', new_list, new_word, ending_priority
-            elif convertTuple(str_ending)[-1] in sourceModule.inf_3:
-                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_3(
+            elif convertTuple(str_ending)[-1] in sourceModule.ger_pres:
+                new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.ger_pres(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols, symbols_list)
                 return '', new_list, new_word, ending_priority
             else:

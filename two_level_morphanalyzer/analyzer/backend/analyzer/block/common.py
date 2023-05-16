@@ -33,10 +33,10 @@ def faces(index, new_list, symbol, ending, symbols_list, symbols):
         if ending in Faces.face_2st_sg_politely and key in Others.plural:  # сыздар
             symbols_list.remove(symbols[ending])
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = '2pl'
+            symbols[ending + key] = 'p2pl'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list.append('2pl')
+            symbols_list.append('p2pl')
         elif ending in Others.negative and key in symbols:  # сыз
             symbols[ending] = 'neg'
             symbols_list.append('neg')
@@ -54,10 +54,10 @@ def possessiveness(index, new_list, symbol, ending, symbols_list, symbols):
         if ending in Possessiveness.posessiveness_for_poses_2st_pl_politely and key in Others.plural:  # ыңыздар итд
             symbols_list.remove(value)
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = 'poss_2pl'
+            symbols[ending + key] = 'px2pl'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list('poss_2pl')
+            symbols_list('px2pl')
             new_list.pop(index)
             new_list.reverse()
             new_word = listToString(new_list)
@@ -67,9 +67,9 @@ def possessiveness(index, new_list, symbol, ending, symbols_list, symbols):
             symbols_list.remove(value)
             del symbols[key]
             del symbols[ending]
-            symbols[ending + key] = '2pl'
+            symbols[ending + key] = 'p2pl'
             symbols_list.remove(symbol)
-            symbols_list.append('2pl')
+            symbols_list.append('p2pl')
             new_list.pop(index)
             new_list.reverse()
             new_word = listToString(new_list)
@@ -173,16 +173,16 @@ def common_exception_11(index, new_list, symbol, ending, symbols_list, symbols, 
         if ending in Faces.face_2st_sg_politely and key in Others.plural:  # сыздар
             symbols_list.remove(symbols[ending])
             symbols[ending + key] = symbols.pop(ending)
-            symbols[ending + key] = '2plf'
+            symbols[ending + key] = 'p2plf'
             symbols_list.remove(symbols[key])
             symbols.pop(key)
-            symbols_list.append('2plf')
+            symbols_list.append('p2plf')
             priority = 5
         elif ending in Others.negative and key in Others.question:  #  бы
             symbols_list.remove(symbols[ending])
             symbols.pop(ending)
-            symbols[ending] = '2sgf'
-            symbols_list.append('2sgf')
+            symbols[ending] = 'p2sgf'
+            symbols_list.append('p2sgf')
             priority = 5
         '''elif ending in Others.negative:  # сыз
             symbols[ending] = 'neg'

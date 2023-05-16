@@ -1,14 +1,4 @@
-'''
-elif (symbol := Noun.get_info_noun_ending_from_verb(ending)) != 'none':
-                    new_list, new_word = block_of_verb.noun_ending_from_verb(self, index, new_list, symbol,
-                                                                                     str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
 
-'''
 def get_indo_verb_ideophone_to_verb(ending):
     if ending in verb_ideophone_to_verb:
         return 'v'
@@ -53,7 +43,7 @@ def get_mood(ending):
     elif ending in v_mood_subjunctive:
         return 'niet'
     elif ending in v_mood_imperfect:
-        return 'opt'
+        return 'fut_aor'
     else:
         return 'none'
 #этиштин мамилелери
@@ -146,7 +136,7 @@ v_tense_future = {   #келер чак
 #чакчыл
 def get_chakchyl(ending):
     if ending in v_chakchyl_advv_acc:
-        return 'advv_acc'
+        return 'gna_perf'
     else:
         return 'none'
 v_chakchyl_advv_acc = {
@@ -174,15 +164,15 @@ v_chakchyl_advv_cont = {   #чакчыл
 #атоочтук
 def get_atoochtuk(ending):
     if ending in v_atoochtuk_pcp_ps:
-        return 'pcp_ps'
+        return 'gpr'
     elif ending in v_atoochtuk_pcp_fut_neg:
-        return 'pcp_fut_neg'
+        return 'gpr_aor_neg'
     elif ending in v_atoochtuk_pcp_fut_def:
         return 'gpr_impf'
     elif ending in v_atoochtuk_gpr_pres:
         return 'gpr_pres'
     elif ending in v_atoochtuk_pcp_pr:
-        return 'pcp_pr'
+        return 'gpr'
     else:
         return 'none'
 v_atoochtuk_pcp_ps = {
@@ -214,15 +204,15 @@ v_atoochtuk_pcp_pr = {
 #кыймыл атооч
 def get_gerund(ending):
     if ending in v_gerund_inf_1:
-        return 'inf_1'
+        return 'ger'
     elif ending in v_gerund_inf_2:
-        return 'inf_2'
+        return 'ger'
     elif ending in v_gerund_inf_3:
-        return 'inf_3'
+        return 'ger_pres'
     elif ending in v_gerund_inf_4:
-        return 'inf_4'
+        return 'ger_fut'
     elif ending in v_gerund_inf_5:
-        return 'inf_5'
+        return 'fut_opt'
     else:
         return 'none'
 '''v_gerund_ger_perf = {
