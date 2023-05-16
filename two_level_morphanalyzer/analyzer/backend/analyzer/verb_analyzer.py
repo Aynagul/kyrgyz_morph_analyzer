@@ -296,6 +296,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
         strip_ending = (strip_ending,)
         symbol, priority = find_endings(strip_ending)
         print('striped')
+        print(symbol)
         if symbol:
             # if strip_ending in sourceModule.ending_of_gerund or strip_ending in sourceModule.ending_of_gerund_pres:
 
@@ -351,6 +352,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 print(new_word)
                 return '', new_list, new_word, ending_priority
             else:
+                print(66)
                 self.__wrong_priority = True
                 return sourceModule.str_break, new_list, new_word, ending_priority
         else:

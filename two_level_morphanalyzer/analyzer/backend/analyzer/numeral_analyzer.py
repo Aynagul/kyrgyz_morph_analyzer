@@ -12,6 +12,7 @@ def numeral_analyzer(self, str_ending, index, new_list, ending, ending_list, new
     str_ending = (str_ending,)
     symbol, priority = find_endings(str_ending)
     if symbol:
+
         priority = check_priority_of_endings.check_tag_for_numeral(symbol, priority, symbols_list)
         is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
         if is_correct_priority:

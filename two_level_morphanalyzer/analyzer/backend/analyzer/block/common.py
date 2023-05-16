@@ -37,9 +37,6 @@ def faces(index, new_list, symbol, ending, symbols_list, symbols):
             symbols_list.remove(symbols[key])
             symbols.pop(key)
             symbols_list.append('p2pl')
-        elif ending in Others.negative and key in symbols:  # сыз
-            symbols[ending] = 'neg'
-            symbols_list.append('neg')
 
     new_list.pop(index)
     new_list.reverse()

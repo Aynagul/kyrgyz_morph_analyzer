@@ -65,7 +65,7 @@ def check_faces(list):
     return False
 
 def check_tag_for_verb(tag, priority, list):
-    if tag == sourceModule.negative:
+    if tag == sourceModule.neg_str:
         priority = 1
     elif tag == sourceModule.plural:
         priority = 3
@@ -139,6 +139,13 @@ def check_tag_for_adj(tag, priority, list):
 def change_tag_for_verb(tag, ending):
     if ending in sourceModule.two_sgf_verb:
         tag = 'p2sgf'
+        return tag
+    else:
+        return tag
+
+def change_tag_for_noun(tag):
+    if tag == 'num_top':
+        tag = 'abl'
         return tag
     else:
         return tag

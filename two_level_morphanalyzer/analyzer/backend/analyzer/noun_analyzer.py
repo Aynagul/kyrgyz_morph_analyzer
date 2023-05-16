@@ -12,6 +12,7 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
     str_ending = (str_ending,)
     symbol, priority = find_endings(str_ending)
     if symbol:
+        symbol = check_priority_of_endings.change_tag_for_noun(symbol)
         is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
         if is_correct_priority:
             print('correct prio')
@@ -52,8 +53,12 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
 
         elif symbol in sourceModule.for_poss and check_priority_of_endings.check_pl(self.__symbols_list):
 
-            self.__wrong_priority = True
-            return sourceModule.str_break, new_list, new_word, ending_priority
+            print(23)
+            new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
+                common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
+                                           symbols_list,
+                                           symbols, ending_priority)
+            return '', new_list, new_word, ending_priority
         elif symbol in sourceModule.for_poss:
             if symbol in sourceModule.faces:
                 new_list, new_word, self.__symbols_list, self.__symbols = \
@@ -61,7 +66,8 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             return '', new_list, new_word, ending_priority
 
 
-        elif symbol in sourceModule.negative and check_priority_of_endings.check_pl(self.__symbols_list):
+        elif symbol in sourceModule.p2sgf_str and check_priority_of_endings.check_pl(self.__symbols_list):
+            print(23)
             new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
                 common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),
                                            symbols_list,
