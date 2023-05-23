@@ -50,6 +50,8 @@ def check_tags(tag_list, wrong_word):
                 continue
             elif tag == 'adj' or tag == 'pst':
                 continue
+            elif tag == '3sg' or tag == 'pst':
+                continue
             else:
                 wrong_word = True
                 break

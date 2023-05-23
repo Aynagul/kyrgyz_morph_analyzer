@@ -32,7 +32,7 @@ class Tags(models.Model):
 class Endings(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
-    tagid = models.ForeignKey(Tags, on_delete=models.CASCADE)
+    tagid = models.ForeignKey(Tags,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -82,8 +82,9 @@ class AllRoot(models.Model):
 
 class NewRoot(models.Model):
     word = models.CharField(max_length=150)
-    part_of_speech = models.OneToOneField(PartOfSpeech, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tags, blank=True)
+    root = models.CharField(max_length=150)
+    tags = models.CharField(max_length=150)
+    endings=models.CharField(max_length=150)
     is_done = models.BooleanField(default=False)
 
     class Meta:

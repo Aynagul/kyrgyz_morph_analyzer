@@ -91,9 +91,9 @@ class Word:
             return False'''
     def word_analyze(self, word):
         #word = analyzer.sourceModule.replace_letter(word)
-        words = nltk.word_tokenize(word)
-        # qw = []
-        # qw.append(word)
+        # words = nltk.word_tokenize(word)
+        words = []
+        words.append(word)
         try:
             syllables_of_words = ending_split(words)
         except:
