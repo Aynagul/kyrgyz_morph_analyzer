@@ -46,6 +46,15 @@ def check_tags(tag_list, wrong_word):
             elif tag == 'n':
                 wrong_word = False
                 break
+            elif tag == 'adv':
+                wrong_word = False
+                break
+            elif tag == 'prn':
+                wrong_word = False
+                break
+            elif tag in sourceModule.POS_without_ending_tags:
+                wrong_word = False
+                break
             elif tag == 'num' or tag == 'num_card':
                 continue
             elif tag == 'adj' or tag == 'pst':

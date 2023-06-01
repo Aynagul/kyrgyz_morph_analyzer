@@ -3,7 +3,7 @@ import nltk
 from analyzer.backend.analyzer.block import block_of_noun, block_of_verb, block_of_numeral, block_of_adjective, common
 from analyzer.backend.analyzer.block.common import listToString
 from analyzer.backend.analyzer.block.common import convertTuple
-from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings, check_tags
+from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings, check_tags, check_vowels
 from analyzer.backend.analyzer.ending_split.ending_split import ending_split
 from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb, Possessiveness, Adjectives_2, Numeral, \
     Pronoun, Verb
@@ -40,9 +40,11 @@ class Word:
     __word_without_punctuation = ''
     __wrong_priority = False
     __is_like_a_noun = False
+    __last_vowel_of_lemma = ''
+    __affix = ''
     def __init__(self, word):
         self.__original_word = word
-        self.__word_without_punctuation = word
+        self.__word_without_punctuation = word.lower()
         self.__change_word = word.lower()
         self.__symbols = {}
         self.__symbols_list = []
@@ -55,6 +57,8 @@ class Word:
             is_found, self.__word_without_punctuation, self.__part_of_speech, self.__symbols_list \
                     = find_lemma_for_part_of_speech(new_word, self.__word_without_punctuation)
             if is_found:
+                self.__last_vowel_of_lemma = check_vowels.get_last_vowel(new_word)
+                self.__affix = common.strip_affix_from_word(self.__word_without_punctuation, convertTuple(new_word))
                 return True
             else:
                 return False
@@ -90,18 +94,23 @@ class Word:
         else:
             return False'''
     def word_analyze(self, word):
-        #word = analyzer.sourceModule.replace_letter(word)
-        words = nltk.word_tokenize(word)
-        try:
-            syllables_of_words = ending_split(words)
-        except:
-            return 'Wrong'
         new_word = self.change_word[:1]
         self.set_change_word(self.__change_word[1:])
         for ch in self.change_word:
             if self.find_root(new_word):
                 pass
             new_word += ch
+        if not check_vowels.check_ending_vowels(self.__last_vowel_of_lemma, self.__affix):
+            return 'Wrong'
+
+        #word = analyzer.sourceModule.replace_letter(word)
+        words = nltk.word_tokenize(word)
+        try:
+            syllables_of_words = ending_split(words)
+        except:
+            return 'Wrong'
+
+
         ending_list = syllables_of_words
         ending_list.reverse()
         new_list = list(ending_list)
@@ -306,26 +315,15 @@ class Word:
                                 else:
                                     continue
 # -------------------------------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------------------------------------------
             elif self.part_of_speech == "adv":
-                if (symbol := Adverb.get_info_adv_ending(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Cases.get_info_cases(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
+                # adverb don't write with endings
+                self.__wrong_priority = True
+                break
+            elif self.part_of_speech in sourceModule.POS_without_ending_tags:
+                #these part of speeches don't write with endings
+                self.__wrong_priority = True
+                break
+
         return 'end'
     def search_only_numeral(self, text):
         if number := Numeral.get_info_numeral_root(nltk.word_tokenize(text)) != 'none':

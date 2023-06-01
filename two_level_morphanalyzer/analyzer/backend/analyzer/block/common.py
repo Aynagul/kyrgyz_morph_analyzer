@@ -1,5 +1,7 @@
 from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
 
+def strip_affix_from_word(word, lemma):
+    return word.lstrip(lemma)
 
 def convertTuple(tup):
     str = ''
