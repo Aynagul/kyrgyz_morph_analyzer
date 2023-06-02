@@ -2,8 +2,6 @@ from analyzer.backend.analyzer.exceptions import sourceModule
 def check_priority(ending_priority, priority):
     if int(priority) <= ending_priority:
         ending_priority = int(priority)
-        print(ending_priority)
-
         return True, ending_priority
     else:
         return False, ending_priority
@@ -30,6 +28,15 @@ def check_change_ending(tags_list):
 def check_pl(list):
     for i in list:
         if i == 'pl':
+            return True
+        else:
+            continue
+
+    return False
+
+def check_px2sgf(list):
+    for i in list:
+        if i == 'px2sgf':
             return True
         else:
             continue
@@ -92,7 +99,7 @@ def check_tag_for_verb(tag, priority, list):
     return priority
 
 def check_tag_for_numeral(tag, priority, list):
-    if tag == sourceModule.negative:
+    if tag == sourceModule.neg_str:
         priority = 5
     elif tag == sourceModule.plural:
         priority = 2
@@ -118,7 +125,7 @@ def check_tag_for_numeral(tag, priority, list):
 
 
 def check_tag_for_adj(tag, priority, list):
-    if tag == sourceModule.negative:
+    if tag == sourceModule.neg_str:
         priority = 5
     elif tag == sourceModule.plural:
         priority = 2
@@ -143,9 +150,10 @@ def change_tag_for_verb(tag, ending):
     else:
         return tag
 
-def change_tag_for_noun(tag):
+def change_tag_for_noun(tag, priority):
     if tag == 'num_top':
-        tag = 'abl'
-        return tag
+        return 'abl', 4
+    elif tag == 'imp':
+        return 'px2sgf', 2
     else:
-        return tag
+        return tag, priority

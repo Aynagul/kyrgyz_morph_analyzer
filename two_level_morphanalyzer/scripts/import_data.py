@@ -2,9 +2,9 @@ from analyzer.models import AllRoot, Tags, PartOfSpeech
 import csv
 
 def run():
-    with open('Other_part_of_speech.csv', encoding='utf-8') as file:
+    with open('All_noun.csv', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter=',')
-        AllRoot.objects.all().delete()
+        #AllRoot.objects.all().delete()
         # Tags.objects.all().delete()
         # PartOf.objects.all().delete()
         # next(reader)  # Advance past the header

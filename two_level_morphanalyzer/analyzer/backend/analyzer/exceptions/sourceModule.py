@@ -120,6 +120,7 @@ pst_def_1_pl = ['тык','тик','тук','түк','дык','дик','дук','
 shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
+shortcut_ending_poss = ['м','ң','ы','и','у','ү']
 shortcut_ending_with_1_sg = ['ам','ем','ом','өм']
 shortcut_ending_with_3_sg = ['ат','ет','от','өт']
 fut_def_faces = ['та','те','то','тө','да','де','до','дө']
@@ -193,3 +194,7 @@ num_appr3 = ['догон', 'дөгөн', 'деген', 'даган',
     'тогон', 'төгөн', 'теген', 'таган']
 comp_str = 'comp'
 POS_without_ending_tags = ['ij','ideo','conj','post','mod','part']
+shortcut_poss_3sg_ending = ['ы','и','у','ү']
+poss_1sg_2sg_endings = ['ым','им','ум','үм','ың','иң','уң','үң']
+poss_1sg_endings = ['ым','им','ум','үм']
+poss_2sg_endings = ['ың','иң','уң','үң']

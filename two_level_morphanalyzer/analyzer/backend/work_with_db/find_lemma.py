@@ -75,7 +75,7 @@ def find_lemma(root, word_without_punctuation, cursor):
         return False, root, part_of_speech, symbols_list
 
 
-def find_lemma_for_verb(root):
+def is_lemma_in_db(root):
     try:
         sqliteConnection = sqlite3.connect('db.sqlite3')
         cursor = sqliteConnection.cursor()

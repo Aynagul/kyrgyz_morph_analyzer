@@ -59,6 +59,7 @@ class Word:
             if is_found:
                 self.__last_vowel_of_lemma = check_vowels.get_last_vowel(new_word)
                 self.__affix = common.strip_affix_from_word(self.__word_without_punctuation, convertTuple(new_word))
+                #print(self.__affix)
                 return True
             else:
                 return False
@@ -101,14 +102,15 @@ class Word:
                 pass
             new_word += ch
         if not check_vowels.check_ending_vowels(self.__last_vowel_of_lemma, self.__affix):
-            return 'Wrong'
+            print('wrong vowel in ending')
+            return False
 
         #word = analyzer.sourceModule.replace_letter(word)
         words = nltk.word_tokenize(word)
         try:
             syllables_of_words = ending_split(words)
         except:
-            return 'Wrong'
+            return False
 
 
         ending_list = syllables_of_words
@@ -324,7 +326,7 @@ class Word:
                 self.__wrong_priority = True
                 break
 
-        return 'end'
+        return True
     def search_only_numeral(self, text):
         if number := Numeral.get_info_numeral_root(nltk.word_tokenize(text)) != 'none':
             return number
@@ -385,8 +387,8 @@ class Word:
             if not is_found:
                 print("no")
                 try:
-                    end = self.word_analyze(self.__word_without_punctuation.lower())
-                    if end == 'end':
+                    is_correct_analyze = self.word_analyze(self.__word_without_punctuation.lower())
+                    if is_correct_analyze:
                         self.__symbols_list.reverse()
                         self.set_all_info()
                         return self.__all_info
@@ -450,8 +452,8 @@ class Word:
             if not is_found:
                 print("no")
                 try:
-                    end = self.word_analyze(self.__word_without_punctuation.lower())
-                    if end == 'end':
+                    is_correct_analyze = self.word_analyze(self.__word_without_punctuation.lower())
+                    if is_correct_analyze:
                         self.__symbols_list.reverse()
                         self.set_all_info()
                         return self.__all_info

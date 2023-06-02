@@ -1,7 +1,7 @@
 from analyzer.backend.analyzer.block.common import listToString
 from analyzer.backend.analyzer.exceptions import sourceModule
 from analyzer.backend.work_with_db.find_lemma import find_only_lemma
-from analyzer.backend.work_with_db.find_lemma import find_lemma_for_verb
+from analyzer.backend.work_with_db.find_lemma import is_lemma_in_db
 from analyzer.backend.analyzer.endings import Faces, Others, Possessiveness
 from analyzer.backend.analyzer.check import check_priority_of_endings
 
@@ -39,7 +39,7 @@ def find_root_from_the_end(self, new_word):
     new_word = (new_word,)
     is_found, self.__root = find_only_lemma(new_word)
     if is_found:
-        is_found = find_lemma_for_verb(new_word)
+        is_found = is_lemma_in_db(new_word)
         if is_found:
             return True
         else:
