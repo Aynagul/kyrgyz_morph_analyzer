@@ -24,6 +24,8 @@ def delete_symbols(sym_list, symbol):
             sym_list.append('p3sg')
     elif symbol == 'num_card' in sym_list and [sym for sym in sourceModule.num_symbols if (sym in sym_list)]:
         sym_list.remove('num_card')
+    elif symbol == 'pst' in sym_list and [sym for sym in sourceModule.adj_ending_tags if (sym in sym_list)]:
+        sym_list.remove('pst')
     elif symbol == 'num' in sym_list and [sym for sym in sourceModule.part_of_speech_tags if (sym in sym_list)]:
         sym_list.remove('post')
     elif symbol == 'imp' in sym_list and [sym for sym in sourceModule.non_finite_verb_forms if (sym in sym_list)]:

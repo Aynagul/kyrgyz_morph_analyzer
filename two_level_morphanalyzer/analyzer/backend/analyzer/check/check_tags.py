@@ -18,6 +18,7 @@ def check_tags(tag_list, wrong_word):
         return True, tag_list
     else:
         for tag in tag_list:
+            print(tag)
             if tag in sourceModule.imp_tags and check_tags2(tag_list, sourceModule.imp_together_tags, tag):
                 return False, tag_list
             elif tag in sourceModule.pcp_tags and check_tags2(tag_list, sourceModule.pcp_together_tags, tag):
@@ -34,7 +35,10 @@ def check_tags(tag_list, wrong_word):
                 return False, tag_list
             elif tag == 'prec_1' and check_tags2(tag_list, sourceModule.prec_1_together_tags, tag):
                 return False, tag_list
+            elif tag == 'comp' and check_tags2(tag_list, sourceModule.comp_together_tags, tag):
+                return False, tag_list
             elif tag == 'v' or tag == 'act' or tag == 'imp':
+
                 continue
 
             elif tag == 'neg':
@@ -57,7 +61,7 @@ def check_tags(tag_list, wrong_word):
                 break
             elif tag == 'num' or tag == 'num_card':
                 continue
-            elif tag == 'adj' or tag == 'pst':
+            elif tag == 'adj' or tag == 'pst' or tag == 'attr' or tag == 'sup':
                 continue
             else:
                 wrong_word = True

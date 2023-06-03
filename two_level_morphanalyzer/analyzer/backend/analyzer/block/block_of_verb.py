@@ -415,7 +415,7 @@ def ger_pres(self, ending, new_list, index, new_word, symbols, symbols_list):
         return new_list, new_word, symbols, symbols_list
 
 
-def is_hor_sg(list):
+def is_fut_indf(list):
     for i in list:
         if i == 'fut_indf':
             return True

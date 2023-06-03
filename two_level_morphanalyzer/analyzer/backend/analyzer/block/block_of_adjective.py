@@ -32,10 +32,19 @@ def find_root_from_the_end(self, new_word):
             return False
 
 def comp(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
     if find_root_from_the_end(self, str(new_word[:-4])):
         symbols[ending] = 'comp'
         symbols_list.append('comp')
         new_list.pop(index)
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif next_ending[-1] in sourceModule.comp_endings and find_root_from_the_end(self, str(new_word[:-5])):
+        symbols[next_ending[-1]+ ending] = 'comp'
+        symbols_list.append('comp')
+        new_list.pop(index)
+        new_list[index] = next_ending[:-1]
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list

@@ -28,7 +28,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                     block_of_verb.faces_for_verb(self, index, new_list, symbol, convertTuple(str_ending),
                                                  symbols_list,
                                                  symbols, new_word)
-            elif symbol == sourceModule.fut_indf:
+            elif symbol == sourceModule.fut_indf_str:
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_3(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbols_list)
@@ -132,7 +132,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                                                             symbols_list,
                                                             symbols, ending_priority)
                 print(new_word)
-            elif symbol == 'fut_aor' and new_list[1] in sourceModule.posessiveness_general:
+            elif symbol == sourceModule.fut_aor_str and new_list[1] in sourceModule.posessiveness_general:
                 # for posessiveness_general (ныкы) итд
                 ending_priority = 5
                 new_list, index, last_letter, str = \
@@ -144,7 +144,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                                                                                          str_ending),
                                                                                      ending_list, str)
                     return sourceModule.str_continue, new_list, new_word, ending_priority
-            elif symbol == sourceModule.fut_aor and ending in sourceModule.fut_opt:
+            elif symbol == sourceModule.fut_aor_str and ending in sourceModule.fut_opt:
                 print('block fut_aor')
                 new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.inf_5_with_other_tags(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
@@ -161,7 +161,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
 
 
 
-        elif symbol in sourceModule.case and block_of_verb.is_hor_sg(symbols_list):
+        elif symbol in sourceModule.case and block_of_verb.is_fut_indf(symbols_list):
             new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_1(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
@@ -229,9 +229,9 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending)[-1] in sourceModule.fut_indf and block_of_verb.is_hor_sg(symbols_list):
+        elif convertTuple(str_ending)[-1] in sourceModule.fut_indf_endings and block_of_verb.is_fut_indf(symbols_list):
             print('ayin')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf(
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_indf_1(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             return '', new_list, new_word, ending_priority

@@ -118,6 +118,7 @@ class Word:
         new_list = list(ending_list)
         ending_priority = 8
         print(new_list)
+        print(self.part_of_speech)
         for ending in ending_list:
             str_ending = listToString(ending)
             print("Ending: {0}".format(str_ending))
@@ -222,6 +223,8 @@ class Word:
                 #these part of speeches don't write with endings
                 self.__wrong_priority = True
                 break
+            elif self.__part_of_speech == '':
+                return False
 
         return True
     def search_only_numeral(self, text):
@@ -328,7 +331,12 @@ class Word:
 
             self.set_all_info()
             return self.__all_info
-
+        elif self.__word_without_punctuation.lower() in sourceModule.adj_word_special:
+            self.__part_of_speech = 'adj'
+            self.set_symbols_list('adj')
+            self.__root, self.__symbols_list = Adjectives_2.check_adjectives(self, self.__word_without_punctuation.lower(), self.__symbols_list)
+            self.set_all_info()
+            return self.__all_info
 
         else:
             root = (self.__word_without_punctuation.lower(), )

@@ -78,7 +78,7 @@ for_pst_evid2 = ['ып','ип','уп','үп','п']
 negative_ending_verb = ['ба', 'бе', 'бө', 'бо', 'па', 'пе', 'пө', 'по']
 imp_pl_1 = ['кы','ки','ку','кү','гы','ги','гу','гү']
 imp_pl_2 = ['ла','ле','ло','лө']
-fut_indf = ['а','е','о','ө']
+fut_indf_endings = ['а','е','о','ө']
 two_sgf = 'p2sgf'
 two_sgf_ending = ['ыңыз','иңиз','уңуз','үңүз']
 imp_p2sgf = ['ңыз','ңиз','ңуз','ңүз']
@@ -88,7 +88,7 @@ hor_pl2 = ['лык','лик','лук','лүк']
 hor_pl3 = ['алы','ели','олу','өлү','йлы','йли','йлу','йлү']
 hor_pl4 = ['алык','елик','олук','өлүк','йлык','йлик','йлук','йлүк']
 neg_str = 'neg'
-fut_indf = 'fut_indf'
+fut_indf_str = 'fut_indf'
 deside2 = ['макчы','мекчи','мокчу','мөкчү']
 inf_5_1sg = ['гым','гим','гум','гүм','кым','ким','кум','күм']
 inf_5_2sg = ['гың','гиң','гуң','гүң','кың','киң','куң','күң']
@@ -139,6 +139,7 @@ advv_together_tags = ['v','imp','act']
 mood_together_tags = ['v','act','imp','neg','ques','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl']
 prec_1_together_tags = ['v','act','imp','neg']
+comp_together_tags = ['adj','pst','attr']
 
 opt_together_tags = ['v','act','imp','neg','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf', 'p3sg','p3pl','px3sg']
 advv_tags = ['gna_perf', 'advv_cont','gna_purp', 'gna_cnd','gna_irre']
@@ -153,10 +154,11 @@ tags_with_numeral = ['num','num_card','nom','gen','dat','acc','loc','abl', 'sg',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
                   'ques','neg','xp']
 numeral_tags = ['num_card','num_ord','num_coll','num_top','num_appr1','num_appr2','num_appr3']
-adj_tags = ['pst','comp','sup']
+adj_ending_tags = ['comp']
+adj_tags = ['pst']
 tags_with_adj = ['adj','pst','nom','gen','dat','acc','loc','abl', 'sg','pl','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
-                  'ques','neg','xp']
+                  'ques','neg','xp', 'attr']
 fut_def_special = ['йм']
 fut_def_special_negative = ['бай', 'бей', 'бөй', 'бой', 'пай', 'пей', 'пөй', 'пой']
 cond_1sg = ['сам','сем','сом','сөм']
@@ -180,7 +182,7 @@ gpr_2 = ['гон', 'гөн', 'ген', 'ган','кон', 'көн', 'кен', '�
 fut_indf_neg_str = 'fut_indf_neg'
 inf_1_ending = ['оо','өө']
 inf_2_ending = ['уу','үү']
-fut_aor = 'fut_aor'
+fut_aor_str = 'fut_aor'
 fut_opt = ['кы','ки','ку','кү','гы','ги','гу','гү']
 pst_iter_str = 'past_iter'
 prec_1_str = 'prec_1'
@@ -188,6 +190,7 @@ num_ord = ['ынчы', 'инчи', 'үнчү', 'унчу']
 num_ord_short = ['нчы', 'нчи', 'нчү', 'нчу']
 num_word_special = ['үчүнчү', 'алтынчы','кыркча','кырктай','кырктан','кырктаган','бирөө','экөө','үчөө','төртөө',
                     'бешөө','алтоо','жетөө','сегизөө']
+adj_word_special = ['жакшыраак']
 part_of_speech_tags = ['post']
 abl_str = 'abl'
 num_appr3 = ['догон', 'дөгөн', 'деген', 'даган',
@@ -201,4 +204,4 @@ poss_2sg_endings = ['ың','иң','уң','үң']
 px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']
 px1pl_endings = ['быз','биз','буз','бүз']
 px2pl_endings = ['ңар','ңер','ңор','ңөр']
-px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']
+comp_endings = ['ы','и','у','ү']
