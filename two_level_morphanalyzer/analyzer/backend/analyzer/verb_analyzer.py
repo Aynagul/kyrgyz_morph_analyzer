@@ -116,7 +116,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                     new_list.reverse()
                     print(new_list)
                     return sourceModule.str_continue, new_list, new_word, ending_priority
-            elif symbol == sourceModule.negative:
+            elif symbol == sourceModule.neg_str:
                 is_fut_indf_neg, new_list, new_word = block_of_verb.fut_indf_neg_with_neg(
                     self, convertTuple(str_ending), new_list, index, new_word, symbols,
                     symbol)
@@ -182,7 +182,7 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             return '', new_list, new_word, ending_priority
 
 
-        elif symbol in sourceModule.negative and check_priority_of_endings.check_pl(symbols_list):
+        elif symbol in sourceModule.neg_str and check_priority_of_endings.check_pl(symbols_list):
             self.__is_like_a_noun = True
             new_list, new_word, self.__symbols_list, self.__symbols, ending_priority = \
                 common.common_exception_11(index, new_list, symbol, convertTuple(str_ending),

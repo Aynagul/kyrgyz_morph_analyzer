@@ -43,7 +43,7 @@ special_vowel = {
 vowels_kg = {
     'а', 'о', 'ө', 'э', 'и', 'ы', 'у', 'ү', 'аа', 'оо', 'өө', 'ээ', 'уу', 'үү', 'я', 'ю', 'ё', 'е'
 }
-narrow_vowels = ['э','е','и','у','ө']#ичке үндүлөр
+narrow_vowels = ['э','е','и','ү','ө']#ичке үндүлөр
 wide_vowels = ['а','ы','о','у']#жоон үндүлөр
 all_punctuation_marks = ['.',',','?','!','"',';',':','{','}','`']
 sentence_end_p_m = ['. ','! ','? ']
@@ -120,7 +120,7 @@ pst_def_1_pl = ['тык','тик','тук','түк','дык','дик','дук','
 shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
-shortcut_ending_poss = ['м','ң','ы','и','у','ү']
+shortcut_ending_poss = ['м','ң']
 shortcut_ending_with_1_sg = ['ам','ем','ом','өм']
 shortcut_ending_with_3_sg = ['ат','ет','от','өт']
 fut_def_faces = ['та','те','то','тө','да','де','до','дө']
@@ -198,3 +198,7 @@ shortcut_poss_3sg_ending = ['ы','и','у','ү']
 poss_1sg_2sg_endings = ['ым','им','ум','үм','ың','иң','уң','үң']
 poss_1sg_endings = ['ым','им','ум','үм']
 poss_2sg_endings = ['ың','иң','уң','үң']
+px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']
+px1pl_endings = ['быз','биз','буз','бүз']
+px2pl_endings = ['ңар','ңер','ңор','ңөр']
+px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']

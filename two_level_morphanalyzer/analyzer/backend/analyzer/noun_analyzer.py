@@ -78,24 +78,17 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             return sourceModule.str_break, new_list, new_word, ending_priority
     else:
         print(convertTuple(str_ending))
-        if convertTuple(str_ending)[-1] in sourceModule.shortcut_poss_3sg_ending \
-                and check_priority_of_endings.check_px2sgf(self.__symbols_list) \
-                and self.find_root_from_the_end(new_word[:-1]):
-            print('px2sgf')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_noun.px2sgf(
+        if convertTuple(str_ending)[-1] in sourceModule.shortcut_poss_3sg_ending:
+            print('px2sgf, px3sg, px1pl, px2plf with pl')
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_noun.poss(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
             print(new_word)
             return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending)[-1] in sourceModule.shortcut_ending_poss and self.find_root_from_the_end(
-                new_word[:-1]):
-            print('м, ң...')
-            new_list, new_word = block_of_noun.short_poss_ending(self, convertTuple(str_ending), new_list)
-            print(new_word)
-            return '', new_list, new_word, ending_priority
-        elif convertTuple(str_ending)[1:] in sourceModule.poss_1sg_2sg_endings:
-            print('block poss 1sg, 2sg')
-            new_list, new_word, self.__symbols, self.__symbols_list = block_of_noun.poss_1sg_2sg(
+        elif convertTuple(str_ending)[-1] in sourceModule.shortcut_ending_poss:
+            print('м, ң')
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_noun.short_poss_ending(
                 self, convertTuple(str_ending), new_list, index, new_word, symbols,
                 symbols_list)
+            print(new_word)
             return '', new_list, new_word, ending_priority

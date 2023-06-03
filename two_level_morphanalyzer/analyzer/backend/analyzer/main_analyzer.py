@@ -197,125 +197,22 @@ class Word:
                     continue
 # -------------------------------------------------------------------------------------------------------------------------
             elif self.part_of_speech == "prn":
-                if (symbol := Cases.get_info_cases(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
+                str, new_list, new_word, ending_priority = noun_analyzer.noun_analyzer(self, str_ending, index,
+                                                                                       new_list,
+                                                                                       ending, ending_list, new_word,
+                                                                                       ending_priority,
+                                                                                       self.__symbols_list,
+                                                                                       self.__symbols)
 
-                elif (symbol := Faces.get_info_faces(ending)) != 'none':
-                    new_list, new_word, self.__symbols_list, self.__symbols = \
-                        common.faces(index, new_list, symbol, str_ending, self.__symbols_list, self.__symbols)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-
-                elif (symbol := Others.get_info_other(ending)) != 'none':
-                    new_list, new_word = common.common(self, index, new_list, symbol, str_ending)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
-                elif (symbol := Possessiveness.get_info_possessive(ending)) != 'none':
-                    new_list, new_word, self.__symbols_list, self.__symbols = \
-                        common.possessiveness(index, new_list, symbol, str_ending, self.__symbols_list,
-                                                      self.__symbols)
-                    if self.find_root_from_the_end(new_word):
-                        break
-                    else:
-                        new_list.reverse()
-                        continue
+                if str == sourceModule.str_continue:
+                    continue
+                elif str == sourceModule.str_break:
+                    break
+                if self.find_root_from_the_end(new_word):
+                    break
                 else:
-                    new_list, index, last_letter, str = \
-                        common.common_exception_1(new_list, str_ending)
-                    # for posessiveness_general (ныкы) итд
-                    if ending in sourceModule.half_of_ending_for_general_possessiveness and new_list[
-                        index - 1] in sourceModule.posessiveness_general:
-                        new_list, index, ending, ending_list = common.common_exception_2(index, new_list,
-                                                                                                 str_ending,
-                                                                                                 ending_list, str)
-                        continue
-                    elif len(ending) == 2 and last_letter in sourceModule.special_vowel:
-                        if not self.__symbols:  # px3sp only
-                            new_list, index, ending, ending_list, index2 = common.common_exception_3 \
-                                (index, new_list, str_ending, ending_list, str)
-                            if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-                                new_list, index, new_word = common.common_exception_4 \
-                                    (self, new_list, symbol, last_letter, str)
-                                if self.find_root_from_the_end(new_word):
-                                    break
-                                else:
-                                    new_list.reverse()
-                                    new_word = listToString(new_list)
-                                    if self.find_root_from_the_end(new_word):
-                                        break
-                                    else:
-                                        continue
-                        else:
-                            is_px3sp = True
-                            for key in list(self.__symbols.keys()):  # ыңар, ыбыз, ыңыз
-                                if key in Possessiveness.posessiveness_2st_sg_politely or key in Possessiveness.posessiveness_1st_pl or key \
-                                        in Possessiveness.posessiveness_2st_pl:
-                                    is_px3sp = False
-                                    index, new_list, last_letter, ending, self.__symbols, ending_list = \
-                                        common.common_exception_5(index, new_list, last_letter, ending,
-                                                                          self.__symbols, ending_list, str)
-                                else:
-                                    continue
-                            # px3sp with other endings
-                            if is_px3sp:
-                                new_list, ending_list = common.common_exception_6(index, new_list, ending,
-                                                                                          ending_list, str)
-                                if (symbol := Possessiveness.get_info_possessive(last_letter)) != 'none':
-                                    new_list, new_word = common.common_exception_7(self, symbol, new_list,
-                                                                                           last_letter, str)
-                                    if self.find_root_from_the_end(new_word):
-                                        break
-                                    else:
-                                        new_list.reverse()
-                                        new_word = listToString(new_list)
-                                        if self.find_root_from_the_end(new_word):
-                                            break
-                                        else:
-                                            continue
-                            else:  # ыңар, ыбыз, ыңыз
-                                new_word = listToString(new_list)
-                                if self.find_root_from_the_end(new_word):
-                                    break
-                                else:
-                                    new_list.reverse()
-                                    new_word = listToString(new_list)
-                                    if self.find_root_from_the_end(new_word):
-                                        break
-                                    else:
-                                        continue
-                    # for px1sg(ым) and px2sg(ың)
-                    else:
-                        new_list[index] = str[1:]
-                        str = str.replace(str[1:], '')
-                        try:
-                            new_list, ending_list = common.common_exception_8(index, new_list, ending,
-                                                                                      ending_list, str)
-                        except:
-                            new_list, ending_list = common.common_exception_9(index, new_list, ending,
-                                                                                      ending_list, str)
-                        str = listToString(new_list[index])
-                        if (symbol := Possessiveness.get_info_possessive(str)) != 'none':
-                            new_list, new_word = common.common_exception_10(self, new_list, symbol, str)
-                            if self.find_root_from_the_end(new_word):
-                                break
-                            else:
-                                new_list.reverse()
-                                new_word = listToString(new_list)
-                                if self.find_root_from_the_end(new_word):
-                                    break
-                                else:
-                                    continue
+                    new_list.reverse()
+                    continue
 # -------------------------------------------------------------------------------------------------------------------------
             elif self.part_of_speech == "adv":
                 # adverb don't write with endings
