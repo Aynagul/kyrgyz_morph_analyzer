@@ -26,7 +26,8 @@ import sqlite3
 is_first_letter_upper = False
 class Word:
     __original_word = ''
-    __change_word = ''
+    __lower_case_word = ''
+    __changed_word = ''
     __root = ''
     __number = 0
     __root_from_the_end = ''
@@ -44,8 +45,8 @@ class Word:
     __affix = ''
     def __init__(self, word):
         self.__original_word = word
-        self.__word_without_punctuation = word.lower()
-        self.__change_word = word.lower()
+        self.__word_without_punctuation = word
+        self.__lower_case_word = word.lower()
         self.__symbols = {}
         self.__symbols_list = []
 
@@ -54,12 +55,12 @@ class Word:
 
         is_found, self.__root = find_only_lemma(new_word)
         if is_found:
-            is_found, self.__word_without_punctuation, self.__part_of_speech, self.__symbols_list \
-                    = find_lemma_for_part_of_speech(new_word, self.__word_without_punctuation)
+            is_found, self.__part_of_speech, self.__symbols_list \
+                    = find_lemma_for_part_of_speech(new_word)
             if is_found:
                 self.__last_vowel_of_lemma = check_vowels.get_last_vowel(new_word)
-                self.__affix = common.strip_affix_from_word(self.__word_without_punctuation, convertTuple(new_word))
-                #print(self.__affix)
+                self.__affix = common.strip_affix_from_word(self.__lower_case_word, convertTuple(new_word))
+
                 return True
             else:
                 return False
@@ -75,8 +76,8 @@ class Word:
             self.__symbols_list.reverse()
             list = self.__symbols_list.copy()
             self.__symbols_list.clear()
-            is_found, self.__word_without_punctuation, self.__part_of_speech, self.__symbols_list \
-                = find_lemma_for_part_of_speech(new_word, self.__word_without_punctuation)
+            is_found, self.__part_of_speech, self.__symbols_list \
+                = find_lemma_for_part_of_speech(new_word)
             self.__symbols_list = self.__symbols_list + list
             self.__symbols_list.reverse()
             if is_found:
@@ -95,9 +96,9 @@ class Word:
         else:
             return False'''
     def word_analyze(self, word):
-        new_word = self.change_word[:1]
-        self.set_change_word(self.__change_word[1:])
-        for ch in self.change_word:
+        new_word = word[:1]
+        self.set_changed_word(word[1:])
+        for ch in self.__changed_word:
             if self.find_root(new_word):
                 pass
             new_word += ch
@@ -263,6 +264,19 @@ class Word:
                 self.__root = check_special_pronouns.check_pronouns(self, symbol, self.__word_without_punctuation.lower())
             self.set_all_info()
             return self.__all_info
+        elif self.__word_without_punctuation.lower() in sourceModule.num_word_special:
+            self.__part_of_speech = 'num'
+            self.set_symbols_list('num')
+            self.__root, self.__symbols_list = Numeral.check_numerals(self, self.__word_without_punctuation.lower(), self.__symbols_list)
+
+            self.set_all_info()
+            return self.__all_info
+        elif self.__word_without_punctuation.lower() in sourceModule.adj_word_special:
+            self.__part_of_speech = 'adj'
+            self.set_symbols_list('adj')
+            self.__root, self.__symbols_list = Adjectives_2.check_adjectives(self, self.__word_without_punctuation.lower(), self.__symbols_list)
+            self.set_all_info()
+            return self.__all_info
 
 
         else:
@@ -271,7 +285,7 @@ class Word:
             try:
                 sqliteConnection = sqlite3.connect('db.sqlite3')
                 cursor = sqliteConnection.cursor()
-                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__word_without_punctuation, cursor)
+                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__lower_case_word, cursor)
                 if is_found:
                     self.set_all_info()
                     return self.__all_info
@@ -305,48 +319,62 @@ class Word:
                     return self.__original_word
 
     def search_word_db_for_word(self,word):
+        if len(word.__original_word) > 33:
+            self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
+            return self.__result_text
 
-        if self.__word_without_punctuation.isnumeric():
+        if word.__original_word[-1] in sourceModule.all_punctuation_marks and word.__original_word[0] not in sourceModule.all_punctuation_marks:
+            self.__last_punctuation_mark, self.__word_without_punctuation, self.__lower_case_word = check_punctuation_marks.situation_1(word.__original_word)
+            print(self.__word_without_punctuation)
+            print(self.__last_punctuation_mark)
+        elif word.__original_word[-1] not in sourceModule.all_punctuation_marks and word.__original_word[0] in sourceModule.all_punctuation_marks:
+            self.__first_punctuation_mark, self.__word_without_punctuation, self.__lower_case_word = check_punctuation_marks.situation_2(word.__original_word)
+        elif word.__original_word[0] in sourceModule.all_punctuation_marks and word.__original_word[-1] in sourceModule.all_punctuation_marks:
+            self.__first_punctuation_mark, self.__last_punctuation_mark, self.__word_without_punctuation, self.__lower_case_word = \
+                check_punctuation_marks.situation_3(word.__original_word)
+
+        if self.__lower_case_word.isnumeric():
             self.__root, self.__symbols_list, self.__part_of_speech = block_of_numeral.if_is_digit(self.__symbols_list,
                                                                                                       self.__word_without_punctuation)
             self.set_all_info()
             return self.__all_info
-
-        elif self.__word_without_punctuation.lower() in sourceModule.special_pronoun:
-            self.__root = self.__word_without_punctuation
+        if self.__lower_case_word in sourceModule.special_pronoun:
+            self.__root = self.__lower_case_word
             self.__part_of_speech = 'prn'
             self.set_symbols_list('prn')
-            if (symbol := Pronoun.get_info_pronoun_root(self.__word_without_punctuation.lower())) != 'none':
+            if (symbol := Pronoun.get_info_pronoun_root(self.__lower_case_word)) != 'none':
                 self.set_symbols_list(symbol)
-            if (symbol := Pronoun.is_sg_or_pl(self.__word_without_punctuation.lower())) != 'none':
+            if (symbol := Pronoun.is_sg_or_pl(self.__lower_case_word)) != 'none':
                 self.set_symbols_list(symbol)
-            if (symbol := Pronoun.cases_pronoun_root(self.__word_without_punctuation.lower())) != 'none':
-                self.__root = check_special_pronouns.check_pronouns(self, symbol, self.__word_without_punctuation.lower())
+            if (symbol := Pronoun.cases_pronoun_root(self.__lower_case_word)) != 'none':
+                self.__root = check_special_pronouns.check_pronouns(self, symbol, self.__lower_case_word)
             self.set_all_info()
             return self.__all_info
-        elif self.__word_without_punctuation.lower() in sourceModule.num_word_special:
+        elif self.__lower_case_word in sourceModule.num_word_special:
             self.__part_of_speech = 'num'
             self.set_symbols_list('num')
-            self.__root, self.__symbols_list = Numeral.check_numerals(self, self.__word_without_punctuation.lower(), self.__symbols_list)
-
+            self.__root, self.__symbols_list = Numeral.check_numerals(self, self.__lower_case_word, self.__symbols_list)
             self.set_all_info()
             return self.__all_info
-        elif self.__word_without_punctuation.lower() in sourceModule.adj_word_special:
+        elif self.__lower_case_word in sourceModule.adj_word_special:
             self.__part_of_speech = 'adj'
             self.set_symbols_list('adj')
-            self.__root, self.__symbols_list = Adjectives_2.check_adjectives(self, self.__word_without_punctuation.lower(), self.__symbols_list)
+            self.__root, self.__symbols_list = Adjectives_2.check_adjectives(self, self.__lower_case_word, self.__symbols_list)
             self.set_all_info()
             return self.__all_info
 
         else:
-            root = (self.__word_without_punctuation.lower(), )
+
+            root = (self.__lower_case_word, )
             is_found = False
             try:
                 sqliteConnection = sqlite3.connect('db.sqlite3')
                 cursor = sqliteConnection.cursor()
-                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__word_without_punctuation, cursor)
+                is_found, self.__root, self.__part_of_speech, self.__symbols_list = find_lemma(root, self.__lower_case_word, cursor)
                 if is_found:
-                    self.set_all_info()
+                    print(8)
+                    print(self.__symbols_list)
+                    self.set_all_info_for_lemma_only()
                     return self.__all_info
             except sqlite3.Error as error:
                 print("Error while connecting to sqlite", error)
@@ -357,7 +385,10 @@ class Word:
             if not is_found:
                 print("no")
                 try:
-                    is_correct_analyze = self.word_analyze(self.__word_without_punctuation.lower())
+                    print(5)
+                    print(self.__word_without_punctuation)
+                    print(self.__last_punctuation_mark)
+                    is_correct_analyze = self.word_analyze(self.__lower_case_word)
                     if is_correct_analyze:
                         self.__symbols_list.reverse()
                         self.set_all_info()
@@ -365,13 +396,13 @@ class Word:
                     else:
                         self.__part_of_speech = ''
                         self.__symbols_list = []
-                        self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
+                        self.__result_text = self.__first_punctuation_mark + '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
                         return "I dont know this word"
                 except:
                     print('not analyzed')
                     self.__part_of_speech = ''
                     self.__symbols_list = []
-                    self.__result_text = '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
+                    self.__result_text = self.__first_punctuation_mark + '['+str(self.__word_without_punctuation)+']' + self.__last_punctuation_mark
                     return self.__original_word
 
 
@@ -436,8 +467,8 @@ class Word:
         self.__root = root
     def set_root_from_the_end(self, root):
         self.__root_from_the_end = root
-    def set_change_word(self, change_word):
-        self.__change_word = change_word
+    def set_changed_word(self, changed_word):
+        self.__changed_word = changed_word
     def set_symbol(self, symbol, ending):
         self.__symbols[ending] = symbol
     def set_symbols_list(self, symbol):
@@ -447,13 +478,26 @@ class Word:
         self.__result_text, self.__all_info, self.__symbols_list, self.__symbols = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
                                                            self.__root,
                                                            self.__first_punctuation_mark,
-                                                           self.__word_without_punctuation,
+                                                           self.__lower_case_word,
                                                            self.__last_punctuation_mark,
-                                                            self.__wrong_priority)
+                                                            self.__wrong_priority,
+                                                            self.__word_without_punctuation)
         print(self.__result_text)
 
         self.__symbols_list = [i for i in self.__symbols_list if i is not None]
         self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
+    def set_all_info_for_lemma_only(self):
+        symbols_text = ''
+        ending_symbols = []
 
+        def_symbols_text = ''
+        for sym in list(dict.fromkeys(self.__symbols_list)):
+            def_symbols_text = def_symbols_text + '<' + str(sym) + '>'
+        self.__result_text = str(self.__first_punctuation_mark) + str(self.__word_without_punctuation) + \
+                      "/" + str(self.__root) + def_symbols_text + str(self.__last_punctuation_mark)
+
+        print(self.__result_text)
+        self.__symbols_list = [i for i in self.__symbols_list if i is not None]
+        self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
 
 

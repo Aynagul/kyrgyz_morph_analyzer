@@ -152,6 +152,9 @@ def change_tag_for_verb(tag, ending):
     if ending in sourceModule.two_sgf_verb:
         tag = 'p2sgf'
         return tag
+    elif tag == 'px1pl':
+        tag = 'p1pl'
+        return tag
     else:
         return tag
 

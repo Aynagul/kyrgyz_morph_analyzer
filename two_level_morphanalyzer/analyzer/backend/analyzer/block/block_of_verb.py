@@ -428,7 +428,7 @@ def fut_indf_1(self, ending, new_list, index, new_word, symbols, symbols_list):
     for key, value in symbols.items():
         if value == 'fut_indf':
             ending_hor_sg = key
-            if ending[-1] in sourceModule.fut_indf and find_root_from_the_end(self, str(new_word[:-1])):
+            if ending[-1] in sourceModule.fut_indf_endings and find_root_from_the_end(self, str(new_word[:-1])):
                 print('ayin')
                 symbols_list.append('p1sg')
                 symbols[ending[-1] + ending_hor_sg] = 'fut_indf'
@@ -927,6 +927,27 @@ def fut_def_faces(self, ending, new_list, index, new_word, symbols, symbols_list
         symbols[ending[-1]] = 'fut_def'
         symbols_list.append('fut_def')
         new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+
+def pres_with_faces(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if next_ending[1:] in sourceModule.ending_of_gerund and find_root_from_the_end(self, str(new_word[:-4])):
+        symbols[next_ending[1:] + ending] = 'pres'
+        symbols_list.append('pres')
+        new_list.pop(index)
+        new_list[index] = next_ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
+    elif next_ending[0] in sourceModule.neg_pre1 and next_ending[1:] in sourceModule.ending_of_gerund and find_root_from_the_end(self, str(new_word[:-5])):
+        symbols[next_ending[1:] + ending] = 'pres'
+        symbols_list.append('pres')
+        symbols[next_ending[0] + 'а'] = 'neg'
+        symbols_list.append('neg')
+        new_list.pop(index)
+        new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
         return new_list, new_word, symbols, symbols_list

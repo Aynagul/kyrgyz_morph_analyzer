@@ -29,7 +29,7 @@ v_voice_all_ending = {
 }
 case = ['gen','dat','acc','loc','abl']
 voice = ['ref','coop','pass','caus']
-mood = ['ind_pres','ind_past','ind_fut','cnd','niet','tilek']
+mood = ['pres','past_def','past_indf','past_evid','past_iter','fut_def', 'fut_aor','fut_indf_neg','cnd','fut_indf']
 non_finite_verb_forms = ['ger','gna_perf','ger_impf','gpr_perf','gpr_fut_neg','gpr_impf', 'gpr_pres', 'gpr_past', 'ger_pres',
                          'ger_pres']
 face = ['p1sg','p1pl','p2sg','p2pl']
@@ -45,7 +45,9 @@ vowels_kg = {
 }
 narrow_vowels = ['э','е','и','ү','ө']#ичке үндүлөр
 wide_vowels = ['а','ы','о','у']#жоон үндүлөр
-all_punctuation_marks = ['.',',','?','!','"',';',':','{','}','`']
+all_punctuation_marks = ['.',',','?','!','"',';',':','{','}','`',
+                         '«', '»', '/', '(', ')', '#', '№', '$',
+                         '^', '&', '*', '_', '-', '–', '+','=', '~', "|"]
 sentence_end_p_m = ['. ','! ','? ']
 
 half_of_ending_for_ordinal_numeral = ['чы', 'чи' , 'чу' , 'чү']
@@ -59,6 +61,7 @@ prn_acc = {'мени','сени','аны', 'муну'}
 prn_loc = {'анда', 'мында'}
 prn_abl = {'андан', 'мындан'}
 faces = ['p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf']
+all_faces = ['p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf', 'p3sg', 'p3pl']
 possessiveness = ['px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf']
 plural = 'pl'
 ques = 'ques'
@@ -128,20 +131,20 @@ dat = 'dat'
 pst_iter_1sg = ['чум','чүм']
 pst_iter_2sg = ['чуң','чүң']
 pst_iter_1pl = ['чук','чүк']
-imp_together_tags = ['v','ques','neg','act','imp']
+imp_together_tags = ['v','ques','neg','act','imp', 'iv', 'tv']
 gerunds_together_tags = ['v','nom','gen','dat','acc','loc','abl', 'sg','pl','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
-                  'ques','neg','xp','imp','act']
+                  'ques','neg','xp','imp','act', 'iv', 'tv']
 pcp_together_tags = ['v','pl','imp','act', 'nom','gen','dat','acc','loc','abl', 'sg','pl','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
-                  'ques','neg','xp']
-advv_together_tags = ['v','imp','act']
+                  'ques','neg','xp', 'iv', 'tv']
+advv_together_tags = ['v','imp','act', 'iv', 'tv']
 mood_together_tags = ['v','act','imp','neg','ques','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
-                  'p3sg','p3pl']
-prec_1_together_tags = ['v','act','imp','neg']
+                  'p3sg','p3pl', 'iv', 'tv']
+prec_1_together_tags = ['v','act','imp','neg', 'iv', 'tv']
 comp_together_tags = ['adj','pst','attr']
 
-opt_together_tags = ['v','act','imp','neg','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf', 'p3sg','p3pl','px3sg']
+opt_together_tags = ['v','iv','tv','act','imp','neg','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf', 'p3sg','p3pl','px3sg']
 advv_tags = ['gna_perf', 'advv_cont','gna_purp', 'gna_cnd','gna_irre']
 gerunds_tags = ['ger','ger_pres','ger_fut','fut_opt']
 pcp_tags = ['gpr','gpr_impf','gpr_aor_neg','gpr_pres']
@@ -205,3 +208,4 @@ px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']
 px1pl_endings = ['быз','биз','буз','бүз']
 px2pl_endings = ['ңар','ңер','ңор','ңөр']
 comp_endings = ['ы','и','у','ү']
+verb_default_tags = ['v', 'act', 'iv', 'tv', 'imp', 'caus','coop', 'ref', 'pass']

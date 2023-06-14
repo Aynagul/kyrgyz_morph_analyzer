@@ -37,10 +37,8 @@ def check_tags(tag_list, wrong_word):
                 return False, tag_list
             elif tag == 'comp' and check_tags2(tag_list, sourceModule.comp_together_tags, tag):
                 return False, tag_list
-            elif tag == 'v' or tag == 'act' or tag == 'imp':
-
+            elif tag in sourceModule.verb_default_tags:
                 continue
-
             elif tag == 'neg':
                 continue
             elif tag in sourceModule.numeral_tags and check_tags2(tag_list, sourceModule.tags_with_numeral, tag):
@@ -59,11 +57,14 @@ def check_tags(tag_list, wrong_word):
             elif tag in sourceModule.POS_without_ending_tags:
                 wrong_word = False
                 break
-            elif tag == 'num' or tag == 'num_card':
+            elif tag == 'num' or tag == 'card':
+                continue
+            elif tag in sourceModule.all_faces:
                 continue
             elif tag == 'adj' or tag == 'pst' or tag == 'attr' or tag == 'sup':
                 continue
             else:
+                print('tag not found')
                 wrong_word = True
                 break
     if wrong_word:

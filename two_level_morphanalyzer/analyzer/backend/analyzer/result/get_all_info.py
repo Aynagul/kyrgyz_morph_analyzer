@@ -8,12 +8,12 @@ def get_key_from_value(d, val):
     return None
 
 def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
-             word_without_punctuation, last_punctuation_mark, wrong_priority):
+             word_without_punctuation, last_punctuation_mark, wrong_priority, original_without_punctuation):
     if wrong_priority:
         print('wrong word')
         symbols = {}
         symbols_list = []
-        result_text = '[' + str(word_without_punctuation) + ']' + last_punctuation_mark
+        result_text = first_punctuation_mark + '[' + str(original_without_punctuation) + ']' + last_punctuation_mark
         return result_text, 'Something goes wrong', symbols_list, symbols
     if 'sg' in symbols_list and 'pl' in symbols_list:
         symbols_list.remove('sg')
@@ -48,7 +48,7 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
     def_symbols_text = ''
     for sym in list(dict.fromkeys(symbols_list)):
         def_symbols_text = def_symbols_text + '<' + str(sym) + '>'
-    result_text = str(first_punctuation_mark) + str(word_without_punctuation) + \
+    result_text = str(first_punctuation_mark) + str(original_without_punctuation) + \
                          "/" + str(root) + def_symbols_text + symbols_text + str(last_punctuation_mark)
 
     self.__symbols_list = symbols_list

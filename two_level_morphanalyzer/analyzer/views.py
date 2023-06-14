@@ -1,4 +1,6 @@
 import markdown, sys, os
+
+import time
 from django.views.generic import ListView
 from django.shortcuts import render
 from analyzer.forms import *
@@ -26,17 +28,37 @@ def text_reader(text):
         'navbar': navbar,
     }
     all_text = ''
+    text = " ".join(text.split())
     words_list = text.split(' ')
+    number_of_analyzed_word = 0
+    number_of_not_analyzed_word = 0
+    word_number = 0
+    start = time.time()
+
     for word in words_list:
+        word_number = word_number + 1
         word = str(word).strip()
         obj = Word(word)
-        result = obj.search_word_db_for_word(obj.change_word)
+        result = obj.search_word_db_for_word(obj)
+        if obj.result_text == '[' + str(obj.word_without_punctuation) + ']' + obj.last_punctuation_mark:
+            number_of_not_analyzed_word = number_of_not_analyzed_word + 1
+        else:
+            number_of_analyzed_word = number_of_analyzed_word + 1
         all_text = all_text + str(obj.result_text) + ' '
+    print('all world number:')
+    print(word_number)
+    print('not analyzed number:')
+    print(number_of_not_analyzed_word)
+    print('analyzed number:')
+    print(number_of_analyzed_word)
     symbol_counter = len(text)
+    end = time.time() - start  ## собственно время работы программы
+    print(end)  ## вывод времени
     word_counter = len(words_list)
     context['text'] = text
     context['symbol_counter'] = symbol_counter
     context['word_counter'] = word_counter
+    context['time'] = round(end, 3)
     context['all_text'] = all_text
     return context
 
@@ -105,6 +127,22 @@ def word_analyzer(request):
             word = form.cleaned_data['parameter_word']
             ans = Word(word)
             res = ans.search_word_db_for_word(ans)
+            if not ans.symbols:
+                dict = {
+                    'word': word,
+                    'root': ans.root,
+                    'part_of_speech': ans.part_of_speech,
+                    'all_symbols': ans.symbols_list,
+                    'all_endings': '',
+                    'text': ans.result_text
+                }
+                context = {
+                    'title': title,
+                    'navbar': navbar,
+                    'form': form,
+                    'dict': dict,
+                }
+                return render(request, 'analyzer/word_analyzer.html', context=context)
             dict = {
                 'word': word,
                 'root': ans.root,

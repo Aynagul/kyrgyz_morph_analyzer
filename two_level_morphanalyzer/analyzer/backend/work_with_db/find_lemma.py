@@ -7,7 +7,7 @@ def find_only_lemma(root):
         cursor = sqliteConnection.cursor()
         print("Database created and Successfully Connected to SQLite")
 
-        cursor.execute("select root from analyzer_allroot WHERE root = ? ", root)
+        cursor.execute("select root from analyzer_allroot WHERE root = ?", root)
         record = cursor.fetchone()
         if record:
             cursor.close()
@@ -20,7 +20,7 @@ def find_only_lemma(root):
     finally:
         if sqliteConnection:
             sqliteConnection.close()
-def find_lemma_for_part_of_speech(root, word_without_punctuation):
+def find_lemma_for_part_of_speech(root):
     try:
         sqliteConnection = sqlite3.connect('db.sqlite3')
         cursor = sqliteConnection.cursor()
@@ -39,10 +39,10 @@ def find_lemma_for_part_of_speech(root, word_without_punctuation):
                     ls.append(j)
             ls = list(dict.fromkeys(ls))
             cursor.close()
-            return True, word_without_punctuation, ls[1], ls[1:]
+            return True, ls[1], ls[1:]
         else:
             cursor.close()
-            return False, word_without_punctuation, '', []
+            return False, '', []
     except sqlite3.Error as error:
         print("Error while connecting to sqlite", error)
     finally:
@@ -59,10 +59,16 @@ def find_lemma(root, word_without_punctuation, cursor):
                                        left join analyzer_tags at on at.id = aat.tags_id \
                                        where root = ?", root)
     record = cursor.fetchall()
+    print('record')
+    print(record)
+    tag_id = [1,2,3,4]
+    tag = 0
     if not record == []:
         ls = []
         for i in record:
             for j in i:
+                if j in tag_id:
+                    tag = j
                 ls.append(j)
         ls = list(dict.fromkeys(ls))
         root = word_without_punctuation

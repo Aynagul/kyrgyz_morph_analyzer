@@ -73,10 +73,10 @@ def verb_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
             elif symbol in sourceModule.case:
                 print(11)
                 self.__is_like_a_noun = True
-                if convertTuple(str_ending) in sourceModule.fut_def_faces and check_priority_of_endings.check_faces(
+                if convertTuple(str_ending) in sourceModule.verb_pres and check_priority_of_endings.check_faces(
                         symbols_list):
-
-                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.fut_def_faces(
+                    print(12)
+                    new_list, new_word, self.__symbols, self.__symbols_list = block_of_verb.pres_with_faces(
                         self, convertTuple(str_ending), new_list, index, new_word, symbols,
                         symbols_list)
 

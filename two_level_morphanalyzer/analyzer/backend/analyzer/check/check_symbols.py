@@ -34,5 +34,4 @@ def delete_symbols(sym_list, symbol):
     elif symbol == 'act' in sym_list and [sym for sym in sourceModule.non_finite_verb_forms if
                                                      (sym in sym_list)]:
         sym_list.remove('act')
-        sym_list.remove('pass')
     return sym_list
