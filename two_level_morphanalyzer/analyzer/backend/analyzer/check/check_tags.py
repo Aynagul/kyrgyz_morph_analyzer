@@ -11,6 +11,7 @@ def check_tags2(list, list2, sym):
     return True
 
 def check_tags(tag_list, wrong_word):
+    print(tag_list)
     tag_list = list(dict.fromkeys(tag_list))  # delete duplicates symbols
     tag_list = [i for i in tag_list if i is not None]
     print(tag_list)

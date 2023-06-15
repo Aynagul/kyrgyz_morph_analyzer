@@ -158,11 +158,13 @@ def change_tag_for_verb(tag, ending):
     else:
         return tag
 
-def change_tag_for_noun(tag, priority):
+def change_tag_for_noun(tag, priority, ending):
     if tag == 'num_top':
         return 'abl', 4
-    elif tag == 'imp':
+    elif tag == 'imp' and ending in sourceModule.imp_p2sgf:
         return 'px2sgf', 2
+    elif tag == 'past_def':
+        return 'acc', 4
     else:
         return tag, priority
 

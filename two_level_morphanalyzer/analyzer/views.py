@@ -39,8 +39,8 @@ def text_reader(text):
         word_number = word_number + 1
         word = str(word).strip()
         obj = Word(word)
-        result = obj.search_word_db_for_word(obj)
-        if obj.result_text == '[' + str(obj.word_without_punctuation) + ']' + obj.last_punctuation_mark:
+        result = obj.search_word_db_for_text(obj)
+        if obj.result_text == obj.first_punctuation_mark+ '[' + str(obj.word_without_punctuation) + ']' + obj.last_punctuation_mark:
             number_of_not_analyzed_word = number_of_not_analyzed_word + 1
         else:
             number_of_analyzed_word = number_of_analyzed_word + 1
@@ -127,15 +127,17 @@ def word_analyzer(request):
             word = form.cleaned_data['parameter_word']
             ans = Word(word)
             res = ans.search_word_db_for_word(ans)
+            print(ans.symbols_list_str)
             if not ans.symbols:
                 dict = {
                     'word': word,
                     'root': ans.root,
                     'part_of_speech': ans.part_of_speech,
-                    'all_symbols': ans.symbols_list,
+                    'all_symbols': ans.symbols_list_str,
                     'all_endings': '',
                     'text': ans.result_text
                 }
+
                 context = {
                     'title': title,
                     'navbar': navbar,
@@ -143,14 +145,15 @@ def word_analyzer(request):
                     'dict': dict,
                 }
                 return render(request, 'analyzer/word_analyzer.html', context=context)
-            dict = {
-                'word': word,
-                'root': ans.root,
-                'part_of_speech': ans.part_of_speech,
-                'all_symbols': ans.symbols_list,
-                'all_endings': ans.symbols,
-                'text': ans.result_text
-            }
+            else:
+                dict = {
+                    'word': word,
+                    'root': ans.root,
+                    'part_of_speech': ans.part_of_speech,
+                    'all_symbols': ans.symbols_list_str,
+                    'all_endings': ans.symbols_str,
+                    'text': ans.result_text
+                }
     else:
         form = WordForm()
 

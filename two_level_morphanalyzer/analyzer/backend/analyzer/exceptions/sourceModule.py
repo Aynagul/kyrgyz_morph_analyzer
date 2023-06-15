@@ -54,12 +54,13 @@ half_of_ending_for_ordinal_numeral = ['чы', 'чи' , 'чу' , 'чү']
 half_of_ending_for_not_sure_numeral = ['гон', 'гөн', 'ген', 'ган']
 
 special_pronoun = ['менин','сенин','анын', 'мага','сага','ага', 'мени',
-                   'сени','аны', 'анда', 'андан', 'муну', 'мунун', 'буга', 'мында', 'мындан']
+                   'сени','аны', 'анда', 'андан', 'муну', 'мунун', 'буга', 'мында', 'мындан','меники','аныкы','сеники']
 prn_gen = {'менин','сенин','анын', 'мунун'}
 prn_dat = {'мага','сага','ага', 'буга'}
 prn_acc = {'мени','сени','аны', 'муну'}
 prn_loc = {'анда', 'мында'}
 prn_abl = {'андан', 'мындан'}
+prn_xp = {'меники','аныкы','сеники'}
 faces = ['p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf']
 all_faces = ['p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf', 'p3sg', 'p3pl']
 possessiveness = ['px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf']
@@ -209,3 +210,4 @@ px1pl_endings = ['быз','биз','буз','бүз']
 px2pl_endings = ['ңар','ңер','ңор','ңөр']
 comp_endings = ['ы','и','у','ү']
 verb_default_tags = ['v', 'act', 'iv', 'tv', 'imp', 'caus','coop', 'ref', 'pass']
+POS = ['n', 'v', 'adj', 'adv', 'prn', 'num', 'ij', 'ideo', 'mod', 'part', 'conj', 'post']

@@ -61,7 +61,6 @@ def short_poss_ending(self, ending, new_list, index, new_word, symbols, symbols_
     if find_root_from_the_end(self, str(new_word[:-1])):
 
         if ending[-1] == sourceModule.shortcut_face_1sg:
-            print(11)
             symbols[ending[-1]] = 'px1sg'
             symbols_list.append('px1sg')
         elif ending[-1] == sourceModule.shortcut_face_2sg:

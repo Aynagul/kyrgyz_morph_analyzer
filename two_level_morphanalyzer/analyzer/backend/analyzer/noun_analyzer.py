@@ -12,7 +12,7 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
     str_ending = (str_ending,)
     symbol, priority = find_endings(str_ending)
     if symbol:
-        symbol, priority = check_priority_of_endings.change_tag_for_noun(symbol, priority)
+        symbol, priority = check_priority_of_endings.change_tag_for_noun(symbol, priority, convertTuple(str_ending))
         is_correct_priority, ending_priority = check_priority_of_endings.check_priority(ending_priority, priority)
         if is_correct_priority:
             print('correct prio')
@@ -21,6 +21,7 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                     common.faces(index, new_list, symbol, convertTuple(str_ending), symbols_list, symbols)
 
             elif symbol in sourceModule.case:
+                print(123)
                 new_list, new_word = common.common(self, index, new_list, symbol, convertTuple(str_ending))
             elif symbol in sourceModule.possessiveness:
                 print(33)
