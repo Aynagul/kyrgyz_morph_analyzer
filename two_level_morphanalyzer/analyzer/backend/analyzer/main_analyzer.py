@@ -3,7 +3,11 @@ import nltk
 from analyzer.backend.analyzer.block import block_of_noun, block_of_verb, block_of_numeral, block_of_adjective, common
 from analyzer.backend.analyzer.block.common import listToString
 from analyzer.backend.analyzer.block.common import convertTuple
+<<<<<<< HEAD
 from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings, check_tags, check_vowels
+=======
+from analyzer.backend.analyzer.check import check_punctuation_marks, check_special_pronouns, check_priority_of_endings, check_tags
+>>>>>>> master
 from analyzer.backend.analyzer.ending_split.ending_split import ending_split
 from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb, Possessiveness, Adjectives_2, Numeral, \
     Pronoun, Verb
@@ -113,6 +117,8 @@ class Word:
 
         #word = analyzer.sourceModule.replace_letter(word)
         words = nltk.word_tokenize(word)
+        # qw = []
+        # qw.append(word)
         try:
             syllables_of_words = ending_split(words)
         except:
@@ -124,7 +130,10 @@ class Word:
         new_list = list(ending_list)
         ending_priority = 8
         print(new_list)
+<<<<<<< HEAD
         print(self.part_of_speech)
+=======
+>>>>>>> master
         for ending in ending_list:
             str_ending = listToString(ending)
             print("Ending: {0}".format(str_ending))
@@ -377,6 +386,17 @@ class Word:
             self.__root, self.__symbols_list = Adjectives_2.check_adjectives(self, self.__lower_case_word, self.__symbols_list)
             self.set_all_info()
             return self.__all_info
+<<<<<<< HEAD
+=======
+        elif self.__word_without_punctuation.lower() in sourceModule.num_word_special:
+            self.__part_of_speech = 'num'
+            self.set_symbols_list('num')
+            self.__root, self.__symbols_list = Numeral.check_numerals(self, self.__word_without_punctuation.lower(), self.__symbols_list)
+
+            self.set_all_info()
+            return self.__all_info
+
+>>>>>>> master
 
         else:
 
@@ -503,16 +523,26 @@ class Word:
         self.__symbols_list.append(symbol)
     def set_all_info(self):
         self.__wrong_priority, self.__symbols_list = check_tags.check_tags(self.__symbols_list, self.__wrong_priority)
+<<<<<<< HEAD
         self.__result_text, self.__all_info, self.__symbols_list, self.__symbols, self.__symbols_list_str, self.__symbols_str = \
             get_all_info.get_info(self, self.__symbols_list, self.__symbols,
+=======
+        self.__result_text, self.__all_info, self.__symbols_list, self.__symbols = get_all_info.get_info(self, self.__symbols_list, self.__symbols,
+>>>>>>> master
                                                            self.__root,
                                                            self.__first_punctuation_mark,
                                                            self.__lower_case_word,
                                                            self.__last_punctuation_mark,
+<<<<<<< HEAD
                                                             self.__wrong_priority,
                                                             self.__word_without_punctuation)
         self.__part_of_speech = '<' + self.__part_of_speech + '>'
         print(self.__result_text)
+=======
+                                                            self.__wrong_priority)
+        print(self.__result_text)
+
+>>>>>>> master
         self.__symbols_list = [i for i in self.__symbols_list if i is not None]
         self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
     def set_all_info_for_lemma_only(self):
