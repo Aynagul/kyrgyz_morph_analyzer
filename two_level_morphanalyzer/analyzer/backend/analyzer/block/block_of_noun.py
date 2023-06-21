@@ -56,6 +56,16 @@ def find_root_from_the_end(self, new_word):
         else:
             return False
 
+def short_acc(self, ending, new_list, index, new_word, symbols, symbols_list):
+    next_ending = new_list[1]
+    if find_root_from_the_end(self, str(new_word[:-2])):
+
+        symbols[ending[1:]] = 'acc'
+        symbols_list.append('acc')
+        new_list[index] = ending[0]
+        new_list.reverse()
+        new_word = listToString(new_list)
+        return new_list, new_word, symbols, symbols_list
 def short_poss_ending(self, ending, new_list, index, new_word, symbols, symbols_list):
     next_ending = new_list[1]
     if find_root_from_the_end(self, str(new_word[:-1])):

@@ -240,6 +240,9 @@ class Word:
             return '[' + str(text) + ']'
 
     def search_word_db_for_text(self,word):
+        if word.__original_word in sourceModule.all_punctuation_marks:
+            self.__result_text = self.__original_word
+            return self.__result_text
         if len(word.__original_word) > 33:
             self.__result_text = '[' + str(self.__word_without_punctuation) + ']' + self.__last_punctuation_mark
             return self.__result_text

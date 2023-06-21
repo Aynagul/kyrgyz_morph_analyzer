@@ -93,3 +93,10 @@ def noun_analyzer(self, str_ending, index, new_list, ending, ending_list, new_wo
                 symbols_list)
             print(new_word)
             return '', new_list, new_word, ending_priority
+        elif convertTuple(str_ending)[1:] in sourceModule.shortcut_acc:
+            print('ын, ин')
+            new_list, new_word, self.__symbols, self.__symbols_list = block_of_noun.short_acc(
+                self, convertTuple(str_ending), new_list, index, new_word, symbols,
+                symbols_list)
+            print(new_word)
+            return '', new_list, new_word, ending_priority

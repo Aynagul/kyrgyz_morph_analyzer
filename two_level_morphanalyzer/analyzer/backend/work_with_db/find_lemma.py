@@ -30,7 +30,7 @@ def find_lemma_for_part_of_speech(root):
                                            left join analyzer_allroot_tag aat on a.id = aat.allroot_id \
                                            left join analyzer_tags at on at.id = aat.tags_id \
                                            where root = ?", root)
-        record = cursor.fetchmany(1)
+        record = cursor.fetchall()
         if not record == []:
             ls = []
             for i in record:
@@ -80,13 +80,16 @@ def find_lemma(root, word_without_punctuation, cursor):
 
 
         first_lemma = list(dict.fromkeys(first_lemma))
-
-
+        print('first')
+        print(first_lemma)
+        print('second')
+        print(second_lemma)
         first_lemma.remove(word_without_punctuation.lower())
         first_lemma = [i for i in first_lemma if i is not None]
         if is_homonym:
             second_lemma = list(dict.fromkeys(second_lemma))
-            second_lemma.remove(word_without_punctuation.lower())
+            if word_without_punctuation.lower() in second_lemma:
+                second_lemma.remove(word_without_punctuation.lower())
             second_lemma = [i for i in second_lemma if i is not None]
             root = word_without_punctuation
             part_of_speech.append(first_lemma[0])

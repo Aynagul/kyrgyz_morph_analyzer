@@ -81,10 +81,13 @@ class AllRoot(models.Model):
 
 
 class NewRoot(models.Model):
+    id = models.AutoField(primary_key=True)
     word = models.CharField(max_length=150)
-    part_of_speech = models.OneToOneField(PartOfSpeech, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tags, blank=True)
+    root = models.CharField(max_length=150)
+    tags = models.CharField(max_length=150)
+    endings = models.CharField(max_length=150)
     is_done = models.BooleanField(default=False)
+
 
     class Meta:
         verbose_name = 'Жаңы негиз'

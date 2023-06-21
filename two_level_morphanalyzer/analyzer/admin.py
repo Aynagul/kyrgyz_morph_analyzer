@@ -66,7 +66,7 @@ class TagsAdmin(admin.ModelAdmin):
     search_fields = ('tag', 'priority', 'description')
 
 class NewRootAdmin(admin.ModelAdmin):
-    list_display = ('id', 'word', 'part_of_speech', 'get_tags', 'is_done')
+    list_display = ('id', 'word', 'root', 'get_tags', 'is_done')
 
     def get_tags(self, obj):
         return "\n".join([p.tag for p in obj.tag.all()])
