@@ -85,7 +85,7 @@ class NewRoot(models.Model):
     word = models.CharField(max_length=150)
     root = models.CharField(max_length=150)
     tags = models.CharField(max_length=150)
-    endings = models.CharField(max_length=150)
+    endings = models.CharField(max_length=150,null=True)
     is_done = models.BooleanField(default=False)
 
 

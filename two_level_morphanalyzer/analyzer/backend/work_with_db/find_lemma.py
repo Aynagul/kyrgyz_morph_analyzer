@@ -1,5 +1,6 @@
 import sqlite3
 from analyzer.backend.analyzer.exceptions import sourceModule
+from analyzer.backend.analyzer.block.common import convertTuple
 def find_only_lemma(root):
     try:
         sqliteConnection = sqlite3.connect('db.sqlite3')
@@ -30,7 +31,7 @@ def find_lemma_for_part_of_speech(root):
                                            left join analyzer_allroot_tag aat on a.id = aat.allroot_id \
                                            left join analyzer_tags at on at.id = aat.tags_id \
                                            where root = ?", root)
-        record = cursor.fetchall()
+        record = cursor.fetchmany(1)
         if not record == []:
             ls = []
             for i in record:
@@ -156,6 +157,35 @@ def is_lemma_in_db(root):
         else:
             cursor.close()
             return False
+    except sqlite3.Error as error:
+        print("Error while connecting to sqlite", error)
+    finally:
+        if sqliteConnection:
+            sqliteConnection.close()
+
+
+def find_lemma_from_new_root(root, cursor):
+    try:
+        sqliteConnection = sqlite3.connect('db.sqlite3')
+        cursor = sqliteConnection.cursor()
+        print("Database created and Successfully Connected to SQLite")
+
+        cursor.execute("select root, tags, endings from analyzer_newroot where word = ? and is_done = 1", root)
+        record = cursor.fetchall()
+        print(record)
+        if not record == []:
+            ls = []
+            pos_tag = ''
+            for i in record:
+                for j in i:
+
+                    ls.append(j)
+
+            cursor.close()
+            return True, str(ls[0]), ls[1], str(ls[2])
+        else:
+            cursor.close()
+            return False, [], [], []
     except sqlite3.Error as error:
         print("Error while connecting to sqlite", error)
     finally:

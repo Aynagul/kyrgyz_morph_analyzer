@@ -10,7 +10,7 @@ from analyzer.backend.analyzer.endings import Noun, Cases, Faces, Others, Adverb
 from analyzer.backend.analyzer.exceptions import sourceModule
 from analyzer.backend.analyzer.reader import file_reader
 from analyzer.backend.analyzer.result import get_all_info
-from analyzer.backend.work_with_db.find_lemma import find_lemma
+from analyzer.backend.work_with_db.find_lemma import find_lemma, find_lemma_from_new_root
 from analyzer.backend.work_with_db.find_lemma import find_only_lemma, find_lemma_for_text
 from analyzer.backend.work_with_db.find_lemma import find_lemma_for_part_of_speech
 from analyzer.backend.work_with_db.find_endings import find_endings
@@ -385,6 +385,11 @@ class Word:
             try:
                 sqliteConnection = sqlite3.connect('db.sqlite3')
                 cursor = sqliteConnection.cursor()
+                is_found, self.__root, self.__symbols_list_str, self.__symbols_str = \
+                    find_lemma_from_new_root(root, cursor)
+                if is_found:
+                    self.set_info_for_new_root()
+                    return self.__all_info
                 is_found, self.__root, self.__part_of_speech_list, self.__symbols_list_for_2_lemma, self.__is_homonym = \
                     find_lemma(root, self.__lower_case_word, cursor)
                 if is_found:
@@ -551,5 +556,16 @@ class Word:
             print(self.__result_text)
             self.__symbols_list = [i for i in self.__symbols_list if i is not None]
             self.__symbols_list = list(dict.fromkeys(self.__symbols_list))
+
+
+    def set_info_for_new_root(self):
+        self.__symbols_list = self.__symbols_list_str.split(',')
+        print(self.__symbols_list)
+        self.__part_of_speech = str(self.__symbols_list[0])
+        def_symbols_text = ''
+        for sym in list(dict.fromkeys(self.__symbols_list)):
+            def_symbols_text = def_symbols_text + '<' + str(sym) + '>'
+        self.__result_text = str(self.__first_punctuation_mark) + str(self.__word_without_punctuation) + \
+                                 "/" + str(self.__root) + def_symbols_text
 
 
