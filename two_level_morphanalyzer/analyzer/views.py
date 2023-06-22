@@ -3,6 +3,8 @@ from django.views.generic import ListView
 from django.shortcuts import render
 from analyzer.forms import *
 from .models import *
+from django.http import JsonResponse
+
 from .backend.analyzer.main_analyzer import Word
 from django.core.files.storage import FileSystemStorage
 import mimetypes
@@ -95,9 +97,15 @@ def handbook(request):
     }
     return render(request, 'analyzer/handbook.html', context=context)
 
+# def product_list(request):
+#     products = Endings.objects.all()
+#     return render(request, 'product_list.html', {'products': products})
 
 def word_analyzer(request):
     title = 'Сөз анализатор'
+    names = list(Endings.objects.values_list('name', flat=True))
+    partof_speech = list(PartOfSpeech.objects.values_list('part_of_speech', flat=True))
+    print(names)
     dict = {}
     if request.method == 'POST':
         form = WordForm(request.POST)
@@ -111,7 +119,9 @@ def word_analyzer(request):
                 'part_of_speech': ans.part_of_speech,
                 'all_symbols': ans.symbols_list,
                 'all_endings': ans.symbols,
-                'text': ans.result_text
+                'text': ans.result_text,
+                'names': names,
+                'partof_speech': partof_speech
             }
     else:
         form = WordForm()
@@ -142,5 +152,3 @@ def text_analyzer(request):
             context = text_reader(text)
 
     return render(request, 'analyzer/text_analyzer.html', context=context)
-
-
