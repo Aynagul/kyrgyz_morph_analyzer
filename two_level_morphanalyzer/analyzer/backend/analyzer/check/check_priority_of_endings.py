@@ -2,8 +2,6 @@ from analyzer.backend.analyzer.exceptions import sourceModule
 def check_priority(ending_priority, priority):
     if int(priority) <= ending_priority:
         ending_priority = int(priority)
-        print(ending_priority)
-
         return True, ending_priority
     else:
         return False, ending_priority
@@ -36,9 +34,22 @@ def check_pl(list):
 
     return False
 
+
+def check_px2sgf(list):
+    print(list)
+    for i in list:
+        if i == 'px2sgf':
+
+            return True
+        else:
+            continue
+
+    return False
+
+
 def check_2pl(list):
     for i in list:
-        if i == '2pl':
+        if i == 'p2pl':
             return True
         else:
             continue
@@ -47,7 +58,7 @@ def check_2pl(list):
 
 def check_2plf(list):
     for i in list:
-        if i == '2plf':
+        if i == 'p2plf':
             return True
         else:
             continue
@@ -65,7 +76,7 @@ def check_faces(list):
     return False
 
 def check_tag_for_verb(tag, priority, list):
-    if tag == sourceModule.negative:
+    if tag == sourceModule.neg_str:
         priority = 1
     elif tag == sourceModule.plural:
         priority = 3
@@ -79,7 +90,9 @@ def check_tag_for_verb(tag, priority, list):
         priority = 2
     elif tag in sourceModule.case:
         priority = 6
-    elif tag in '2sgf' and check_pl(list):
+
+    elif tag in 'p2sgf' and check_pl(list):
+
         priority = 3
     elif tag in sourceModule.faces:
         priority = 7
@@ -92,7 +105,9 @@ def check_tag_for_verb(tag, priority, list):
     return priority
 
 def check_tag_for_numeral(tag, priority, list):
-    if tag == sourceModule.negative:
+
+    if tag == sourceModule.neg_str:
+
         priority = 5
     elif tag == sourceModule.plural:
         priority = 2
@@ -102,8 +117,12 @@ def check_tag_for_numeral(tag, priority, list):
         priority = 4
     elif tag == 'abl':
         priority = 1
-    elif tag == 'pst_indf':
+
+    elif tag == 'past_indf':
         priority = 1
+    elif tag == 'imp':
+        return 'px2sgf', 2
+
     elif tag in sourceModule.case:
         priority = 5
     elif tag in sourceModule.faces:
@@ -113,12 +132,14 @@ def check_tag_for_numeral(tag, priority, list):
     elif tag == sourceModule.num_appr1:
         priority = 2
     else:
-        return priority
-    return priority
+
+        return tag, priority
+    return tag, priority
 
 
 def check_tag_for_adj(tag, priority, list):
-    if tag == sourceModule.negative:
+    if tag == sourceModule.neg_str:
+
         priority = 5
     elif tag == sourceModule.plural:
         priority = 2
@@ -132,13 +153,36 @@ def check_tag_for_adj(tag, priority, list):
         priority = 6
     elif tag == sourceModule.ques:
         priority = 7
+
+    elif tag == 'imp':
+        return 'px2sgf', 2
     else:
-        return priority
-    return priority
+        return tag, priority
+    return tag, priority
 
 def change_tag_for_verb(tag, ending):
     if ending in sourceModule.two_sgf_verb:
-        tag = '2sgf'
+        tag = 'p2sgf'
+        return tag
+    elif tag == 'px1pl':
+        tag = 'p1pl'
         return tag
     else:
         return tag
+
+def change_tag_for_noun(tag, priority, ending):
+    if tag == 'num_top':
+        return 'abl', 4
+    elif tag == 'imp' and ending in sourceModule.imp_p2sgf:
+        return 'px2sgf', 2
+    elif tag == 'past_def':
+        return 'acc', 4
+    else:
+        return tag, priority
+
+def change_tag_for_num(tag, priority):
+    if tag == 'imp':
+        return 'px2sgf', 2
+    else:
+        return tag, priority
+
