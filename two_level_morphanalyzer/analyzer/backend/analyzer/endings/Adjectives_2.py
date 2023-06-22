@@ -76,3 +76,12 @@ adj_sup_ending = {'кап','кып'}
 adj_pst_koshmok_words= {'кара күрөң','кара тору','кара көк','ак куба','жашыл ала','сары ала','көк ала',
                         'кызыл ала','кара кашка','жээрде кашка','ак пейил','ак көңүл','кара көз','кырдач мурун',
                         'теке сакал','кыргый кабак','ак жуумал'}
+
+def check_adjectives(self, word, list):
+    root = ''
+    if word == 'жакшыраак':
+        self.set_symbol('comp', 'раак')
+        list.append('attr')
+        list.append('comp')
+        root = 'жакшы'
+    return root, list

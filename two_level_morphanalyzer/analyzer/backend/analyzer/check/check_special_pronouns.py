@@ -53,4 +53,14 @@ def check_pronouns(self, symbol, word):
         elif word == 'мындан':
             self.set_symbol(symbol, 'дан')
             root = 'бул'
+    elif symbol == 'xp':
+        if word == 'аныкы':
+            self.set_symbol(symbol, 'ныкы')
+            root = 'ал'
+        elif word == 'меники':
+            self.set_symbol(symbol, 'ники')
+            root = 'мен'
+        elif word == 'сеники':
+            self.set_symbol(symbol, 'ники')
+            root = 'сен'
     return root

@@ -128,7 +128,8 @@
                 </div>
 
                 <br>
-                <p>Жыйынтык: {{dict.text}}</p>
+                <p>Жыйынтык:</p>
+                <pre style="font-size: 20px">{{dict.text}}</pre>
 
 
                 <div class="col">
@@ -137,15 +138,15 @@
                         <div class="form-group">
                             <div><input type="text" placeholder="Анализ үчүн сөз жазыңыз:" name="input_word" id="input_word" style="width: 55%; margin-top: 10px;  border: 1px solid black;"></div>
                             <div><input type="text" placeholder="Сөздүн уңгусун жазыңыз:" name="root" id="root" style="width: 55%; margin-top: 10px;  border: 1px solid black;"></div>
+                            <div><input type="text" placeholder="Сөздүн аффиксин жазыңыз:" name="endings" id="endings" style="width: 55%; margin-top: 10px;  border: 1px solid black;"></div>
+
                         <div id="mucholor" >
                         </div>
-
                             <div id="myDropdown1" class="dropdown-content" style="width: 55%; margin-top: 10px; background: #fff; border: 1px solid white;position:relative ">
                             <input type="text" placeholder="Сөз түркүмүн жазыңыз" name="product1" id="product1" onkeyup="filterFunction()" style="width: 100%; border: 1px solid black;">
                              <div id="search-text1" style="z-index: 999999; overflow: scroll;"></div>
                          </div>
-                              <div id="mucholor1" >
-                        </div>
+                              <div id="mucholor1" ></div>
                          <div id="myDropdown" class="dropdown-content" style="width: 55%; margin-top: 10px; background: #fff; border: 1px solid white;position:relative ">
                             <input type="text" placeholder="Мүчө/мүчөлөрдү тандаңыз" name="product" id="product" onkeyup="filterFunction()" style="width: 100%; border: 1px solid black;">
                              <div id="search-text" style="z-index: 999999; overflow: scroll;"></div>
