@@ -27,7 +27,6 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
         key = get_key_from_value(symbols, 'imp_sgf')
         symbols[key] = 'p2sgf'
         symbols_list.append('p2sgf')
-
     for symbol in symbols_list:
         if symbol == '':
             symbols_list.remove(symbol)

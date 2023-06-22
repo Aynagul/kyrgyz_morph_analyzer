@@ -149,7 +149,7 @@ pcp_together_tags = ['v','pl','imp','act', 'nom','gen','dat','acc','loc','abl', 
                   'ques','neg','xp', 'iv', 'tv']
 advv_together_tags = ['v','imp','act', 'iv', 'tv']
 mood_together_tags = ['v','act','imp','neg','ques','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
-                  'p3sg','p3pl', 'iv', 'tv']
+                  'p3sg','p3pl', 'iv', 'tv', 'pri','ifi','fti']
 prec_1_together_tags = ['v','act','imp','neg', 'iv', 'tv']
 comp_together_tags = ['adj','pst','attr']
 
@@ -225,5 +225,5 @@ px2sgf_endings = ['ңыз','ңиз','ңуз','ңүз']
 px1pl_endings = ['быз','биз','буз','бүз']
 px2pl_endings = ['ңар','ңер','ңор','ңөр']
 comp_endings = ['ы','и','у','ү']
-verb_default_tags = ['v', 'act', 'iv', 'tv', 'imp', 'caus','coop', 'ref', 'pass' , 'cop_ger', 'cop_ifi', 'cop_neg']
+verb_default_tags = ['v', 'act', 'iv', 'tv', 'imp', 'caus','coop', 'ref', 'pass' , 'cop_ger', 'cop_ifi', 'cop_neg','pri','ifi','fti']
 POS = ['n', 'v', 'adj', 'adv', 'prn', 'num', 'ij', 'ideo', 'mod', 'part', 'conj', 'post']

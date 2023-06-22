@@ -108,12 +108,14 @@ def special_pres(self, ending, index, new_list, key, new_word):
         self.set_symbols_list('pres')
         self.set_symbol('neg', ending[0] + 'а')
         self.set_symbols_list('neg')
+        self.set_symbols_list('pri')
         new_word = listToString(new_list)
         return new_list, new_word
     else:
         letter = ending[0]
         self.set_symbol('pres', ending[1:]+key)
         self.set_symbols_list('pres')
+        self.set_symbols_list('pri')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -124,6 +126,7 @@ def special_pst_evid(self, ending, index, new_list, key):
     letter = ending[0]
     self.set_symbol('past_evid', ending[1:]+key)
     self.set_symbols_list('past_evid')
+    self.set_symbols_list('ifi')
     new_list.pop(index)
     new_list.reverse()
     new_word = listToString(new_list)
@@ -151,6 +154,7 @@ def is_ending_a_pst_evid(self, new_list, index, last_ending, new_word):
             new_list.reverse()
             self.set_symbol('past_evid', str(ending[1:]+last_ending))
             self.set_symbols_list('past_evid')
+            self.set_symbols_list('ifi')
             new_word = listToString(new_list)
             return True, new_list, new_word
         elif ending[:-1] in sourceModule.negative_ending_verb and ending[2] in sourceModule.for_pst_evid2:
@@ -162,6 +166,7 @@ def is_ending_a_pst_evid(self, new_list, index, last_ending, new_word):
             self.set_symbols_list('past_evid')
             self.set_symbol('neg', str(ending[:-1]))
             self.set_symbols_list('neg')
+            self.set_symbols_list('ifi')
             new_word = listToString(new_list)
             return True, new_list, new_word
         elif ending[2] in sourceModule.for_pst_evid2 and find_root_from_the_end(self, str(new_word[:-4])):
@@ -219,6 +224,7 @@ def special_voice(self, ending, symbol, index, new_list):
 def fut_aor(self, ending, new_list):
     self.set_symbol('fut_aor', ending[-1])
     self.set_symbols_list('fut_aor')
+    self.set_symbols_list('fti')
     new_list[0] = ending[:-1]
     new_list.reverse()
     new_word = listToString(new_list)
@@ -230,6 +236,7 @@ def fut_indf_neg(self, ending, new_list, index):
     self.set_symbols_list('fut_aor')
     self.set_symbol('neg', ending[:-1])
     self.set_symbols_list('neg')
+    self.set_symbols_list('fti')
     new_list.pop(index)
     new_list.reverse()
     new_word = listToString(new_list)
@@ -327,6 +334,7 @@ def pl(self, ending, new_list, index, symbol, new_word):
         new_list.reverse()
         self.set_symbol('fut_aor', ending[1:])
         self.set_symbols_list('fut_aor')
+        self.set_symbols_list('fti')
         new_word = listToString(new_list)
         print(new_word)
         return new_word, new_list
@@ -443,6 +451,7 @@ def fut_indf_1(self, ending, new_list, index, new_word, symbols, symbols_list):
                 print('ayin')
                 symbols_list.append('p1sg')
                 symbols[ending[-1] + ending_hor_sg] = 'fut_indf'
+                symbols_list.append('fti')
                 del symbols[ending_hor_sg]
                 new_list[index] = ending[:-1]
                 new_list.reverse()
@@ -457,6 +466,7 @@ def fut_indf_2(self, ending, new_list, index, new_word, symbols, symbols_list):
         symbols_list.append('p1pl')
         symbols[next_ending[-1] + ending] = 'fut_indf'
         symbols_list.append('fut_indf')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list[index] = next_ending[:-1]
         new_list.reverse()
@@ -470,6 +480,7 @@ def fut_indf_2(self, ending, new_list, index, new_word, symbols, symbols_list):
         symbols_list.append('fut_indf')
         symbols[next_ending[:-1]] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -483,6 +494,7 @@ def fut_indf_2(self, ending, new_list, index, new_word, symbols, symbols_list):
         symbols_list.append('fut_indf')
         symbols[next_ending[:-1]] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -493,6 +505,7 @@ def fut_indf_2(self, ending, new_list, index, new_word, symbols, symbols_list):
         symbols_list.append('p1pl')
         symbols[next_ending[-1] + ending] = 'fut_indf'
         symbols_list.append('fut_indf')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list[index] = next_ending[:-1]
         new_list.reverse()
@@ -508,6 +521,7 @@ def fut_indf_3(self, ending, new_list, index, new_word, symbols, symbols_list):
                 #print('макчы')
                 symbols[ending + ending_prec_1] = 'fut_indf'
                 symbols_list.append('fut_indf')
+                symbols_list.append('fti')
                 del symbols[ending_prec_1]
                 symbols_list.remove('prec_1')
                 new_list.pop(index)
@@ -519,6 +533,7 @@ def fut_indf_3(self, ending, new_list, index, new_word, symbols, symbols_list):
                 #print('памакчы')
                 symbols[ending + ending_prec_1] = 'fut_indf'
                 symbols_list.append('fut_indf')
+                symbols_list.append('fti')
                 del symbols[ending_prec_1]
                 symbols_list.remove('prec_1')
                 symbols[next_ending] = 'neg'
@@ -541,6 +556,7 @@ def fut_indf_3(self, ending, new_list, index, new_word, symbols, symbols_list):
     else:
         symbols[ending] = 'fut_indf'
         symbols_list.append('fut_indf')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -553,6 +569,7 @@ def fut_opt(self, ending, new_list, index, new_word):
         self.set_symbols_list('p1sg')
         self.set_symbol('fut_opt', ending[:-1])
         self.set_symbols_list('fut_opt')
+        self.set_symbols_list('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -562,6 +579,7 @@ def fut_opt(self, ending, new_list, index, new_word):
         self.set_symbols_list('p2sg')
         self.set_symbol('fut_opt', ending[:-1])
         self.set_symbols_list('fut_opt')
+        self.set_symbols_list('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -574,6 +592,7 @@ def fut_opt(self, ending, new_list, index, new_word):
 def past_def(self, ending, new_list, index):
     self.set_symbol('past_def', ending)
     self.set_symbols_list('past_def')
+    self.set_symbols_list('ifi')
     new_list.pop(index)
     new_list.reverse()
     new_word = listToString(new_list)
@@ -865,6 +884,7 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         symbols_list.append('past_def')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -879,6 +899,7 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         symbols_list.append('past_def')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -894,6 +915,7 @@ def pst_def_face(self, ending, new_list, index, new_word, symbols, symbols_list)
         symbols_list.append('past_def')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -910,6 +932,7 @@ def shortcut_ending_with_1_sg_3sg(self, ending, new_list, index, new_word, symbo
         symbols_list.append('p1sg')
         symbols[ending[1]] = 'fut_def'
         symbols_list.append('fut_def')
+        symbols_list.append('fti')
         new_list[index] = ending[0]
         new_list.reverse()
         new_word = listToString(new_list)
@@ -921,6 +944,7 @@ def shortcut_ending_with_1_sg_3sg(self, ending, new_list, index, new_word, symbo
         symbols_list.append('p3sg')
         symbols[ending[1]] = 'fut_def'
         symbols_list.append('fut_def')
+        symbols_list.append('fti')
         new_list[index] = ending[0]
         new_list.reverse()
         new_word = listToString(new_list)
@@ -958,6 +982,7 @@ def fut_def_faces(self, ending, new_list, index, new_word, symbols, symbols_list
         #print('fut_def other faces')
         symbols[ending[-1]] = 'fut_def'
         symbols_list.append('fut_def')
+        symbols_list.append('fti')
         new_list[index] = ending[0]
         new_list.reverse()
         new_word = listToString(new_list)
@@ -968,6 +993,7 @@ def pres_with_faces(self, ending, new_list, index, new_word, symbols, symbols_li
     if next_ending[1:] in sourceModule.ending_of_gerund and find_root_from_the_end(self, str(new_word[:-4])):
         symbols[next_ending[1:] + ending] = 'pres'
         symbols_list.append('pres')
+        symbols_list.append('pri')
         new_list.pop(index)
         new_list[index] = next_ending[0]
         new_list.reverse()
@@ -978,6 +1004,7 @@ def pres_with_faces(self, ending, new_list, index, new_word, symbols, symbols_li
         symbols_list.append('pres')
         symbols[next_ending[0] + 'а'] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('pri')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -993,6 +1020,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('p1sg')
         symbols[ending[:-1]] = 'past_iter'
         symbols_list.append('past_iter')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1004,6 +1032,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('p2sg')
         symbols[ending[:-1]] = 'past_iter'
         symbols_list.append('past_iter')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1015,6 +1044,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('p1pl')
         symbols[ending[:-1]] = 'past_iter'
         symbols_list.append('past_iter')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1028,6 +1058,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('past_iter')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -1042,6 +1073,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('past_iter')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -1055,6 +1087,7 @@ def pst_iter_faces(self, ending, new_list, index, new_word, symbols, symbols_lis
         symbols_list.append('past_iter')
         symbols[next_ending] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.pop(index)
         new_list.reverse()
@@ -1071,6 +1104,7 @@ def fut_def_special(self, ending, new_list, index, new_word, symbols, symbols_li
         symbols_list.append('p1sg')
         symbols[ending[2]] = 'fut_def'
         symbols_list.append('fut_def')
+        symbols_list.append('ifi')
         new_list[index] = ending[:-2]
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1084,6 +1118,7 @@ def fut_def_special(self, ending, new_list, index, new_word, symbols, symbols_li
         symbols_list.append('fut_def')
         symbols[ending[:2]] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1098,6 +1133,7 @@ def fut_def_special_negative(self, ending, new_list, index, new_word, symbols, s
         symbols_list.append('fut_def')
         symbols[ending[:-1]] = 'neg'
         symbols_list.append('neg')
+        symbols_list.append('ifi')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1348,6 +1384,7 @@ def gpr_aor_neg(self, ending, new_list, index, new_word, symbols, symbols_list):
         print('fut_indf_neg')
         symbols[ending] = 'fut_indf_neg'
         symbols_list.append('fut_indf_neg')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1360,6 +1397,7 @@ def inf_5_with_other_tags(self, ending, new_list, index, new_word, symbols, symb
 
         symbols[ending] = 'fut_opt'
         symbols_list.append('fut_opt')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)
@@ -1369,6 +1407,7 @@ def inf_5_with_other_tags(self, ending, new_list, index, new_word, symbols, symb
 
         symbols[ending] = 'fut_aor'
         symbols_list.append('fut_aor')
+        symbols_list.append('fti')
         new_list.pop(index)
         new_list.reverse()
         new_word = listToString(new_list)

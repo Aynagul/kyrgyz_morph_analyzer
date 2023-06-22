@@ -48,6 +48,7 @@ def check_tags(tag_list, wrong_word):
 
             elif tag == 'neg':
                 continue
+
             elif tag in sourceModule.numeral_tags and check_tags2(tag_list, sourceModule.tags_with_numeral, tag):
                 return False, tag_list
             elif tag in sourceModule.adj_tags and check_tags2(tag_list, sourceModule.tags_with_adj, tag):
@@ -65,7 +66,7 @@ def check_tags(tag_list, wrong_word):
             elif tag in sourceModule.POS_without_ending_tags:
                 wrong_word = False
                 break
-            elif tag == 'num' or tag == 'card':
+            elif tag == 'num' or tag == 'num_card':
                 continue
             elif tag in sourceModule.all_faces:
                 continue

@@ -8,6 +8,7 @@ def get_faces_tag(list):
             continue
     return False
 def delete_symbols(sym_list, symbol):
+    print(sym_list)
     if symbol == 'nom' in sym_list and [sym for sym in sourceModule.case if (sym in sym_list)]:
         sym_list.remove('nom')
 
