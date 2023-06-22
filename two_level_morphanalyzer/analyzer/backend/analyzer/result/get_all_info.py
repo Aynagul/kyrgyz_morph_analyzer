@@ -8,16 +8,14 @@ def get_key_from_value(d, val):
     return None
 
 def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
-<<<<<<< HEAD
+
              word_without_punctuation, last_punctuation_mark, wrong_priority, original_without_punctuation):
-=======
-             word_without_punctuation, last_punctuation_mark, wrong_priority):
->>>>>>> master
+
     if wrong_priority:
         print('wrong word')
         symbols = {}
         symbols_list = []
-<<<<<<< HEAD
+
         result_text = first_punctuation_mark + '[' + str(original_without_punctuation) + ']' + last_punctuation_mark
         return result_text, 'Something goes wrong', symbols_list, symbols, '', ''
     if 'sg' in symbols_list and 'pl' in symbols_list:
@@ -29,19 +27,7 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
         key = get_key_from_value(symbols, 'imp_sgf')
         symbols[key] = 'p2sgf'
         symbols_list.append('p2sgf')
-=======
-        result_text = '[' + str(word_without_punctuation) + ']' + last_punctuation_mark
-        return result_text, 'Something goes wrong', symbols_list, symbols
-    if 'sg' in symbols_list and 'pl' in symbols_list:
-        symbols_list.remove('sg')
-    if '3sg' in symbols_list and 'pl' in symbols_list:
-        symbols_list.remove('3sg')
-    if 'pres' in symbols_list and 'imp_sgf' in symbols_list:
-        symbols_list.remove('imp_sgf')
-        key = get_key_from_value(symbols, 'imp_sgf')
-        symbols[key] = '2sgf'
-        symbols_list.append('2sgf')
->>>>>>> master
+
     for symbol in symbols_list:
         if symbol == '':
             symbols_list.remove(symbol)
@@ -73,8 +59,5 @@ def get_info(self, symbols_list, symbols, root, first_punctuation_mark,
                          "/" + str(root) + def_symbols_text + symbols_text + str(last_punctuation_mark)
 
     self.__symbols_list = symbols_list
-<<<<<<< HEAD
+
     return result_text, all_info, symbols_list, symbols, def_symbols_text, sym_str
-=======
-    return result_text, all_info, symbols_list, symbols
->>>>>>> master

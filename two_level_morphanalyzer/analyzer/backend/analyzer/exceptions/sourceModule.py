@@ -32,11 +32,9 @@ voice = ['ref','coop','pass','caus']
 mood = ['pres','past_def','past_indf','past_evid','past_iter','fut_def', 'fut_aor','fut_indf_neg','cnd','fut_indf']
 non_finite_verb_forms = ['ger','gna_perf','ger_impf','gpr_perf','gpr_fut_neg','gpr_impf', 'gpr_pres', 'gpr_past', 'ger_pres',
                          'ger_pres']
-<<<<<<< HEAD
+
 face = ['p1sg','p1pl','p2sg','p2pl']
-=======
-face = ['1sg','1pl','2sg','2pl']
->>>>>>> master
+
 num_symbols = ['num_ord', 'num_top','num_appr1','num_appr2', 'num_appr3']
 consonants_kg = {
     'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'ң', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ'
@@ -100,7 +98,7 @@ fut_indf_str = 'fut_indf'
 deside2 = ['макчы','мекчи','мокчу','мөкчү']
 inf_5_1sg = ['гым','гим','гум','гүм','кым','ким','кум','күм']
 inf_5_2sg = ['гың','гиң','гуң','гүң','кың','киң','куң','күң']
-<<<<<<< HEAD
+
 past_def = ['ты','ти','ту','тү','ды','ди','ду','дү']
 neg_pres2 = ['оодо','өөдө']
 neg_pre1 = ['б','п']
@@ -116,23 +114,7 @@ hor_sg_str = 'fut_indf'
 advv_neg2 = ['майын','мейин','мойун','мөйүн']
 past_iter = 'past_iter'
 gpr_1 = ['оочу','уучу','өөчү','үүчү']
-=======
-pst_def = ['ты','ти','ту','тү','ды','ди','ду','дү']
-neg_pres2 = ['оодо','өөдө']
-neg_pre1 = ['б','п']
-fut_indf = ['ар','ер','ор','өр']
-fut_indf_neg = 'fut_indf_neg'
-advv_int1 = ['ны','ни','ну','нү']
-advv_int2 = ['га','ге','го','гө', 'ка','ке','ко','кө']
-advv_neg = ['майынча','мейинче','мойунча','мөйүнчө']
-num_appr1 = 'num_appr1'
-advv_suc1 = ['кыча','киче','куча','күчө','гыча','гиче','гуча','гүчө']
-advv_suc2 = ['ганча','генче','гончо','гөнчө','канча','кенче','кончо','көнчө']
-hor_sg_str = 'hor_sg'
-advv_neg2 = ['майын','мейин','мойун','мөйүн']
-pst_iter = 'pst_iter'
-pcp_pr = ['оочу','уучу','өөчү','үүчү']
->>>>>>> master
+
 num_appr2 = 'num_appr2'
 pcp_fut_def1 = ['гыдай','гидей','гудай','гүдөй']
 pcp_fut_def2 = ['чудай','чидей','чыдай','чүдөй']
@@ -146,11 +128,10 @@ pst_def_1_pl = ['тык','тик','тук','түк','дык','дик','дук','
 shortcut_face_1sg = 'м'
 shortcut_face_2sg = 'ң'
 shortcut_face_1pl = 'к'
-<<<<<<< HEAD
+
 shortcut_ending_poss = ['м','ң']
 shortcut_acc = ['ын','ин']
-=======
->>>>>>> master
+
 shortcut_ending_with_1_sg = ['ам','ем','ом','өм']
 shortcut_ending_with_3_sg = ['ат','ет','от','өт']
 fut_def_faces = ['та','те','то','тө','да','де','до','дө']
@@ -158,7 +139,7 @@ dat = 'dat'
 pst_iter_1sg = ['чум','чүм']
 pst_iter_2sg = ['чуң','чүң']
 pst_iter_1pl = ['чук','чүк']
-<<<<<<< HEAD
+
 imp_together_tags = ['v','ques','neg','act','imp', 'iv', 'tv']
 gerunds_together_tags = ['v','nom','gen','dat','acc','loc','abl', 'sg','pl','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
@@ -190,54 +171,22 @@ adj_tags = ['pst']
 tags_with_adj = ['adj','pst','nom','gen','dat','acc','loc','abl', 'sg','pl','p1sg', 'p2sg', 'p2sgf', 'p1pl', 'p2pl', 'p2plf',
                   'p3sg','p3pl','px1sg', 'px2sg', 'px2sgf', 'px3sg', 'px1pl', 'px2pl', 'px2plf',
                   'ques','neg','xp', 'attr']
-=======
-imp_together_tags = ['v','ques','neg','act','imp']
-gerunds_together_tags = ['v','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-                  'ques','neg','xp','imp','act']
-pcp_together_tags = ['v','pl','imp','act', 'nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-                  'ques','neg','xp']
-advv_together_tags = ['v','imp','act']
-mood_together_tags = ['v','act','imp','neg','ques','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl']
-prec_1_together_tags = ['v','act','imp','neg']
 
-opt_together_tags = ['v','act','imp','neg','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf', '3sg','3pl','poss_3sg']
-advv_tags = ['advv_acc', 'advv_cont','advv_int', 'advv_neg','advv_suc']
-gerunds_tags = ['inf_1','inf_2','inf_3','inf_4','inf_5']
-pcp_tags = ['pcp_pr','pcp_ps','pcp_fut_def','pcp_fut_neg','gpr_pres']
-verb_mood = ['pres','pst_def','pst_indf','pst_evid','pst_iter','fut_def', 'fut_indf','fut_indf_neg','cond','deside']
-imp_tags = ['imp_sg', 'imp_sgf', 'imp_pl', 'imp_plf', 'jus_sg', 'jus_pl']
-tags_with_noun = ['n','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-                  'ques','agnt','neg','xp']
-tags_with_numeral = ['num','num_card','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-                  'ques','neg','xp']
-numeral_tags = ['num_card','num_ord','num_coll','num_top','num_appr1','num_appr2','num_appr3']
-adj_tags = ['pst','comp','sup']
-tags_with_adj = ['adj','pst','nom','gen','dat','acc','loc','abl', 'sg','pl','1sg', '2sg', '2sgf', '1pl', '2pl', '2plf',
-                  '3sg','3pl','poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-                  'ques','neg','xp']
->>>>>>> master
 fut_def_special = ['йм']
 fut_def_special_negative = ['бай', 'бей', 'бөй', 'бой', 'пай', 'пей', 'пөй', 'пой']
 cond_1sg = ['сам','сем','сом','сөм']
 cond_2sg = ['саң','сең','соң','сөң']
 cond_1pl = ['сак','сек','сок','сөк']
-<<<<<<< HEAD
+
 optative_mood_1sg_1pl = ['fut_indf','fut_indf']
-=======
-optative_mood_1sg_1pl = ['hor_sg','hor_pl']
->>>>>>> master
+
 hor_together_tags = ['v','ques','neg']
 inf_1_inf_2_with_shortcut_faces = ['оом','уум','өөм','үүм', 'ооң','ууң','өөң','үүң']
 inf_1_with_shortcut_1sg = ['оом', 'өөм']
 inf_2_with_shortcut_1sg = ['уум', 'үүм']
 inf_1_with_shortcut_2sg = ['ооң', 'өөң']
 inf_2_with_shortcut_2sg = ['ууң', 'үүң']
-<<<<<<< HEAD
+
 poss_1sg_2sg = ['px1sg', 'px2sg']
 advv_acc_latest_letter = 'п'
 plural_ending = ['дар', 'дер', 'дор', 'дөр', 'тар', 'тер', 'тор', 'төр', 'лар', 'лер', 'лор', 'лөр']
@@ -252,36 +201,20 @@ inf_2_ending = ['уу','үү']
 fut_aor_str = 'fut_aor'
 fut_opt = ['кы','ки','ку','кү','гы','ги','гу','гү']
 pst_iter_str = 'past_iter'
-=======
-poss_1sg_2sg = ['poss_1sg', 'poss_2sg']
-advv_acc_latest_letter = 'п'
-plural_ending = ['дар', 'дер', 'дор', 'дөр', 'тар', 'тер', 'тор', 'төр', 'лар', 'лер', 'лор', 'лөр']
-pcp_pr_1 = ['уучу','оочу','үүчү','өөчү']
-pst_indf = 'pst_indf'
-change_tags_without_faces = ['pl', 'poss_1sg', 'poss_2sg', 'poss_2sgf', 'poss_3sg', 'poss_1pl', 'poss_2pl', 'poss_2plf',
-               'gen','dat','acc','loc','abl', 'xp']
-pcp_ps = ['гон', 'гөн', 'ген', 'ган','кон', 'көн', 'кен', 'кан']
-fut_indf_neg_str = 'fut_indf_neg'
-inf_1_ending = ['оо','өө']
-inf_2_ending = ['уу','үү']
-opt = 'opt'
-inf_5 = ['кы','ки','ку','кү','гы','ги','гу','гү']
-pst_iter_str = 'pst_iter'
->>>>>>> master
+
 prec_1_str = 'prec_1'
 num_ord = ['ынчы', 'инчи', 'үнчү', 'унчу']
 num_ord_short = ['нчы', 'нчи', 'нчү', 'нчу']
 num_word_special = ['үчүнчү', 'алтынчы','кыркча','кырктай','кырктан','кырктаган','бирөө','экөө','үчөө','төртөө',
                     'бешөө','алтоо','жетөө','сегизөө']
-<<<<<<< HEAD
+
 adj_word_special = ['жакшыраак']
-=======
->>>>>>> master
+
 part_of_speech_tags = ['post']
 abl_str = 'abl'
 num_appr3 = ['догон', 'дөгөн', 'деген', 'даган',
     'тогон', 'төгөн', 'теген', 'таган']
-<<<<<<< HEAD
+
 comp_str = 'comp'
 POS_without_ending_tags = ['ij','ideo','conj','post','mod','part']
 shortcut_poss_3sg_ending = ['ы','и','у','ү']
@@ -294,6 +227,3 @@ px2pl_endings = ['ңар','ңер','ңор','ңөр']
 comp_endings = ['ы','и','у','ү']
 verb_default_tags = ['v', 'act', 'iv', 'tv', 'imp', 'caus','coop', 'ref', 'pass' , 'cop_ger', 'cop_ifi', 'cop_neg']
 POS = ['n', 'v', 'adj', 'adv', 'prn', 'num', 'ij', 'ideo', 'mod', 'part', 'conj', 'post']
-=======
-comp_str = 'comp'
->>>>>>> master

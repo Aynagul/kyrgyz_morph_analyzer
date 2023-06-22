@@ -128,7 +128,7 @@ def word_analyzer(request):
             ans = Word(word)
             res = ans.search_word_db_for_word(ans)
             print(ans.symbols_list_str)
-            if not ans.symbols:
+            if not ans.symbols and not ans.symbols_list_str:
                 dict = {
                     'word': word,
                     'root': ans.root,
