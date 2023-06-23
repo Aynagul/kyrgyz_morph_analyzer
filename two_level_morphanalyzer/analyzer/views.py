@@ -1,11 +1,14 @@
 import markdown, sys, os
-
+import markdown
 import time
 from django.views.generic import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from analyzer.forms import *
 from .models import *
+from django.http import JsonResponse
+
 from .backend.analyzer.main_analyzer import Word
+from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 import mimetypes
 from django.http.response import HttpResponse
@@ -45,15 +48,15 @@ def text_reader(text):
         else:
             number_of_analyzed_word = number_of_analyzed_word + 1
         all_text = all_text + str(obj.result_text) + ' '
-    print('all world number:')
-    print(word_number)
-    print('not analyzed number:')
-    print(number_of_not_analyzed_word)
-    print('analyzed number:')
-    print(number_of_analyzed_word)
+
+        # Записываем данные в файл
+    path = 'analyzer/жыйынтык.txt'
+    with open('жыйынтык.txt', mode='w') as file:
+        file.write(all_text)
+
+
     symbol_counter = len(text)
-    end = time.time() - start  ## собственно время работы программы
-    print(end)  ## вывод времени
+    end = time.time() - start
     word_counter = len(words_list)
     context['text'] = text
     context['symbol_counter'] = symbol_counter
@@ -72,54 +75,51 @@ def home(request):
     }
     return render(request, 'analyzer/home.html', context=context)
 
+def about(request):
+    title = 'Биз жөнүндө'
 
-class AboutListView(ListView):
-    context_object_name = 'posts'
-    template_name = 'analyzer/about.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['navbar'] = navbar
-        context['title'] = 'Биз жөнүндө'
-        context['cat_selected'] = 0
-        return context
-
-
-def instruction(request):
-    with open('analyzer/instruction.md', 'r') as f:
-        md_file = f.read()
-        md = markdown.Markdown(extensions=['toc'])
-        html = md.convert(md_file)
-        toc_html = md.toc
-        headings = md.toc_tokens
-        print(headings)
-
-    headings_with_slugs = []
-    for heading in headings:
-        headings_with_slugs.append({'text': heading['name'], 'children': heading['children']})
-        # print(headings_with_slugs)
-
-    title = 'Нускама'
+    with open("analyzer/about.md", "r", encoding="utf-8") as md_file:
+        html = markdown.markdown(md_file.read(), extensions=["fenced_code"])
     context = {
         'title': title,
         'navbar': navbar,
-        'content': html,
-        'headings': headings_with_slugs,
+        'html': html,
     }
-    return render(request, 'analyzer/instruction.html', context=context)
+    return render(request, 'analyzer/about.html', context=context)
+
+
+
+def instruction(request):
+        title = 'Нускама'
+
+        with open("analyzer/instruction.md", "r", encoding="utf-8") as md_file:
+            html = markdown.markdown(md_file.read(), extensions=["fenced_code"])
+        context = {
+            'title': title,
+            'navbar': navbar,
+            'html': html,
+        }
+        return render(request, 'analyzer/instruction.html', context=context)
 
 
 def handbook(request):
     title = 'Маалымдама'
+
+    with open("analyzer/handbook.md", "r", encoding="utf-8") as md_file:
+        html = markdown.markdown(md_file.read(), extensions=["fenced_code"])
     context = {
         'title': title,
         'navbar': navbar,
+        'html': html,
     }
     return render(request, 'analyzer/handbook.html', context=context)
 
 
 def word_analyzer(request):
     title = 'Сөз анализатор'
+    names = list(Tags.objects.values_list('tag', flat=True))
+    partof_speech = list(PartOfSpeech.objects.values_list('part_of_speech', flat=True))
+    print(names)
     dict = {}
     if request.method == 'POST':
         form = WordForm(request.POST)
@@ -135,7 +135,9 @@ def word_analyzer(request):
                     'part_of_speech': ans.part_of_speech,
                     'all_symbols': ans.symbols_list_str,
                     'all_endings': '',
-                    'text': ans.result_text
+                    'text': ans.result_text,
+                    'names': names,
+                    'partof_speech': partof_speech
                 }
 
                 context = {
@@ -152,7 +154,9 @@ def word_analyzer(request):
                     'part_of_speech': ans.part_of_speech,
                     'all_symbols': ans.symbols_list_str,
                     'all_endings': ans.symbols_str,
-                    'text': ans.result_text
+                    'text': ans.result_text,
+                    'names': names,
+                    'partof_speech': partof_speech
                 }
     else:
         form = WordForm()
@@ -185,3 +189,31 @@ def text_analyzer(request):
     return render(request, 'analyzer/text_analyzer.html', context=context)
 
 
+
+def my_form_submission(request):
+    if request.method == 'POST':
+        # Получаем данные из формы
+        input_word = request.POST['input_word']
+        print('dddd', input_word)
+        root = request.POST['root']
+        print(root)
+        endings = request.POST['endings']
+        print(endings)
+        partof_speech = request.POST['partof_speech']
+        print(partof_speech)
+        tags = request.POST['tags']
+        print(tags)
+
+        all_tags = partof_speech + ',' + tags
+        print(all_tags)
+
+
+
+        my_model = NewRoot(word=input_word, root=root, tags=all_tags, endings=endings)
+        print(my_model)
+        my_model.save()
+        return redirect('word_analyzer')
+
+    else:
+        # Если запрос не типа POST, возвращаем форму
+        return redirect('word_analyzer')
