@@ -24,6 +24,7 @@ navbar = [{'title': 'Биз жөнүндө', 'url': 'about'},
 
 context = {}
 
+file_result = ''
 def text_reader(text):
     title = 'Текст анализатор'
     context = {
@@ -49,10 +50,8 @@ def text_reader(text):
             number_of_analyzed_word = number_of_analyzed_word + 1
         all_text = all_text + str(obj.result_text) + ' '
 
-        # Записываем данные в файл
-    path = 'analyzer/жыйынтык.txt'
-    with open('жыйынтык.txt', mode='w') as file:
-        file.write(all_text)
+    with open('result.txt', mode='w') as file:
+        file_result = file.write(all_text)
 
 
     symbol_counter = len(text)
@@ -217,3 +216,13 @@ def my_form_submission(request):
     else:
         # Если запрос не типа POST, возвращаем форму
         return redirect('word_analyzer')
+
+
+def download_file(request):
+    filename = 'result.txt'
+    filepath = filename
+    path = open(filepath, 'r', encoding='UTF8')
+    mime_type, _ = mimetypes.guess_type(filepath)
+    response = HttpResponse(path, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
