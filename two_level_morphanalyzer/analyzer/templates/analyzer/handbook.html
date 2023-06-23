@@ -1,56 +1,11 @@
 {% extends 'analyzer/base.html' %}
-<form action="" method="post">
-  <label for="word_name">Название слова:</label>
-  <input type="text" name="word_name" id="word_name">
 
-  <div id="root_container">
-    <label for="root_name1">Название корня слова:</label>
-    <input type="text" name="root_name1" id="root_name1">
+{% block content %}
 
-    <div id="suffix_container">
-      <div class="suffix_input">
-        <label for="suffix1">Название суффикса:</label>
-        <input type="text" name="suffix1" id="suffix1">
-        <input type="text" name="suffix_text1" id="suffix_text1">
-      </div>
+<section id="hero" style="margin-bottom: 300px;">
+    <div class="container">
+ {{ html|safe }}
     </div>
+</section>
 
-    <button id="add_root_button">+ Добавить корень слова</button>
-    <button id="add_suffix_button">+ Добавить суффикс</button>
-  </div>
-
-  <button type="submit">Отправить</button>
-</form>
-
-<script>
-  const addRootButton = document.getElementById("add_root_button");
-  const rootContainer = document.getElementById("root_container");
-  let rootCounter = 2; // устанавливаем счетчик на 2, так как уже есть 1 корень
-
-  addRootButton.addEventListener("click", () => {
-    const newRootInput = document.createElement("div");
-    newRootInput.innerHTML = `
-      <label for="root_name${rootCounter}">Название корня слова:</label>
-      <input type="text" name="root_name${rootCounter}" id="root_name${rootCounter}">
-    `;
-    rootContainer.appendChild(newRootInput);
-    rootCounter++;
-  });
-
-  const addSuffixButton = document.getElementById("add_suffix_button");
-  const suffixContainer = document.getElementById("suffix_container");
-  let suffixCounter = 2; // устанавливаем счетчик на 2, так как уже есть 1 суффикс
-
-  addSuffixButton.addEventListener("click", () => {
-    const newSuffixInput = document.createElement("div");
-    newSuffixInput.classList.add("suffix_input");
-    newSuffixInput.innerHTML = `
-      <label for="suffix${suffixCounter}">Название суффикса:</label>
-      <input type="text" name="suffix${suffixCounter}" id="suffix${suffixCounter}">
-      <input type="text" name="suffix_text${suffixCounter}" id="suffix_text${suffixCounter}">
-    `;
-    suffixContainer.appendChild(newSuffixInput);
-    suffixCounter++;
-  });
-</script>
-{% load static %}
+{% endblock content %}
